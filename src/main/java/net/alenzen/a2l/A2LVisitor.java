@@ -2077,8 +2077,13 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 	}
 
 	public static void main(String[] args) throws IOException {
+		// Asap files should not be commited due to unknown license conditions
+		// https://www.asam.net/standards/detail/mcd-2-mc/wiki/#Downloads		
 		final String TestFile_A = "ASAP2_Demo_V171.a2l";
+		// https://github.com/christoph2/pyA2L/blob/master/examples/example-a2l-file.a2l
 		final String TestFile_B = "example-a2l-file.a2l";
+		
+		// Read files to stream
 		long start = System.nanoTime();
 		CharStream chStream = null;
 
@@ -2089,11 +2094,17 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 			chStream = CharStreams.fromStream(is, fileEncoding);
 		}
 		long reading = System.nanoTime();
+		
+		// lexing file
 		a2lLexer lexer = new a2lLexer(chStream);
 		long lexing = System.nanoTime();
+
+		// parsing tokens
 		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
 		ParseTree tree = parser.a2l_file();
 		long parsing = System.nanoTime();
+		
+		// visit ParseTree to create usable object structure
 		Asap2File answer = (Asap2File) new A2LVisitor((no, po, m) -> {
 			System.out.println("[ParserError] line " + no + " at " + po + ": " + m);
 		}).visit(tree);
