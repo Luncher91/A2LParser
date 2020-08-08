@@ -38,36 +38,6 @@ import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.IndexOrder;
 import net.alenzen.a2l.enums.Monotony;
 
-/*
- * Next Steps: 
- * --- Version 1.0.0: Other Java programs can use this library to parse A2L files
- * 	- create an object structure which is the API (done)
- * 	- fill it with data using the visitor (done)
- *  - event handler registration to react on warning and errors without killing the process (done)
- *  - write unit tests
- *  
- *  --- Version 1.1.0: handle includes
- *  - generate A2L code from the object structrue
- * 
- * --- Version 1.2.0: handle includes
- * 	- pre process the a2l files to perform includes
- * 
- * --- Version 1.3.0: The library can be used with other languages as well 
- * 		by creating object structures from the schema and control the parser via command line
- * 	- generate json from it
- * 	- make an executable which converts a2l to json
- * 	- generate json schema from it
- * 	- add a function that converts json to a2l
- * 
- * NOTES
- * - I wont bother to support ulong; isntead I use long! - An alternative would be to use BigInteger but it would probably make the library slower and consuming more memory.
- * 
- * KNOWN ISSUES
- *  - does not provide objects for typedef's and instance
- *  - does not support include
- *  - the library treats ulong as long
- */
-
 class A2LVisitor extends a2lParserBaseVisitor<Object> {
 	private IParserEventHandler log;
 
