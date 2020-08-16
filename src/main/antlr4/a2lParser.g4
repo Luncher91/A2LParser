@@ -242,7 +242,7 @@ ecu_calibration_offset_exp : ECU_CALIBRATION_OFFSET Offset=int_value;
 
 cpu_type_exp : CPU_TYPE CPU=string_exp;
 ecu_exp : ECU ControlUnit=string_exp;
-phone_no_exp : PHONE_NO Telenum=string_exp;
+phone_no_exp : PHONE_NO PhoneNo=string_exp;
 user_exp : USER UserName=string_exp;
 customer_exp : CUSTOMER Customer=string_exp;
 customer_no_exp : CUSTOMER_NO Number=string_exp;

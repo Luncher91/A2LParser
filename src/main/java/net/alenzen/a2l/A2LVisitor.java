@@ -621,7 +621,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 	@Override
 	public Object visitPhone_no_exp(Phone_no_expContext ctx) {
-		return visit(ctx.Telenum);
+		return visit(ctx.PhoneNo);
 	}
 
 	@Override
