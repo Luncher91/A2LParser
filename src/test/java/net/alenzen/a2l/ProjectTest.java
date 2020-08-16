@@ -22,11 +22,11 @@ public class ProjectTest {
 	
 	@Test
 	void testName() {
-		assertEquals("ASAP2_Example", project.getName());
+		assertEquals("Free_Example", project.getName());
 	}
 	
 	@Test
 	void testLongIdentifier() {
-		assertEquals("", project.getLongIdentifier());
+		assertEquals("MIT licensed example file", project.getLongIdentifier());
 	}
 }

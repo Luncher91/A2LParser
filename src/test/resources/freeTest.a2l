@@ -1,0 +1,38 @@
+/* This file hase been handwritten */
+ASAP2_VERSION 1 71
+/begin PROJECT Free_Example "MIT licensed example file"
+	/begin HEADER "Free Asap2 example file"
+		VERSION "V1.7.1"
+		PROJECT_NO Free42
+	/end HEADER
+
+	/begin MODULE sample_module "great example with different escaped quotation \" marks like double quotes "" and backslash escaped at the end \""
+		/begin MOD_COMMON ""
+			DEPOSIT DIFFERENCE
+			BYTE_ORDER MSB_FIRST
+			ALIGNMENT_BYTE 2
+			ALIGNMENT_WORD 1
+			ALIGNMENT_LONG 3
+			ALIGNMENT_FLOAT32_IEEE 8
+			ALIGNMENT_FLOAT64_IEEE 8
+			DATA_SIZE 128
+		/end MOD_COMMON
+		
+		/begin MOD_PAR "cmt"
+			ADDR_EPK 0x12
+			ADDR_EPK 0x123456
+			ADDR_EPK 0xF
+			CPU_TYPE "RISC"
+			CUSTOMER "public domain"
+			CUSTOMER_NO "42"
+			ECU "RISC-V"
+			ECU_CALIBRATION_OFFSET 0x54
+			EPK "EPROM_identification - should it be a string or an identifier?"
+			NO_OF_INTERFACES 168
+			PHONE_NO "911"
+			SUPPLIER "Andreas Lenzen"
+			USER "A2l stakeholders"
+			VERSION "Very high :-)"
+		/end MOD_PAR
+	/end MODULE
+/end PROJECT

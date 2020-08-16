@@ -22,12 +22,12 @@ public class HeaderTest {
 	
 	@Test
 	void testComment() {
-		assertEquals("ASAP2 Example File", header.getComment());
+		assertEquals("Free Asap2 example file", header.getComment());
 	}
 	
 	@Test
 	void testProjectNo() {
-		assertEquals("P2016_09_AE_MCD_2MC_BS_V1_7_1_main", header.getProjectNo());
+		assertEquals("Free42", header.getProjectNo());
 	}
 	
 	@Test
