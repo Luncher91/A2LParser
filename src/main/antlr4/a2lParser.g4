@@ -282,7 +282,7 @@ compu_tab_block : BEGIN compu_tab_exp compu_tab_sub_nodes END COMPU_TAB;
 compu_tab_sub_nodes : (default_value_numeric_exp | default_value_exp)*;
 
 default_value_numeric_exp : DEFAULT_VALUE_NUMERIC display_value=value;
-default_value_exp : DEFAULT_VALUE display_string=value;
+default_value_exp : DEFAULT_VALUE display_string=string_exp;
 
 /*
 COMPU_VTAB

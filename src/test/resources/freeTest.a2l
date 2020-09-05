@@ -1,4 +1,4 @@
-/* This file hase been handwritten */
+﻿/* This file hase been handwritten */
 ASAP2_VERSION 1 71
 /begin PROJECT Free_Example "MIT licensed example file"
 	/begin HEADER "Free Asap2 example file"
@@ -33,6 +33,51 @@ ASAP2_VERSION 1 71
 			SUPPLIER "Andreas Lenzen"
 			USER "A2l stakeholders"
 			VERSION "Very high :-)"
+			
+			/begin MEMORY_SEGMENT mem1 "lots of code in internal flash"
+				CODE 
+				FLASH 
+				INTERN 
+				0x42 
+				4096 
+				-1 -1 -1 -1 -1
+			/end MEMORY_SEGMENT
 		/end MOD_PAR
+		
+		/begin COMPU_METHOD THE.IDENTITY
+			"very unique"
+			RAT_FUNC "%8.4" "°"
+			COEFFS 0 1.1 0 0 0 1.1
+		/end COMPU_METHOD
+		
+		/begin COMPU_METHOD THE.FORMULA
+			"very unique"
+			FORM "%8.4" "°"
+			/begin FORMULA
+				"X1-42"
+				FORMULA_INV "X1+42"
+			/end FORMULA
+		/end COMPU_METHOD
+		
+		/begin COMPU_TAB PERFECT_COMPU.TAB
+			"very perfect compu tab"
+			TAB_INTP
+			5
+			-1.1 -1.1
+			1 -1
+			1.123456 0.312312
+			3123 3123
+			0 0.0
+			DEFAULT_VALUE "invalid input value"
+		/end COMPU_TAB
+		
+		/begin COMPU_VTAB firstVtab "very first vtab"
+			TAB_VERB
+			3
+			1.1 "first entry"
+			0.9 "second entry"
+			0 "third entry"
+			DEFAULT_VALUE "default value"
+		/end COMPU_VTAB
 	/end MODULE
 /end PROJECT
