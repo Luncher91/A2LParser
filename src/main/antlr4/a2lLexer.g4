@@ -20,7 +20,7 @@ COMMENT_LINE : '//' .*? NEWLINE  -> channel(COMMENTS);
 WS : (' ' | '\t') -> channel(WHITESPACES), skip;
 NEWLINE : ('\r'? '\n' | '\r')+ -> channel(WHITESPACES), skip;
 
-STRING : '"' (~('"' | '\\') | '\\' ('"' | '\\') | '""')* '"';
+STRING : '"' (~('"' | '\\') | '\\' ('"' | '\\' | '\'' | 'n' | 'r' | 't') | '""')* '"';
 
 A2ML_VERSION : 'A2ML_VERSION';
 ASAP2_VERSION : 'ASAP2_VERSION';

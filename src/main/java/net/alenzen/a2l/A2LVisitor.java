@@ -800,7 +800,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		}
 		c.setValueTriples(vts);
 
-		c.setDefaultValue((String) visitOpt(ctx.compu_vtab_range_exp()));
+		c.setDefaultValue((String) visitOpt(ctx.compu_vtab_range_default_value()));
 
 		return c;
 	}
@@ -1010,7 +1010,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 	@Override
 	public Object visitAnnotation_text_block(Annotation_text_blockContext ctx) {
-		List<String> texts = new AnnotationText();
+		AnnotationText texts = new AnnotationText();
 
 		for (a2lParser.String_expContext t : ctx.annotation_text) {
 			texts.add(visitString(t));
@@ -2033,17 +2033,38 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 			// remove trailing "
 			stringVal = stringVal.substring(1, stringVal.length() - 1);
 
-			// replace escaped "
-			stringVal = stringVal.replaceAll("\\\\\\\"|\"\"", "\"");
-
-			// replace escaped \
-			stringVal = stringVal.replaceAll("\\\\\\\\", "\\");
-			return stringVal;
+			return replaceEscapedCharacters(stringVal);
 		}
 
 		log.log(stringToken.getLine(), stringToken.getCharPositionInLine(),
 				"Cannot match string: " + stringToken.getText());
 		return stringVal;
+	}
+
+	private String replaceEscapedCharacters(String string) {
+		String[] splittedDoubleBackslash = string.split("\\\\\\\\", -1);
+
+		for (int i = 0; i < splittedDoubleBackslash.length; i++) {
+			String stringVal = splittedDoubleBackslash[i];
+			// replace escaped "
+			stringVal = stringVal.replaceAll("\\\\\\\"|\"\"", "\"");
+
+			// replace escaped '
+			stringVal = stringVal.replaceAll("\\\\'", "'");
+
+			// replace \n
+			stringVal = stringVal.replaceAll("\\\\n", "\n");
+
+			// replace \r
+			stringVal = stringVal.replaceAll("\\\\r", "\r");
+
+			// replace \t
+			stringVal = stringVal.replaceAll("\\\\t", "\t");
+
+			splittedDoubleBackslash[i] = stringVal;
+		}
+
+		return String.join("\\", splittedDoubleBackslash);
 	}
 
 	public static void main(String[] args) throws IOException {
