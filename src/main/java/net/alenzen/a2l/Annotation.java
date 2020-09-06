@@ -1,12 +1,9 @@
 package net.alenzen.a2l;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Annotation {
 	private String label;
 	private String origin;
-	private List<String> text = new ArrayList<String>();
+	private AnnotationText text = new AnnotationText();
 	
 	public String getLabel() {
 		return label;
@@ -20,10 +17,10 @@ public class Annotation {
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
-	public List<String> getText() {
+	public AnnotationText getText() {
 		return text;
 	}
-	public void setText(List<String> text) {
+	public void setText(AnnotationText text) {
 		this.text = text;
 	}
 }

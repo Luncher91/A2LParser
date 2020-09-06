@@ -79,5 +79,39 @@ ASAP2_VERSION 1 71
 			0 "third entry"
 			DEFAULT_VALUE "default value"
 		/end COMPU_VTAB
+		
+		/begin COMPU_VTAB_RANGE sophisticated.vtabRange
+			"I am very sophisticated, trust me"
+			4
+			-5.5 5.5 "from minus five point five to five point five"
+			5.5 10 "from five point five to ten"
+			10 100 "from ten to one hundred"
+			100 200 "from one hundred to two hundred"
+			DEFAULT_VALUE "default"
+		/end COMPU_VTAB_RANGE
+		
+		/begin MEASUREMENT superMeasurement "ultimate test"
+			UBYTE THE.IDENTITY 1 2.1 4.2 255
+			PHYS_UNIT "kg/m"
+			BIT_MASK 0xAFFF
+			BYTE_ORDER MSB_FIRST
+			REF_MEMORY_SEGMENT mem1
+			ECU_ADDRESS 0xABCDEF
+			FORMAT "%3.1"
+			DISPLAY_IDENTIFIER mega.superMeasurement 
+			/begin ANNOTATION
+				ANNOTATION_LABEL "annotation I"
+				ANNOTATION_ORIGIN "me"
+				/begin ANNOTATION_TEXT
+					"row \\'1\'\\"
+					"row '2'\r\n"
+					"row\t3"
+				/end ANNOTATION_TEXT
+			/end ANNOTATION
+			/begin BIT_OPERATION
+				RIGHT_SHIFT 4
+				SIGN_EXTEND
+			/end BIT_OPERATION
+		/end MEASUREMENT
 	/end MODULE
 /end PROJECT
