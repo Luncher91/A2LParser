@@ -26,7 +26,7 @@ type_enum : VALUE | CURVE | MAP | CUBOID | VAL_BLK | ASCII | CUBE_4 | CUBE_5;
 unit_type_enum : DERIVED | EXTENDED_SI;
 attribute_memory_segment : INTERN | EXTERN;
 attribute_axis_descr_enum : STD_AXIS | FIX_AXIS | COM_AXIS | RES_AXIS | CURVE_AXIS;
-monotony_enum : MON_INCREASE | MON_DECREASE | STRICT_INCREASE | STRICT_DECREASE;
+monotony_enum : MON_INCREASE | MON_DECREASE | STRICT_INCREASE | STRICT_DECREASE | MONOTONOUS | STRICT_MON | NOT_MON;
 
 int_value : INT | HEX_VALUE;
 value : INT | DECIMAL | HEX_VALUE;

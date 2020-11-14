@@ -303,6 +303,62 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 	}
 
 	@Override
+	public Object visitCalibration_access_enum(Calibration_access_enumContext ctx) {
+		if (ctx.CALIBRATION() != null) {
+			return CalibrationAccess.CALIBRATION;
+		}
+
+		if (ctx.NO_CALIBRATION() != null) {
+			return CalibrationAccess.NO_CALIBRATION;
+		}
+
+		if (ctx.NOT_IN_MCD_SYSTEM() != null) {
+			return CalibrationAccess.NOT_IN_MCD_SYSTEM;
+		}
+
+		if (ctx.OFFLINE_CALIBRATION() != null) {
+			return CalibrationAccess.OFFLINE_CALIBRATION;
+		}
+
+		logInvalidEnum(ctx, CalibrationAccess.values());
+		return null;
+	}
+
+	@Override
+	public Object visitMonotony_enum(Monotony_enumContext ctx) {
+		if (ctx.MON_DECREASE() != null) {
+			return Monotony.MON_DECREASE;
+		}
+
+		if (ctx.MON_INCREASE() != null) {
+			return Monotony.MON_INCREASE;
+		}
+
+		if (ctx.STRICT_DECREASE() != null) {
+			return Monotony.STRICT_DECREASE;
+		}
+
+		if (ctx.STRICT_INCREASE() != null) {
+			return Monotony.STRICT_INCREASE;
+		}
+
+		if (ctx.MONOTONOUS() != null) {
+			return Monotony.MONOTONOUS;
+		}
+
+		if (ctx.STRICT_MON() != null) {
+			return Monotony.STRICT_MON;
+		}
+
+		if (ctx.NOT_MON() != null) {
+			return Monotony.NOT_MON;
+		}
+
+		logInvalidEnum(ctx, Monotony.values());
+		return null;
+	}
+
+	@Override
 	public Object visitA2ml_block(A2ml_blockContext ctx) {
 		A2ml a = new A2ml();
 		a.setContent(ctx.getText());
@@ -1638,7 +1694,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		a.setNotes(visitMultipleOpt(sn.annotation_block(), Annotation.class));
 		a.setByteorder((ByteOrder) visitSingleOpt(sn.byte_order_exp()));
 		a.setAccess((CalibrationAccess) visitSingleOpt(sn.calibration_access_exp()));
-		a.setDeposit((String) visitSingleOpt(sn.deposit_exp()));
+		a.setAxisPointDeposit((Deposit) visitSingleOpt(sn.deposit_exp()));
 		a.setDisplayIdentifier((String) visitSingleOpt(sn.display_identifier_exp()));
 		a.setEcuAddressExtension((Long) visitSingleOpt(sn.ecu_address_extension_exp()));
 		a.setExtendedLimits((ExtendedLimits) visitSingleOpt(sn.extended_limits_exp()));
