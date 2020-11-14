@@ -12,7 +12,7 @@ import net.alenzen.a2l.Asap2FileTest.TestFile;
 class MatrixDimTest {
 	private Asap2File file;
 	private MatrixDim matrixDim;
-	
+
 	@BeforeEach
 	void initTestfile() throws IOException {
 		file = Asap2FileTest.getTestFile(TestFile.A);
@@ -20,11 +20,11 @@ class MatrixDimTest {
 
 		assertNotNull(matrixDim);
 	}
+
 	@Test
 	void testAllDimensions() {
 		assertEquals(7L, matrixDim.getxDim());
 		assertEquals(8L, matrixDim.getyDim());
 		assertEquals(10L, matrixDim.getzDim());
 	}
-
 }
