@@ -4,11 +4,11 @@ public class Asap2File {
 	private Version a2mlVersion;
 	private Version asap2Version;
 	private Project project;
-	
+
 	public Project getProject() {
 		return this.project;
 	}
-	
+
 	public void setProject(Project p) {
 		project = p;
 	}

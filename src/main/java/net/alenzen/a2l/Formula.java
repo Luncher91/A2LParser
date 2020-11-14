@@ -2,7 +2,7 @@ package net.alenzen.a2l;
 
 public class Formula {
 	private String fx;
-	
+
 	// optional parameters
 	private String gx;
 

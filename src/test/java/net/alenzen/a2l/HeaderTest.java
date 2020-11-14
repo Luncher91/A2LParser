@@ -13,25 +13,25 @@ import net.alenzen.a2l.Asap2FileTest.TestFile;
 public class HeaderTest {
 	private Asap2File file;
 	private Header header;
-	
+
 	@BeforeEach
 	void initTestfile() throws IOException {
 		file = Asap2FileTest.getTestFile(TestFile.A);
 		header = file.getProject().getHeader();
-		
+
 		assertNotNull(header);
 	}
-	
+
 	@Test
 	void testComment() {
 		assertEquals("Free Asap2 example file", header.getComment());
 	}
-	
+
 	@Test
 	void testProjectNo() {
 		assertEquals("Free42", header.getProjectNo());
 	}
-	
+
 	@Test
 	void testVersion() {
 		assertEquals("V1.7.1", header.getVersion());

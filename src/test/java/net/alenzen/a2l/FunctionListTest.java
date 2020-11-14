@@ -13,7 +13,7 @@ import net.alenzen.a2l.Asap2FileTest.TestFile;
 public class FunctionListTest {
 	private Asap2File file;
 	private FunctionList functionList;
-	
+
 	@BeforeEach
 	void initTestfile() throws IOException {
 		file = Asap2FileTest.getTestFile(TestFile.A);
@@ -21,11 +21,11 @@ public class FunctionListTest {
 
 		assertNotNull(functionList);
 	}
-	
+
 	@Test
 	void testEntries() {
-		String[] values = new String[] {"firstFunction", "secondFunction", "thirdFunction"};
-		for(int i = 0; i < functionList.size(); i++) {
+		String[] values = new String[] { "firstFunction", "secondFunction", "thirdFunction" };
+		for (int i = 0; i < functionList.size(); i++) {
 			assertEquals(values[i], functionList.get(i));
 		}
 	}

@@ -23,17 +23,17 @@ public class BitOperationTest {
 
 		assertNotNull(bitOperation);
 	}
-	
+
 	@Test
 	void testLeftShift() {
 		assertNull(bitOperation.getLeftShift());
 	}
-	
+
 	@Test
 	void testRightShift() {
 		assertEquals(4, bitOperation.getRightShift());
 	}
-	
+
 	@Test
 	void testSignExtend() {
 		assertTrue(bitOperation.isSignExtend());

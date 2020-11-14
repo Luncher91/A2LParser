@@ -21,7 +21,7 @@ public class A2mlTest {
 
 		assertNotNull(a2ml);
 	}
-	
+
 	@Test
 	void testContent() {
 		assertEquals("/begin A2ML i am not parsed /end A2ML", a2ml.getContent());

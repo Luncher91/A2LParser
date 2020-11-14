@@ -21,12 +21,12 @@ public class ExtendedLimitsTest {
 
 		assertNotNull(extendedLimits);
 	}
-	
+
 	@Test
 	void testLowerLimit() {
 		assertEquals(0.1, extendedLimits.getLowerLimit());
 	}
-	
+
 	@Test
 	void testUpperLimit() {
 		assertEquals(0.5, extendedLimits.getUpperLimit());

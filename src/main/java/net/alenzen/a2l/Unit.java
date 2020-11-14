@@ -5,12 +5,12 @@ public class Unit {
 	private String longIdentifier;
 	private String display;
 	private Type type;
-	
+
 	// optional parameters
 	private String unit_ref;
 	private SiExponents siExponents;
 	private UnitConversion unitConversion;
-	
+
 	enum Type {
 		DERIVED, EXTENDED_SI
 	}

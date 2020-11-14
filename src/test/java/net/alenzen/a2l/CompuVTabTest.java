@@ -51,14 +51,14 @@ public class CompuVTabTest {
 		List<ValuePair<Double, String>> actualValues = compuVTab.getValuePairs();
 		assertEquals(inVals.length, actualValues.size());
 		assertEquals(outVals.length, actualValues.size());
-		
-		for(int i = 0; i < actualValues.size(); i++) {
+
+		for (int i = 0; i < actualValues.size(); i++) {
 			ValuePair<Double, String> entry = actualValues.get(i);
 			assertEquals(inVals[i], entry.getInVal());
 			assertEquals(outVals[i], entry.getOutVal());
 		}
 	}
-	
+
 	@Test
 	void testDefaultValue() {
 		assertEquals("default value", compuVTab.getDefaultValue());

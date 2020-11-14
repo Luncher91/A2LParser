@@ -45,19 +45,19 @@ public class CompuVTabRangeTest {
 		String[] value = new String[] { "from minus five point five to five point five", "from five point five to ten",
 				"from ten to one hundred", "from one hundred to two hundred" };
 		List<ValueTriple<Double, String>> actualTriples = compuVTabRange.getValueTriples();
-		
+
 		assertEquals(from.length, actualTriples.size());
 		assertEquals(to.length, actualTriples.size());
 		assertEquals(value.length, actualTriples.size());
-		
-		for(int i = 0; i < actualTriples.size(); i++) {
+
+		for (int i = 0; i < actualTriples.size(); i++) {
 			ValueTriple<Double, String> triple = actualTriples.get(i);
 			assertEquals(from[i], triple.getInValMin());
 			assertEquals(to[i], triple.getInValMax());
 			assertEquals(value[i], triple.getOutVal());
 		}
 	}
-	
+
 	@Test
 	void testDefaultValue() {
 		assertEquals("default", compuVTabRange.getDefaultValue());

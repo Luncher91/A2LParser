@@ -20,12 +20,12 @@ class SymbolLinkTest {
 
 		assertNotNull(symbolLink);
 	}
-	
+
 	@Test
 	void testName() {
 		assertEquals("symbol name", symbolLink.getSymbolName());
 	}
-	
+
 	@Test
 	void testOffset() {
 		assertEquals(84, symbolLink.getOffset());

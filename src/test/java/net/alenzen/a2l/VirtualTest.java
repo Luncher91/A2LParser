@@ -21,11 +21,11 @@ public class VirtualTest {
 
 		assertNotNull(virtual);
 	}
-	
+
 	@Test
 	void testMeasurementReferences() {
-		String[] meas = new String[] {"meas_1", "meas_2"};
-		for(int i = 0; i < virtual.size(); i++) {
+		String[] meas = new String[] { "meas_1", "meas_2" };
+		for (int i = 0; i < virtual.size(); i++) {
 			assertEquals(meas[i], virtual.get(i));
 		}
 	}

@@ -11,7 +11,7 @@ public class Asap2FileTest {
 		A("freeTest.a2l");
 
 		private String filename;
-		
+
 		TestFile(String fName) {
 			setFilename(fName);
 		}
@@ -24,16 +24,16 @@ public class Asap2FileTest {
 			this.filename = filename;
 		}
 	}
-	
+
 	public static Asap2File getTestFile(TestFile tf) throws IOException {
 		Asap2Parser parser = new Asap2Parser(ClassLoader.getSystemResourceAsStream(tf.getFilename()));
 		return parser.parse();
 	}
-	
+
 	@Test
 	void testAsap2Version() throws IOException {
 		Asap2File f = getTestFile(TestFile.A);
-		
+
 		assertEquals(1L, f.getAsap2Version().getVersionNo());
 		assertEquals(71L, f.getAsap2Version().getUpgradeNo());
 	}

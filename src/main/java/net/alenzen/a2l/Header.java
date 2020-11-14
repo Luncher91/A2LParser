@@ -2,7 +2,7 @@ package net.alenzen.a2l;
 
 public class Header {
 	private String comment;
-	
+
 	// optional parameters
 	private String projectNo;
 	private String version;

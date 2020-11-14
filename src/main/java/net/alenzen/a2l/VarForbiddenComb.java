@@ -4,7 +4,7 @@ import java.util.List;
 
 public class VarForbiddenComb {
 	private List<CriterionTuple> tuples;
-	
+
 	public List<CriterionTuple> getTuples() {
 		return tuples;
 	}

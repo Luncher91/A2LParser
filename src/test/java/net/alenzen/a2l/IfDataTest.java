@@ -13,7 +13,7 @@ import net.alenzen.a2l.Asap2FileTest.TestFile;
 public class IfDataTest {
 	private Asap2File file;
 	private IfData ifData;
-	
+
 	@BeforeEach
 	void initTestfile() throws IOException {
 		file = Asap2FileTest.getTestFile(TestFile.A);
@@ -21,7 +21,7 @@ public class IfDataTest {
 
 		assertNotNull(ifData);
 	}
-	
+
 	@Test
 	void testContent() {
 		assertEquals("/begin IF_DATA i am not parsed yet /end IF_DATA", ifData.getContent());
