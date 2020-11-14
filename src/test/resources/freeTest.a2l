@@ -112,6 +112,10 @@ ASAP2_VERSION 1 71
 				RIGHT_SHIFT 4
 				SIGN_EXTEND
 			/end BIT_OPERATION
+			/begin FUNCTION_LIST firstFunction
+				secondFunction
+				thirdFunction
+			/end FUNCTION_LIST
 		/end MEASUREMENT
 	/end MODULE
 /end PROJECT
