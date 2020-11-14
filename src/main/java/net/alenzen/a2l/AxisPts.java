@@ -15,6 +15,7 @@ public class AxisPts {
 	private String inputQuantitiy;
 	private String deposit;
 	private double maxDiff;
+	private String conversion;
 	private long maxAxisPoints;
 	private double lowerLimit;
 	private double upperLimit;
@@ -243,5 +244,13 @@ public class AxisPts {
 
 	public void setSymbolLink(String symbolLink) {
 		this.symbolLink = symbolLink;
+	}
+
+	public String getConversion() {
+		return conversion;
+	}
+
+	public void setConversion(String conversion) {
+		this.conversion = conversion;
 	}
 }

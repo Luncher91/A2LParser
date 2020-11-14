@@ -1629,6 +1629,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		a.setInputQuantitiy(exp.InputQuantity.getText());
 		a.setDeposit(exp.Deposit.getText());
 		a.setMaxDiff((Double) visit(exp.MaxDiff));
+		a.setConversion(exp.Conversion.getText());
 		a.setMaxAxisPoints((Long) visit(exp.MaxAxisPoints));
 		a.setLowerLimit((Double) visit(exp.LowerLimit));
 		a.setUpperLimit((Double) visit(exp.UpperLimit));
