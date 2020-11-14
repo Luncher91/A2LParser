@@ -120,6 +120,10 @@ ASAP2_VERSION 1 71
 			MATRIX_DIM 7 8 10
 			MAX_REFRESH 12 42
 			SYMBOL_LINK "symbol name" 84
+			/begin VIRTUAL
+				meas_1
+				meas_2
+			/end VIRTUAL
 		/end MEASUREMENT
 	/end MODULE
 /end PROJECT
