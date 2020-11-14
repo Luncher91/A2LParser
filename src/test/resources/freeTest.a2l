@@ -116,6 +116,7 @@ ASAP2_VERSION 1 71
 				secondFunction
 				thirdFunction
 			/end FUNCTION_LIST
+			/begin IF_DATA i am not parsed yet /end IF_DATA
 		/end MEASUREMENT
 	/end MODULE
 /end PROJECT
