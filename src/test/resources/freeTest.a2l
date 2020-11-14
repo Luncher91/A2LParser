@@ -7,6 +7,7 @@ ASAP2_VERSION 1 71
 	/end HEADER
 
 	/begin MODULE sample_module "great example with different escaped quotation \" marks like double quotes "" and backslash escaped at the end \""
+		/begin A2ML i am not parsed /end A2ML
 		/begin MOD_COMMON ""
 			DEPOSIT DIFFERENCE
 			BYTE_ORDER MSB_FIRST
