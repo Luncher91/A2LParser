@@ -8,13 +8,15 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.alenzen.a2l.Asap2FileTest.TestFile;
+
 public class FormulaTest {
 	private Asap2File file;
 	private Formula formula;
 	
 	@BeforeEach
 	void initTestfile() throws IOException {
-		file = Asap2FileTest.getTestFileA();
+		file = Asap2FileTest.getTestFile(TestFile.A);
 		formula = file.getProject().getModules().get(0).getCompuMethods().get(1).getFormula();
 		
 		assertNotNull(formula);

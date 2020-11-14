@@ -8,13 +8,15 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.alenzen.a2l.Asap2FileTest.TestFile;
+
 public class MemorySegmentTest {
 	private Asap2File file;
 	private MemorySegment memSegment;
 	
 	@BeforeEach
 	void initTestfile() throws IOException {
-		file = Asap2FileTest.getTestFileA();
+		file = Asap2FileTest.getTestFile(TestFile.A);
 		memSegment = file.getProject().getModules().get(0).getModPar().getMemorySegments().get(0);
 		
 		assertNotNull(memSegment);

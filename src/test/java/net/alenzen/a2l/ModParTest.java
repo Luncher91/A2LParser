@@ -9,13 +9,15 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.alenzen.a2l.Asap2FileTest.TestFile;
+
 public class ModParTest {
 	private Asap2File file;
 	private ModPar modPar;
 	
 	@BeforeEach
 	void initTestfile() throws IOException {
-		file = Asap2FileTest.getTestFileA();
+		file = Asap2FileTest.getTestFile(TestFile.A);
 		modPar = file.getProject().getModules().get(0).getModPar();
 		
 		assertNotNull(modPar);

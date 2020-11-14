@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.alenzen.a2l.Asap2FileTest.TestFile;
 import net.alenzen.a2l.enums.ConversionType;
 
 public class CompuMethodTest {
@@ -16,7 +17,7 @@ public class CompuMethodTest {
 	
 	@BeforeEach
 	void initTestfile() throws IOException {
-		file = Asap2FileTest.getTestFileA();
+		file = Asap2FileTest.getTestFile(TestFile.A);
 		compuMethod = file.getProject().getModules().get(0).getCompuMethods().get(0);
 		
 		assertNotNull(compuMethod);

@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.alenzen.a2l.Asap2FileTest.TestFile;
+
 public class ModuleTest {
 	private Asap2File file;
 	private Module module;
@@ -16,7 +18,7 @@ public class ModuleTest {
 	
 	@BeforeEach
 	void initTestfile() throws IOException {
-		file = Asap2FileTest.getTestFileA();
+		file = Asap2FileTest.getTestFile(TestFile.A);
 		modules = file.getProject().getModules();
 		
 		assertEquals(1, modules.size());

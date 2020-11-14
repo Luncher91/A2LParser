@@ -8,13 +8,15 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.alenzen.a2l.Asap2FileTest.TestFile;
+
 public class HeaderTest {
 	private Asap2File file;
 	private Header header;
 	
 	@BeforeEach
 	void initTestfile() throws IOException {
-		file = Asap2FileTest.getTestFileA();
+		file = Asap2FileTest.getTestFile(TestFile.A);
 		header = file.getProject().getHeader();
 		
 		assertNotNull(header);

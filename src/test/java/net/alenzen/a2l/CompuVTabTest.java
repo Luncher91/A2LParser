@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.alenzen.a2l.Asap2FileTest.TestFile;
 import net.alenzen.a2l.enums.ConversionType;
 
 public class CompuVTabTest {
@@ -17,7 +18,7 @@ public class CompuVTabTest {
 
 	@BeforeEach
 	void initTestfile() throws IOException {
-		file = Asap2FileTest.getTestFileA();
+		file = Asap2FileTest.getTestFile(TestFile.A);
 		compuVTab = file.getProject().getModules().get(0).getCompuVTabs().get(0);
 
 		assertNotNull(compuVTab);

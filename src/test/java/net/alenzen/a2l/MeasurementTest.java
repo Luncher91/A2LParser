@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.alenzen.a2l.Asap2FileTest.TestFile;
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.DataType;
 
@@ -17,7 +18,7 @@ public class MeasurementTest {
 
 	@BeforeEach
 	void initTestfile() throws IOException {
-		file = Asap2FileTest.getTestFileA();
+		file = Asap2FileTest.getTestFile(TestFile.A);
 		measurement = file.getProject().getModules().get(0).getMeasurements().get(0);
 
 		assertNotNull(measurement);
