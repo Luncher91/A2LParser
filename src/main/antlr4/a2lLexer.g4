@@ -311,6 +311,7 @@ CUBOID : 'CUBOID';
 VAL_BLK : 'VAL_BLK';
 ASCII : 'ASCII';
 CUBE_4 : 'CUBE_4';
+CUBE_5 : 'CUBE_5';
 
 // attribute enum
 STD_AXIS : 'STD_AXIS';
