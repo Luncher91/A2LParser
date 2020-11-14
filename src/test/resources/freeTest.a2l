@@ -118,6 +118,7 @@ ASAP2_VERSION 1 71
 			/end FUNCTION_LIST
 			/begin IF_DATA i am not parsed yet /end IF_DATA
 			MATRIX_DIM 7 8 10
+			MAX_REFRESH 12 42
 		/end MEASUREMENT
 	/end MODULE
 /end PROJECT
