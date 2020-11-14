@@ -8,6 +8,19 @@ ASAP2_VERSION 1 71
 
 	/begin MODULE sample_module "great example with different escaped quotation \" marks like double quotes "" and backslash escaped at the end \""
 		/begin A2ML i am not parsed /end A2ML
+		/begin AXIS_PTS axis_pts_1 "I am a long identifier of an AXIS_PTS object" 0xABCDEF in_quant axis_pts_deposit 1.1 axis_pts_conv 123 1.2 1.3
+			BYTE_ORDER MSB_FIRST
+			CALIBRATION_ACCESS NOT_IN_MCD_SYSTEM
+			DEPOSIT DIFFERENCE
+			DISPLAY_IDENTIFIER display.identifier.wohoo
+			ECU_ADDRESS_EXTENSION 0x9783
+			EXTENDED_LIMITS 0.1 0.5
+			FORMAT "%1212.21"
+			MONOTONY NOT_MON
+			PHYS_UNIT "m/(s*s)"
+			REF_MEMORY_SEGMENT memorySegment.42
+			STEP_SIZE 820.028
+		/end AXIS_PTS
 		/begin MOD_COMMON ""
 			DEPOSIT DIFFERENCE
 			BYTE_ORDER MSB_FIRST
