@@ -119,6 +119,7 @@ ASAP2_VERSION 1 71
 			/begin IF_DATA i am not parsed yet /end IF_DATA
 			MATRIX_DIM 7 8 10
 			MAX_REFRESH 12 42
+			SYMBOL_LINK "symbol name" 84
 		/end MEASUREMENT
 	/end MODULE
 /end PROJECT
