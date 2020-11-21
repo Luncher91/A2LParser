@@ -22,6 +22,9 @@ ASAP2_VERSION 1 71
 			STEP_SIZE 820.028
 		/end AXIS_PTS
 		/begin CHARACTERISTIC char_a "description here" CUBE_5 0x123 char_deposit 1.1 char_conv 0.0 10.0
+			/begin AXIS_DESCR CURVE_AXIS in_quant_char char_axis_descr_conv 22 5.5 21.21
+				
+			/end AXIS_DESCR
 			BIT_MASK 0xFFFFFF
 			BYTE_ORDER MSB_LAST
 			CALIBRATION_ACCESS CALIBRATION
