@@ -37,4 +37,12 @@ public class Asap2FileTest {
 		assertEquals(1L, f.getAsap2Version().getVersionNo());
 		assertEquals(71L, f.getAsap2Version().getUpgradeNo());
 	}
+	
+	@Test
+	void testA2mlVersion() throws IOException {
+		Asap2File f = getTestFile(TestFile.A);
+
+		assertEquals(1L, f.getA2mlVersion().getVersionNo());
+		assertEquals(31L, f.getA2mlVersion().getUpgradeNo());
+	}
 }

@@ -1,5 +1,6 @@
 ﻿/* This file hase been handwritten */
 ASAP2_VERSION 1 71
+A2ML_VERSION 1 31
 /begin PROJECT Free_Example "MIT licensed example file"
 	/begin HEADER "Free Asap2 example file"
 		VERSION "V1.7.1"
