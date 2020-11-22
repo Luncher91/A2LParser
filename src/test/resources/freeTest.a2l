@@ -47,6 +47,11 @@ A2ML_VERSION 1 31
 			NUMBER 1233123
 			PHYS_UNIT "kg"
 			READ_ONLY
+			/begin VIRTUAL_CHARACTERISTIC
+				"sin(cos(X2-X1))"
+				characteristicA
+				characteristicB
+			/end VIRTUAL_CHARACTERISTIC
 			REF_MEMORY_SEGMENT memory_seg_ref
 			STEP_SIZE 99.9
 		/end CHARACTERISTIC
