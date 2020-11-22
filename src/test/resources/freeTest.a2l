@@ -168,5 +168,15 @@ A2ML_VERSION 1 31
 				meas_2
 			/end VIRTUAL
 		/end MEASUREMENT
+		
+		/begin UNIT
+			unitA
+			"detailed description with spaces"
+			"display string"
+			DERIVED
+			REF_UNIT unitB
+			SI_EXPONENTS 5 2 7 10 12 14 16
+			UNIT_CONVERSION 10.1 2.2
+		/end UNIT
 	/end MODULE
 /end PROJECT

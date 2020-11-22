@@ -313,6 +313,10 @@ ASCII : 'ASCII';
 CUBE_4 : 'CUBE_4';
 CUBE_5 : 'CUBE_5';
 
+// type enum used in unit
+DERIVED : 'DERIVED'; 
+EXTENDED_SI : 'EXTENDED_SI';
+
 // attribute enum
 STD_AXIS : 'STD_AXIS';
 FIX_AXIS : 'FIX_AXIS';
