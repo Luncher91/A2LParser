@@ -23,7 +23,16 @@ ASAP2_VERSION 1 71
 		/end AXIS_PTS
 		/begin CHARACTERISTIC char_a "description here" CUBE_5 0x123 char_deposit 1.1 char_conv 0.0 10.0
 			/begin AXIS_DESCR CURVE_AXIS in_quant_char char_axis_descr_conv 22 5.5 21.21
-				
+				AXIS_PTS_REF axisPtsA
+				BYTE_ORDER MSB_FIRST
+				CURVE_AXIS_REF curveAxisA
+				DEPOSIT DIFFERENCE
+				FORMAT "%3.3"
+				MAX_GRAD 30.0
+				MONOTONY NOT_MON
+				PHYS_UNIT "m/(s*s)"
+				READ_ONLY
+				STEP_SIZE 1.2
 			/end AXIS_DESCR
 			BIT_MASK 0xFFFFFF
 			BYTE_ORDER MSB_LAST
