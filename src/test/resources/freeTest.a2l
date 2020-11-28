@@ -252,6 +252,19 @@ A2ML_VERSION 1 31
 			STATIC_RECORD_LAYOUT
 		/end RECORD_LAYOUT
 		
+		/begin FUNCTION firstFunction "very first function"
+			/begin DEF_CHARACTERISTIC
+				char1 char2
+				char3
+			/end DEF_CHARACTERISTIC
+			FUNCTION_VERSION "version3.1.4.1"
+			/begin IN_MEASUREMENT meas1 meas2 meas3 /end IN_MEASUREMENT
+			/begin LOC_MEASUREMENT locMeas1 locMeas2 locMeas3 /end LOC_MEASUREMENT
+			/begin OUT_MEASUREMENT outMeas1 outMeas2 outMeas3 /end OUT_MEASUREMENT
+			/begin REF_CHARACTERISTIC refChar1 refChar2 refChar3 /end REF_CHARACTERISTIC
+			/begin SUB_FUNCTION subFunc1 subFunc2 subFunc3 /end SUB_FUNCTION
+		/end FUNCTION
+		
 		/begin UNIT
 			unitA
 			"detailed description with spaces"
