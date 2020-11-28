@@ -90,6 +90,10 @@ A2ML_VERSION 1 31
 				4096 
 				-1 -1 -1 -1 -1
 			/end MEMORY_SEGMENT
+			
+			/begin MEMORY_LAYOUT
+				PRG_CODE 0x0010 4096 5 4 3 2 1
+			/end MEMORY_LAYOUT
 		/end MOD_PAR
 		
 		/begin COMPU_METHOD THE.IDENTITY
