@@ -1174,12 +1174,12 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 		r.setReserved(visitMultipleOpt(sn.reserved_exp(), Reserved.class));
 
-		r.setRipAddressW((RipAddrXYZ45) visitSingleOpt(sn.rip_addr_w_exp()));
-		r.setRipAddressX((RipAddrXYZ45) visitSingleOpt(sn.rip_addr_x_exp()));
-		r.setRipAddressY((RipAddrXYZ45) visitSingleOpt(sn.rip_addr_y_exp()));
-		r.setRipAddressZ((RipAddrXYZ45) visitSingleOpt(sn.rip_addr_z_exp()));
-		r.setRipAddress4((RipAddrXYZ45) visitSingleOpt(sn.rip_addr_4_exp()));
-		r.setRipAddress5((RipAddrXYZ45) visitSingleOpt(sn.rip_addr_5_exp()));
+		r.setRipAddressW((RipAddrWXYZ45) visitSingleOpt(sn.rip_addr_w_exp()));
+		r.setRipAddressX((RipAddrWXYZ45) visitSingleOpt(sn.rip_addr_x_exp()));
+		r.setRipAddressY((RipAddrWXYZ45) visitSingleOpt(sn.rip_addr_y_exp()));
+		r.setRipAddressZ((RipAddrWXYZ45) visitSingleOpt(sn.rip_addr_z_exp()));
+		r.setRipAddress4((RipAddrWXYZ45) visitSingleOpt(sn.rip_addr_4_exp()));
+		r.setRipAddress5((RipAddrWXYZ45) visitSingleOpt(sn.rip_addr_5_exp()));
 
 		r.setSrcAddressX((SrcAddrXYZ45) visitSingleOpt(sn.src_addr_x_exp()));
 		r.setSrcAddressY((SrcAddrXYZ45) visitSingleOpt(sn.src_addr_y_exp()));
@@ -1196,6 +1196,15 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		r.setStaticRecordLayout(visitSingleOptBool(sn.static_record_layout_exp()));
 
 		return r;
+	}
+	
+	@Override
+	public Object visitStatic_record_layout_exp(Static_record_layout_expContext ctx) {
+		if(ctx.STATIC_RECORD_LAYOUT() != null) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -1260,12 +1269,12 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 	@Override public Object visitOffset_4_exp(Offset_4_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);OffsetXYZ45 d = new OffsetXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
 	@Override public Object visitOffset_5_exp(Offset_5_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);OffsetXYZ45 d = new OffsetXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
 
-	@Override public Object visitRip_addr_w_exp(Rip_addr_w_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrXYZ45 d = new RipAddrXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
-	@Override public Object visitRip_addr_x_exp(Rip_addr_x_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrXYZ45 d = new RipAddrXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
-	@Override public Object visitRip_addr_y_exp(Rip_addr_y_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrXYZ45 d = new RipAddrXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
-	@Override public Object visitRip_addr_z_exp(Rip_addr_z_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrXYZ45 d = new RipAddrXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
-	@Override public Object visitRip_addr_4_exp(Rip_addr_4_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrXYZ45 d = new RipAddrXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
-	@Override public Object visitRip_addr_5_exp(Rip_addr_5_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrXYZ45 d = new RipAddrXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
+	@Override public Object visitRip_addr_w_exp(Rip_addr_w_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrWXYZ45 d = new RipAddrWXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
+	@Override public Object visitRip_addr_x_exp(Rip_addr_x_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrWXYZ45 d = new RipAddrWXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
+	@Override public Object visitRip_addr_y_exp(Rip_addr_y_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrWXYZ45 d = new RipAddrWXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
+	@Override public Object visitRip_addr_z_exp(Rip_addr_z_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrWXYZ45 d = new RipAddrWXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
+	@Override public Object visitRip_addr_4_exp(Rip_addr_4_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrWXYZ45 d = new RipAddrWXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
+	@Override public Object visitRip_addr_5_exp(Rip_addr_5_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);RipAddrWXYZ45 d = new RipAddrWXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
 
 	@Override public Object visitSrc_addr_x_exp(Src_addr_x_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);SrcAddrXYZ45 d = new SrcAddrXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}
 	@Override public Object visitSrc_addr_y_exp(Src_addr_y_expContext ctx) {PositionDatatypeParameters pdp = (PositionDatatypeParameters) visit(ctx.Parameters);SrcAddrXYZ45 d = new SrcAddrXYZ45();d.setDataType(pdp.getDatatype());d.setPosition(pdp.getPosition());return d;}

@@ -2,7 +2,7 @@ package net.alenzen.a2l;
 
 import net.alenzen.a2l.enums.DataType;
 
-public class RipAddrXYZ45 {
+public class RipAddrWXYZ45 {
 	private long position;
 	private DataType dataType;
 

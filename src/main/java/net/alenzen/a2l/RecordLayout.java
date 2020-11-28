@@ -60,12 +60,12 @@ public class RecordLayout {
 
 	private List<Reserved> reserved;
 
-	private RipAddrXYZ45 ripAddressW;
-	private RipAddrXYZ45 ripAddressX;
-	private RipAddrXYZ45 ripAddressY;
-	private RipAddrXYZ45 ripAddressZ;
-	private RipAddrXYZ45 ripAddress4;
-	private RipAddrXYZ45 ripAddress5;
+	private RipAddrWXYZ45 ripAddressW;
+	private RipAddrWXYZ45 ripAddressX;
+	private RipAddrWXYZ45 ripAddressY;
+	private RipAddrWXYZ45 ripAddressZ;
+	private RipAddrWXYZ45 ripAddress4;
+	private RipAddrWXYZ45 ripAddress5;
 
 	private SrcAddrXYZ45 srcAddressX;
 	private SrcAddrXYZ45 srcAddressY;
@@ -441,51 +441,51 @@ public class RecordLayout {
 		this.reserved = reserved;
 	}
 
-	public RipAddrXYZ45 getRipAddressW() {
+	public RipAddrWXYZ45 getRipAddressW() {
 		return ripAddressW;
 	}
 
-	public void setRipAddressW(RipAddrXYZ45 ripAddressW) {
+	public void setRipAddressW(RipAddrWXYZ45 ripAddressW) {
 		this.ripAddressW = ripAddressW;
 	}
 
-	public RipAddrXYZ45 getRipAddressX() {
+	public RipAddrWXYZ45 getRipAddressX() {
 		return ripAddressX;
 	}
 
-	public void setRipAddressX(RipAddrXYZ45 ripAddressX) {
+	public void setRipAddressX(RipAddrWXYZ45 ripAddressX) {
 		this.ripAddressX = ripAddressX;
 	}
 
-	public RipAddrXYZ45 getRipAddressY() {
+	public RipAddrWXYZ45 getRipAddressY() {
 		return ripAddressY;
 	}
 
-	public void setRipAddressY(RipAddrXYZ45 ripAddressY) {
+	public void setRipAddressY(RipAddrWXYZ45 ripAddressY) {
 		this.ripAddressY = ripAddressY;
 	}
 
-	public RipAddrXYZ45 getRipAddressZ() {
+	public RipAddrWXYZ45 getRipAddressZ() {
 		return ripAddressZ;
 	}
 
-	public void setRipAddressZ(RipAddrXYZ45 ripAddressZ) {
+	public void setRipAddressZ(RipAddrWXYZ45 ripAddressZ) {
 		this.ripAddressZ = ripAddressZ;
 	}
 
-	public RipAddrXYZ45 getRipAddress4() {
+	public RipAddrWXYZ45 getRipAddress4() {
 		return ripAddress4;
 	}
 
-	public void setRipAddress4(RipAddrXYZ45 ripAddress4) {
+	public void setRipAddress4(RipAddrWXYZ45 ripAddress4) {
 		this.ripAddress4 = ripAddress4;
 	}
 
-	public RipAddrXYZ45 getRipAddress5() {
+	public RipAddrWXYZ45 getRipAddress5() {
 		return ripAddress5;
 	}
 
-	public void setRipAddress5(RipAddrXYZ45 ripAddress5) {
+	public void setRipAddress5(RipAddrWXYZ45 ripAddress5) {
 		this.ripAddress5 = ripAddress5;
 	}
 
