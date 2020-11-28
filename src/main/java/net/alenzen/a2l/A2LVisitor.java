@@ -1922,7 +1922,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		v.setVarCriterion(visitMultipleOpt(sn.var_criterion_block(), VarCriterion.class));
 		v.setVarForbiddenComb(visitMultipleOpt(sn.var_forbidden_comb_block(), VarForbiddenComb.class));
 		v.setVarNaming((VarNaming) visitSingleOpt(sn.var_naming_exp()));
-		v.setVarSeparator((String) visitSingleOpt(sn.var_seperator_exp()));
+		v.setVarSeparator((String) visitSingleOpt(sn.var_separator_exp()));
 		return v;
 	}
 
@@ -1937,7 +1937,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 	}
 
 	@Override
-	public Object visitVar_seperator_exp(Var_seperator_expContext ctx) {
+	public Object visitVar_separator_exp(Var_separator_expContext ctx) {
 		return visit(ctx.Separator);
 	}
 

@@ -10,6 +10,27 @@ A2ML_VERSION 1 31
 	/begin MODULE sample_module "great example with different escaped quotation \" marks like double quotes "" and backslash escaped at the end \""
 		/begin A2ML i am not parsed /end A2ML
 		/begin BLOB i am not parsed neither /end BLOB
+		
+		/begin VARIANT_CODING
+			VAR_SEPARATOR "#"
+			VAR_NAMING NUMERIC
+			/begin VAR_CHARACTERISTIC varChar
+				crit1 crit2 crit3
+				/begin VAR_ADDRESS
+					0x7444 0x7445 0x7446 0x7447
+				/end VAR_ADDRESS
+			/end VAR_CHARACTERISTIC
+			/begin VAR_CRITERION varCriterion "var criterion"
+				A B C D E F
+				VAR_MEASUREMENT superA
+				VAR_SELECTION_CHARACTERISTIC varSelectionCharac
+			/end VAR_CRITERION
+			/begin VAR_FORBIDDEN_COMB
+				varCriterion D
+				varCriterion F
+			/end VAR_FORBIDDEN_COMB
+		/end VARIANT_CODING
+		
 		/begin AXIS_PTS axis_pts_1 "I am a long identifier of an AXIS_PTS object" 0xABCDEF in_quant axis_pts_deposit 1.1 axis_pts_conv 123 1.2 1.3
 			BYTE_ORDER MSB_FIRST
 			CALIBRATION_ACCESS NOT_IN_MCD_SYSTEM

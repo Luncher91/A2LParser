@@ -676,7 +676,7 @@ variant_coding_sub_nodes : (
                            | var_criterion_block
                            | var_forbidden_comb_block
                            | var_naming_exp
-                           | var_seperator_exp
+                           | var_separator_exp
                            )*;
 
 var_characteristic_exp : VAR_CHARACTERISTIC Name=IDENTIFIER CriterionNames+=IDENTIFIER*;
@@ -699,7 +699,7 @@ var_forbidden_comb_block : BEGIN VAR_FORBIDDEN_COMB tuples+=criterion_tuple* END
 criterion_tuple : CriterionName=IDENTIFIER CriterionValue=IDENTIFIER;
 
 var_naming_exp : VAR_NAMING Tag=(NUMERIC | ALPHA);
-var_seperator_exp : VAR_SEPERATOR Separator=string_exp;
+var_separator_exp : VAR_SEPARATOR Separator=string_exp;
 
 /*
 I cannot find any definition for the following elements which are part of 1.7.1
