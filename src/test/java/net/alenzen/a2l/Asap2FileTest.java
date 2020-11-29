@@ -1,6 +1,7 @@
 package net.alenzen.a2l;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 
@@ -27,6 +28,7 @@ public class Asap2FileTest {
 
 	public static Asap2File getTestFile(TestFile tf) throws IOException {
 		Asap2Parser parser = new Asap2Parser(ClassLoader.getSystemResourceAsStream(tf.getFilename()));
+		parser.setEventHandler((line, position, message) -> { fail("Line " + line + "@" + position + ": " + message); });
 		return parser.parse();
 	}
 
