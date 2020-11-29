@@ -9,12 +9,12 @@ The goal is to parse A2L files according the standards and provide a usable obje
 
 This is a rough roadmap for the upcoming things I have in mind. I might reprioritize the features at any time.
 
-* JUnit tests (in progress)
-* demo a2l files under the MIT license terms (in progress)
+* JUnit tests (done)
+* demo a2l files under the MIT license terms (done)
 * API documentation
 
 ## Epic 1: basic read functionality (Version 1.0)
-* write unit tests (in progress 36/70 classes tested)
+* write unit tests (done; 90.2% java code coverage)
 
 ## Epic 2: writing a2l files
 * generate A2L code from the object structure
