@@ -93,4 +93,19 @@ public class ModParTest {
 	void testVersion() {
 		assertEquals("Very high :-)", modPar.getVersion());
 	}
+
+	@Test
+	void testSystemConstants() {
+		String[] names = new String[] { "close to 1", "pi" };
+		String[] values = new String[] { "value 1", "about 3" };
+		List<SystemConstant> sysConstants = modPar.getSystemConstants();
+		
+		assertEquals(names.length, sysConstants.size());
+		assertEquals(values.length, sysConstants.size());
+		
+		for(int i = 0; i < sysConstants.size(); i++) {
+			assertEquals(names[i], sysConstants.get(i).getName());
+			assertEquals(values[i], sysConstants.get(i).getValue());
+		}
+	}
 }

@@ -11,6 +11,12 @@ A2ML_VERSION 1 31
 		/begin A2ML i am not parsed /end A2ML
 		/begin BLOB i am not parsed neither /end BLOB
 		
+		/begin USER_RIGHTS
+			admins
+			READ_ONLY
+			/begin REF_GROUP g1 g2 g3 /end REF_GROUP
+		/end USER_RIGHTS
+		
 		/begin VARIANT_CODING
 			VAR_SEPARATOR "#"
 			VAR_NAMING NUMERIC
@@ -140,6 +146,9 @@ A2ML_VERSION 1 31
 					CALIBRATION_HANDLE_TEXT "important!"
 				/end CALIBRATION_HANDLE
 			/end CALIBRATION_METHOD
+			
+			SYSTEM_CONSTANT "close to 1" "value 1"
+			SYSTEM_CONSTANT "pi" "about 3"
 		/end MOD_PAR
 		
 		/begin COMPU_METHOD THE.IDENTITY
