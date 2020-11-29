@@ -160,6 +160,7 @@ A2ML_VERSION 1 31
 			"very unique"
 			RAT_FUNC "%8.4" "°"
 			COEFFS 0 1.1 0 0 0 1.1
+			COEFFS_LINEAR 7.1 -12.5
 		/end COMPU_METHOD
 		
 		/begin COMPU_METHOD THE.FORMULA
