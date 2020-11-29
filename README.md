@@ -1,20 +1,26 @@
 # A2LParser
 
-This library is still in it's early stages.
-To get started please have a look at [A2LVisitor.main](https://github.com/Luncher91/A2LParser/blob/master/src/main/java/net/alenzen/a2l/A2LVisitor.java)
+This library parses an A2L file according the 1.6.1 standards and provides a Java Object structure with all the data.
 
-The goal is to parse A2L files according the standards and provide a usable object structure to work with.
+Sample:
+```java
+Asap2Parser parser = new Asap2Parser("freeTest.a2l");
+		
+// optional
+parser.setEventHandler((line, position, message) -> { System.err.println("Line " + line + "@" + position + ": " + message); });
+
+Asap2File a2l = parser.parse();
+System.out.println("Project: " + a2l.getProject().getName());
+```
 
 # Roadmap
 
 This is a rough roadmap for the upcoming things I have in mind. I might reprioritize the features at any time.
 
-* JUnit tests (done)
-* demo a2l files under the MIT license terms (done)
 * API documentation
 
-## Epic 1: basic read functionality (Version 1.0)
-* write unit tests (done; 90.2% java code coverage)
+## ~~Epic 1: basic read functionality~~ (Version 1.0)
+* ~~write unit tests~~ (done; 90.2% java code coverage)
 
 ## Epic 2: writing a2l files
 * generate A2L code from the object structure
