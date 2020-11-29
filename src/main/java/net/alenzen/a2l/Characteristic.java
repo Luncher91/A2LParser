@@ -40,7 +40,7 @@ public class Characteristic {
 	private boolean readOnly = false;
 	private String memorySegment;
 	private Double stepSize;
-	private String symbolLink;
+	private SymbolLink symbolLink;
 	private VirtualCharacteristic virtualCharacteristic;
 
 	public String getName() {
@@ -299,11 +299,11 @@ public class Characteristic {
 		this.stepSize = stepSize;
 	}
 
-	public String getSymbolLink() {
+	public SymbolLink getSymbolLink() {
 		return symbolLink;
 	}
 
-	public void setSymbolLink(String symbolLink) {
+	public void setSymbolLink(SymbolLink symbolLink) {
 		this.symbolLink = symbolLink;
 	}
 

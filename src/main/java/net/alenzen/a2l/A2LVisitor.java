@@ -1581,10 +1581,20 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		c.setReadOnly(visitSingleOptBool(sn.read_only_exp()));
 		c.setMemorySegment((String) visitSingleOpt(sn.ref_memory_segment_exp()));
 		c.setStepSize((Double) visitSingleOpt(sn.step_size_exp()));
-		c.setSymbolLink((String) visitSingleOpt(sn.symbol_link_exp()));
+		c.setSymbolLink((SymbolLink) visitSingleOpt(sn.symbol_link_exp()));
 		c.setVirtualCharacteristic((VirtualCharacteristic) visitSingleOpt(sn.virtual_characteristic_block()));
 
 		return c;
+	}
+	
+	@Override
+	public Object visitDependent_characteristic_block(Dependent_characteristic_blockContext ctx) {
+		DependentCharacteristic depChar = new DependentCharacteristic();
+		
+		depChar.setFormula(visitString(ctx.dependent_characteristic_exp().Formula));
+		depChar.setCharacterstics(visitIdentifierTokenList(ctx.Characteristic));
+		
+		return depChar;
 	}
 
 	@Override

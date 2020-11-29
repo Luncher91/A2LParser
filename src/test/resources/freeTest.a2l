@@ -44,6 +44,7 @@ A2ML_VERSION 1 31
 			REF_MEMORY_SEGMENT memorySegment.42
 			STEP_SIZE 820.028
 		/end AXIS_PTS
+		
 		/begin CHARACTERISTIC char_a "description here" CUBE_5 0x123 char_deposit 1.1 char_conv 0.0 10.0
 			/begin AXIS_DESCR CURVE_AXIS in_quant_char char_axis_descr_conv 22 5.5 21.21
 				AXIS_PTS_REF axisPtsA
@@ -60,9 +61,15 @@ A2ML_VERSION 1 31
 			BIT_MASK 0xFFFFFF
 			BYTE_ORDER MSB_LAST
 			CALIBRATION_ACCESS CALIBRATION
+			COMPARISON_QUANTITY comparisonQuantity
+			/begin DEPENDENT_CHARACTERISTIC
+				"X1*X2"
+				characA characB
+			/end DEPENDENT_CHARACTERISTIC
 			DISCRETE
 			DISPLAY_IDENTIFIER display_ident_char
 			ECU_ADDRESS_EXTENSION 10000
+			EXTENDED_LIMITS 1.1 5.5
 			FORMAT "%12.12"
 			/begin MAP_LIST identA identB /end MAP_LIST
 			NUMBER 1233123
@@ -75,7 +82,18 @@ A2ML_VERSION 1 31
 			/end VIRTUAL_CHARACTERISTIC
 			REF_MEMORY_SEGMENT memory_seg_ref
 			STEP_SIZE 99.9
+			SYMBOL_LINK "symbol name char" 7
+			MAX_REFRESH 6 10
+			MATRIX_DIM 3 4 5
+			/begin IF_DATA i am not parsed yet /end IF_DATA
+			/begin FUNCTION_LIST
+				f1 f2 f3
+			/end FUNCTION_LIST
+			/begin ANNOTATION
+				/begin ANNOTATION_TEXT "hello world" /end ANNOTATION_TEXT
+			/end ANNOTATION
 		/end CHARACTERISTIC
+		
 		/begin MOD_COMMON ""
 			DEPOSIT DIFFERENCE
 			BYTE_ORDER MSB_FIRST
@@ -172,11 +190,15 @@ A2ML_VERSION 1 31
 		
 		/begin MEASUREMENT superMeasurement "ultimate test"
 			UBYTE THE.IDENTITY 1 2.1 4.2 255
+			ARRAY_SIZE 7
+			DISCRETE
 			PHYS_UNIT "kg/m"
 			BIT_MASK 0xAFFF
 			BYTE_ORDER MSB_FIRST
 			REF_MEMORY_SEGMENT mem1
 			ECU_ADDRESS 0xABCDEF
+			ECU_ADDRESS_EXTENSION 0xFF
+			ERROR_MASK 0x000E
 			FORMAT "%3.1"
 			DISPLAY_IDENTIFIER mega.superMeasurement 
 			/begin ANNOTATION
@@ -197,8 +219,10 @@ A2ML_VERSION 1 31
 				thirdFunction
 			/end FUNCTION_LIST
 			/begin IF_DATA i am not parsed yet /end IF_DATA
+			LAYOUT ROW_DIR
 			MATRIX_DIM 7 8 10
 			MAX_REFRESH 12 42
+			READ_WRITE
 			SYMBOL_LINK "symbol name" 84
 			/begin VIRTUAL
 				meas_1
