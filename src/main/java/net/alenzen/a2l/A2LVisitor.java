@@ -1,21 +1,13 @@
 package net.alenzen.a2l;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.apache.commons.io.ByteOrderMark;
-import org.apache.commons.io.input.BOMInputStream;
 
 import net.alenzen.a2l.FncValues.IndexMode;
 import net.alenzen.a2l.Measurement.LayoutIndexMode;
@@ -2141,76 +2133,5 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		}
 
 		return String.join("\\", splittedDoubleBackslash);
-	}
-
-	public static void main(String[] args) throws IOException {
-		// Asap files should not be commited due to unknown license conditions
-		// https://www.asam.net/standards/detail/mcd-2-mc/wiki/#Downloads
-		final String TestFile_A = "ASAP2_Demo_V171.a2l";
-		// https://github.com/christoph2/pyA2L/blob/master/examples/example-a2l-file.a2l
-		final String TestFile_B = "example-a2l-file.a2l";
-
-		// Read files to stream
-		long start = System.nanoTime();
-		CharStream chStream = null;
-
-		try (BOMInputStream is = new BOMInputStream(ClassLoader.getSystemResourceAsStream(TestFile_B),
-				ByteOrderMark.UTF_8, ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_32LE,
-				ByteOrderMark.UTF_32BE)) {
-			Charset fileEncoding = determineCharset(is);
-			chStream = CharStreams.fromStream(is, fileEncoding);
-		}
-		long reading = System.nanoTime();
-
-		// lexing file
-		a2lLexer lexer = new a2lLexer(chStream);
-		long lexing = System.nanoTime();
-
-		// parsing tokens
-		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
-		ParseTree tree = parser.a2l_file();
-		long parsing = System.nanoTime();
-
-		// visit ParseTree to create usable object structure
-		Asap2File answer = (Asap2File) new A2LVisitor((no, po, m) -> {
-			System.out.println("[ParserError] line " + no + " at " + po + ": " + m);
-		}).visit(tree);
-		long visiting = System.nanoTime();
-
-		System.out.println("Time in ms");
-		System.out.println("------------------------------------------");
-		System.out.println("Reading: " + (reading - start) / 1000000.0);
-		System.out.println("Lexing: " + (lexing - reading) / 1000000.0);
-		System.out.println("Parsing: " + (parsing - lexing) / 1000000.0);
-		System.out.println("Object structure: " + (visiting - parsing) / 1000000.0);
-		System.out.println("Total: " + (visiting - start) / 1000000.0);
-	}
-
-	private static Charset determineCharset(BOMInputStream is) throws IOException {
-		if (!is.hasBOM()) {
-			return StandardCharsets.ISO_8859_1;
-		}
-
-		if (is.hasBOM(ByteOrderMark.UTF_8)) {
-			return StandardCharsets.UTF_8;
-		}
-
-		if (is.hasBOM(ByteOrderMark.UTF_16LE)) {
-			return StandardCharsets.UTF_16LE;
-		}
-
-		if (is.hasBOM(ByteOrderMark.UTF_16BE)) {
-			return StandardCharsets.UTF_16BE;
-		}
-
-		if (is.hasBOM(ByteOrderMark.UTF_32LE)) {
-			return Charset.forName("UTF-32LE");
-		}
-
-		if (is.hasBOM(ByteOrderMark.UTF_32BE)) {
-			return Charset.forName("UTF-32BE");
-		}
-
-		throw new IOException("Unknown charset spepcified in the BOM area: " + is.getBOMCharsetName());
 	}
 }

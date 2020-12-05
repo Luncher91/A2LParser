@@ -4,6 +4,8 @@ public class Version {
 	private long versionNo;
 	private long upgradeNo;
 
+	public Version() {}
+	
 	public Version(long versionNumber, long upgradeNumber) {
 		this.versionNo = versionNumber;
 		this.upgradeNo = upgradeNumber;

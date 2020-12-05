@@ -15,6 +15,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import net.alenzen.a2l.antlr.a2lLexer;
 import net.alenzen.a2l.antlr.a2lParser;
 
@@ -112,5 +115,17 @@ public class Asap2Parser {
 		}
 
 		throw new IOException("Unknown charset spepcified in the BOM area: " + is.getBOMCharsetName());
+	}
+	
+	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
+		if(args.length < 1) return;
+		
+		if(args[0].startsWith("--schema")) {
+			System.out.print(Asap2File.generateJsonSchema());
+			return;
+		}
+		
+		Asap2Parser parser = new Asap2Parser(args[0]);
+		System.out.print(parser.parse().toJson());
 	}
 }
