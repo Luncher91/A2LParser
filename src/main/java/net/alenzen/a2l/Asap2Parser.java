@@ -7,10 +7,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.BitSet;
 
+import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Parser;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.atn.ATNConfigSet;
+import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
@@ -22,9 +29,9 @@ import net.alenzen.a2l.antlr.a2lLexer;
 import net.alenzen.a2l.antlr.a2lParser;
 
 public class Asap2Parser {
+
 	private InputStream filecontent;
-	private IParserEventHandler eventHandler = (a, b, c) -> {
-	};
+	private IParserEventHandler eventHandler = null;
 
 	public Asap2Parser(String filename) throws FileNotFoundException {
 		this.filecontent = new FileInputStream(new File(filename));
@@ -50,12 +57,39 @@ public class Asap2Parser {
 	}
 
 	private Asap2File parse(IParserEventHandler eventHandler) throws IOException {
+		ANTLRErrorListener listener = new ANTLRErrorListener() {
+
+			@Override
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
+					int charPositionInLine, String msg, RecognitionException e) {
+				eventHandler.log(line, charPositionInLine, msg);
+			}
+
+			@Override
+			public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex,
+					int prediction, ATNConfigSet configs) {
+			}
+
+			@Override
+			public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex,
+					BitSet conflictingAlts, ATNConfigSet configs) {
+			}
+
+			@Override
+			public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact,
+					BitSet ambigAlts, ATNConfigSet configs) {
+			}
+		};
 		CharStream chStream = determineCharStream();
 		// lexing file
 		a2lLexer lexer = new a2lLexer(chStream);
+		lexer.removeErrorListeners();
+		lexer.addErrorListener(listener);
 
 		// parsing tokens
 		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
+		parser.removeErrorListeners();
+		parser.addErrorListener(listener);
 		ParseTree tree = parser.a2l_file();
 
 		// visit ParseTree to create usable object structure
@@ -116,16 +150,18 @@ public class Asap2Parser {
 
 		throw new IOException("Unknown charset spepcified in the BOM area: " + is.getBOMCharsetName());
 	}
-	
+
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
-		if(args.length < 1) return;
-		
-		if(args[0].startsWith("--schema")) {
+		if (args.length < 1)
+			return;
+
+		if (args[0].startsWith("--schema")) {
 			System.out.print(Asap2File.generateJsonSchema());
 			return;
 		}
-		
+
 		Asap2Parser parser = new Asap2Parser(args[0]);
 		System.out.print(parser.parse().toJson());
 	}
+
 }
