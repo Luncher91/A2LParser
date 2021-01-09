@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class VirtualCharacteristic {
+import java.io.IOException;
+
+public class VirtualCharacteristic implements IA2LWriteable {
 	private String formula;
 	private IdentReferenceList characterstics;
 
@@ -18,5 +20,11 @@ public class VirtualCharacteristic {
 
 	public void setCharacterstics(IdentReferenceList characterstics) {
 		this.characterstics = characterstics;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		// TODO Auto-generated method stub
+
 	}
 }

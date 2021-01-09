@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class Module {
+public class Module implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 
@@ -193,5 +194,33 @@ public class Module {
 
 	public void setBlobs(List<Blob> blobs) {
 		this.blobs = blobs;
+	}
+
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("MODULE", name, A2LWriter.toA2LString(longIdentifier));
+		writer.indent();
+		
+		writer.write(a2ml);
+		writer.write(axisPts);
+		writer.write(characteristics);
+		writer.write(compuMethods);
+		writer.write(compuTabs);
+		writer.write(compuVTabs);
+		writer.write(compuVTabRanges);
+		writer.write(frame);
+		writer.write(functions);
+		writer.write(groups);
+		writer.write(ifDatas);
+		writer.write(measurements);
+		writer.write(modCommon);
+		writer.write(modPar);
+		writer.write(recordLayouts);
+		writer.write(units);
+		writer.write(userRights);
+		writer.write(variantCoding);
+		writer.write(blobs);
+		
+		writer.dedent();
+		writer.writelnEnd("MODULE");
 	}
 }

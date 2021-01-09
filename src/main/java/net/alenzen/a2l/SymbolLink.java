@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class SymbolLink {
+import java.io.IOException;
+
+public class SymbolLink implements IA2LWriteable {
 	private String symbolName;
 	private long offset;
 
@@ -18,5 +20,11 @@ public class SymbolLink {
 
 	public void setOffset(long offset) {
 		this.offset = offset;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		// TODO Auto-generated method stub
+
 	}
 }

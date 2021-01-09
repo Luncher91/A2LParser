@@ -17,7 +17,7 @@ public class CoeffsLinearTest {
 	@BeforeEach
 	void initTestfile() throws IOException {
 		file = Asap2FileTest.getTestFile(TestFile.A);
-		coeffsLinear = file.getProject().getModules().get(0).getCompuMethods().get(0).getCoeffsLienar();
+		coeffsLinear = file.getProject().getModules().get(0).getCompuMethods().get(0).getCoeffsLinear();
 
 		assertNotNull(coeffsLinear);
 	}

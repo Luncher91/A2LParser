@@ -1,8 +1,10 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
+
 import net.alenzen.a2l.enums.ConversionType;
 
-public class CompuMethod {
+public class CompuMethod implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private ConversionType conversionType;
@@ -11,7 +13,7 @@ public class CompuMethod {
 
 	// optional parameters
 	private Coeffs coeffs;
-	private CoeffsLinear coeffsLienar;
+	private CoeffsLinear coeffsLinear;
 	private String compuTab_ref;
 	private Formula formula;
 	private String unit_ref;
@@ -65,12 +67,12 @@ public class CompuMethod {
 		this.coeffs = coeffs;
 	}
 
-	public CoeffsLinear getCoeffsLienar() {
-		return coeffsLienar;
+	public CoeffsLinear getCoeffsLinear() {
+		return coeffsLinear;
 	}
 
-	public void setCoeffsLienar(CoeffsLinear coeffsLienar) {
-		this.coeffsLienar = coeffsLienar;
+	public void setCoeffsLinear(CoeffsLinear coeffsLienar) {
+		this.coeffsLinear = coeffsLienar;
 	}
 
 	public String getCompuTab_ref() {
@@ -103,5 +105,31 @@ public class CompuMethod {
 
 	public void setConversionTable_ref(String conversionTable_ref) {
 		this.conversionTable_ref = conversionTable_ref;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("COMPU_METHOD", name, A2LWriter.toA2LString(longIdentifier), conversionType.name(), A2LWriter.toA2LString(format), A2LWriter.toA2LString(unit));
+		writer.indent();
+		
+		writer.write(coeffs);
+		writer.write(coeffsLinear);
+		
+		if(compuTab_ref != null) {
+			writer.writelnSpaced("COMPU_TAB_REF", compuTab_ref);
+		}
+		
+		writer.write(formula);
+		
+		if(unit_ref != null) {
+			writer.writelnSpaced("REF_UNIT", unit_ref);
+		}
+		
+		if(conversionTable_ref != null) {
+			writer.writelnSpaced("STATUS_STRING_REF", conversionTable_ref);
+		}
+		
+		writer.dedent();
+		writer.writelnEnd("COMPU_METHOD");
 	}
 }

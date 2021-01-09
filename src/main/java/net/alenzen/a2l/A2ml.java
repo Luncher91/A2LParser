@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class A2ml {
+import java.io.IOException;
+
+public class A2ml implements IA2LWriteable {
 	private String content;
 
 	public String getContent() {
@@ -9,5 +11,10 @@ public class A2ml {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writeMultiLine(content);
 	}
 }

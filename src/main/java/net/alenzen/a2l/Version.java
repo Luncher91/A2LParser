@@ -1,6 +1,6 @@
 package net.alenzen.a2l;
 
-public class Version {
+public abstract class Version implements IA2LWriteable {
 	private long versionNo;
 	private long upgradeNo;
 

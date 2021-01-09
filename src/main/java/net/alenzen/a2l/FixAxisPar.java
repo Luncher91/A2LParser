@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class FixAxisPar {
+import java.io.IOException;
+
+public class FixAxisPar implements IA2LWriteable {
 	private long offset;
 	private long shift;
 	private long numberapo;
@@ -27,5 +29,10 @@ public class FixAxisPar {
 
 	public void setNumberapo(long numberapo) {
 		this.numberapo = numberapo;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnSpaced("FIX_AXIS_PAR", Long.toString(offset), Long.toString(shift), Long.toString(numberapo));
 	}
 }

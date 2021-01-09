@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class Coeffs {
+import java.io.IOException;
+
+public class Coeffs implements IA2LWriteable {
 	private double a, b, c, d, e, f;
 
 	public double getA() {
@@ -49,5 +51,11 @@ public class Coeffs {
 
 	public void setF(double f) {
 		this.f = f;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnSpaced("COEFFS", Double.toString(a), Double.toString(b), Double.toString(c), Double.toString(d),
+				Double.toString(e), Double.toString(f));
 	}
 }

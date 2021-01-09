@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class RecordLayout {
+public class RecordLayout implements IA2LWriteable {
 	private String name;
 
 	// optional parameters
@@ -575,5 +576,11 @@ public class RecordLayout {
 
 	public void setStaticRecordLayout(boolean staticRecordLayout) {
 		this.staticRecordLayout = staticRecordLayout;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 }

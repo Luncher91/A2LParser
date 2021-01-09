@@ -1,9 +1,11 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
+
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
 
-public class ModCommon {
+public class ModCommon implements IA2LWriteable {
 	private String comment;
 
 	// optional parameters
@@ -104,5 +106,11 @@ public class ModCommon {
 
 	public void setStandardRecordLayout(String standardRecordLayout) {
 		this.standardRecordLayout = standardRecordLayout;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 }

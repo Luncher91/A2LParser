@@ -1,12 +1,13 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.CalibrationAccess;
 import net.alenzen.a2l.enums.CharacteristicType;
 
-public class Characteristic {
+public class Characteristic implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private CharacteristicType type;
@@ -313,5 +314,93 @@ public class Characteristic {
 
 	public void setVirtualCharacteristic(VirtualCharacteristic virtualCharacteristic) {
 		this.virtualCharacteristic = virtualCharacteristic;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("CHARACTERISTIC",
+				name,
+				A2LWriter.toA2LString(longIdentifier),
+				type.toString(),
+				"0x" + Long.toHexString(address),
+				deposit,
+				Double.toString(maxDiff),
+				conversion,
+				Double.toString(lowerLimit),
+				Double.toString(upperLimit));
+		writer.indent();
+		
+		writer.write(notes);
+		writer.write(axisDescriptions);
+		
+		if(bitmask != null) {
+			writer.writelnSpaced("BIT_MASK", "0x" + Long.toHexString(bitmask));
+		}
+		
+		writer.write(byteorder);
+		writer.write(access);
+		
+		if(comparisonQuantityMeasurment != null) {
+			writer.writelnSpaced("COMPARISON_QUANTITY", comparisonQuantityMeasurment);
+		}
+		
+		if(discrete) {
+			writer.writeln("DISCRETE");
+		}
+		
+		if(displayIdentifier != null) {
+			writer.writelnSpaced("DISPLAY_IDENTIFIER", displayIdentifier);
+		}
+		
+		if(ecuAddressExtension != null) {
+			writer.writelnSpaced("ECU_ADDRESS_EXTENSION", "0x" + Long.toHexString(ecuAddressExtension));
+		}
+		
+		writer.write(extendedLimits);
+		
+		if(format != null) {
+			writer.writelnSpaced("FORMAT", A2LWriter.toA2LString(format));
+		}
+		
+		writer.write(functions);
+		
+		if(guardRails) {
+			writer.writeln("GUARD_RAILS");
+		}
+		
+		writer.write(ifData);
+		
+		if (mapList != null && mapList.size() > 0) {
+			mapList.toA2lAsBlock(writer, "MAP_LIST");
+		}
+		
+		writer.write(matrixDim);
+		writer.write(maxRefresh);
+		
+		if(number != null) {
+			writer.writelnSpaced("NUMBER", number.toString());
+		}
+		
+		if(physUnit != null) {
+			writer.writelnSpaced("PHYS_UNIT", A2LWriter.toA2LString(physUnit));
+		}
+		
+		if(readOnly) {
+			writer.writeln("READ_ONLY");
+		}
+		
+		if(memorySegment != null) {
+			writer.writelnSpaced("REF_MEMORY_SEGMENT", memorySegment);
+		}
+		
+		if(stepSize != null) {
+			writer.writelnSpaced("STEP_SIZE", Double.toString(stepSize));
+		}
+		
+		writer.write(symbolLink);
+		writer.write(virtualCharacteristic);
+		
+		writer.dedent();
+		writer.writelnEnd("CHARACTERISTIC");
 	}
 }

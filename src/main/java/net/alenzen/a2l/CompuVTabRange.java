@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class CompuVTabRange {
+public class CompuVTabRange implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private long numberOfValueTriples;
@@ -30,6 +31,11 @@ public class CompuVTabRange {
 		return numberOfValueTriples;
 	}
 
+	/**
+	 * NumberOfValueTriples will actually not being used to write A2L.
+	 * Instead the actual size of the ValueTriples list will be written.
+	 * @param numberOfValuePairs
+	 */
 	public void setNumberOfValueTriples(long numberOfValueTriples) {
 		this.numberOfValueTriples = numberOfValueTriples;
 	}
@@ -48,5 +54,28 @@ public class CompuVTabRange {
 
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
+	}
+
+	/*
+	 * Instead of writing out the NumberOfValueTriples attribute 
+	 * the actual size of the array of valueTriples will be written.
+	 */
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("COMPU_VTAB_RANGE", name, A2LWriter.toA2LString(longIdentifier),
+				Integer.toString(valueTriples.size()));
+		writer.indent();
+
+		for (ValueTriple<Double, String> p : valueTriples) {
+			writer.writelnSpaced(Double.toString(p.getInValMin()), Double.toString(p.getInValMax()),
+					A2LWriter.toA2LString(p.getOutVal()));
+		}
+
+		if (defaultValue != null) {
+			writer.writelnSpaced("DEFAULT_VALUE", A2LWriter.toA2LString(defaultValue));
+		}
+
+		writer.dedent();
+		writer.writelnEnd("COMPU_VTAB_RANGE");
 	}
 }

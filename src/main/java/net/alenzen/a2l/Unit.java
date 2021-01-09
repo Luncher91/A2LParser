@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class Unit {
+import java.io.IOException;
+
+public class Unit implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private String display;
@@ -69,5 +71,11 @@ public class Unit {
 
 	public void setUnitConversion(UnitConversion unitConversion) {
 		this.unitConversion = unitConversion;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 }

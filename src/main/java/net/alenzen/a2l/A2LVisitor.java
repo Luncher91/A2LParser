@@ -1,5 +1,6 @@
 package net.alenzen.a2l;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,12 +48,12 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 	@Override
 	public Object visitA2ml_version_exp(a2lParser.A2ml_version_expContext ctx) {
-		return new Version((Long) visit(ctx.VersionNo), (Long) visit(ctx.UpgradeNo));
+		return new A2mlVersion((Long) visit(ctx.VersionNo), (Long) visit(ctx.UpgradeNo));
 	}
 
 	@Override
 	public Object visitAsap2_version_exp(a2lParser.Asap2_version_expContext ctx) {
-		return new Version((Long) visit(ctx.VersionNo), (Long) visit(ctx.UpgradeNo));
+		return new Asap2Version((Long) visit(ctx.VersionNo), (Long) visit(ctx.UpgradeNo));
 	}
 
 	@Override
@@ -69,8 +70,8 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 	public Object visitA2l_file(a2lParser.A2l_fileContext ctx) {
 		Asap2File a2l = new Asap2File();
 
-		a2l.setA2mlVersion((Version) visitSingleOpt(ctx.a2ml_version_exp()));
-		a2l.setAsap2Version((Version) visitSingleOpt(ctx.asap2_version_exp()));
+		a2l.setA2mlVersion((A2mlVersion) visitSingleOpt(ctx.a2ml_version_exp()));
+		a2l.setAsap2Version((Asap2Version) visitSingleOpt(ctx.asap2_version_exp()));
 
 		Project p = (Project) visitOpt(ctx.project_block());
 		a2l.setProject(p);
@@ -704,7 +705,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 		Compu_method_sub_nodesContext sn = ctx.compu_method_sub_nodes();
 		c.setCoeffs((Coeffs) visitSingleOpt(sn.coeffs_exp()));
-		c.setCoeffsLienar((CoeffsLinear) visitSingleOpt(sn.coeffs_linear_exp()));
+		c.setCoeffsLinear((CoeffsLinear) visitSingleOpt(sn.coeffs_linear_exp()));
 		c.setCompuTab_ref((String) visitSingleOpt(sn.compu_tab_ref_exp()));
 		c.setFormula((Formula) visitSingleOpt(sn.formula_block()));
 		c.setUnit_ref((String) visitSingleOpt(sn.ref_unit_exp()));
@@ -2097,19 +2098,28 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 			return stringVal;
 		}
 
-		if (stringVal.startsWith("\"") && stringVal.endsWith("\"")) {
-			// remove trailing "
-			stringVal = stringVal.substring(1, stringVal.length() - 1);
-
-			return replaceEscapedCharacters(stringVal);
+		try {
+			return toJavaString(stringVal);
+		} catch (Exception e) {
+			log.log(stringToken.getLine(), stringToken.getCharPositionInLine(),
+					"Cannot match string: " + stringToken.getText());
 		}
-
-		log.log(stringToken.getLine(), stringToken.getCharPositionInLine(),
-				"Cannot match string: " + stringToken.getText());
+		
 		return stringVal;
 	}
+	
+	public static String toJavaString(String a2lString) throws InvalidParameterException {
+		if (a2lString.startsWith("\"") && a2lString.endsWith("\"")) {
+			// remove trailing "
+			a2lString = a2lString.substring(1, a2lString.length() - 1);
 
-	private String replaceEscapedCharacters(String string) {
+			return replaceEscapedCharacters(a2lString);
+		}
+		
+		throw new InvalidParameterException("The given string is not enclosed by \": " + a2lString);
+	}
+
+	private static String replaceEscapedCharacters(String string) {
 		String[] splittedDoubleBackslash = string.split("\\\\\\\\", -1);
 
 		for (int i = 0; i < splittedDoubleBackslash.length; i++) {

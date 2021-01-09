@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class Annotation {
+import java.io.IOException;
+
+public class Annotation implements IA2LWriteable {
 	private String label;
 	private String origin;
 	private AnnotationText text = new AnnotationText();
@@ -27,5 +29,24 @@ public class Annotation {
 
 	public void setText(AnnotationText text) {
 		this.text = text;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("ANNOTATION");
+		writer.indent();
+		
+		if(label != null) {
+			writer.writelnSpaced("ANNOTATION_LABEL", A2LWriter.toA2LString(label));
+		}
+		
+		if(origin != null) {
+			writer.writelnSpaced("ANNOTATION_ORIGIN", A2LWriter.toA2LString(origin));
+		}
+		
+		writer.write(text);
+		
+		writer.dedent();
+		writer.writelnEnd("ANNOTATION");
 	}
 }

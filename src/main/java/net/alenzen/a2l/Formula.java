@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class Formula {
+import java.io.IOException;
+
+public class Formula implements IA2LWriteable {
 	private String fx;
 
 	// optional parameters
@@ -20,5 +22,16 @@ public class Formula {
 
 	public void setGx(String gx) {
 		this.gx = gx;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("FORMULA", A2LWriter.toA2LString(fx));
+		writer.indent();
+		if(gx != null) {
+			writer.writelnSpaced("FORMULA_INV", A2LWriter.toA2LString(gx));
+		}
+		writer.dedent();
+		writer.writelnEnd("FORMULA");
 	}
 }

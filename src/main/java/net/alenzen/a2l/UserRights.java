@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class UserRights {
+public class UserRights implements IA2LWriteable {
 	private String userLevelId;
 
 	// optional parameters
@@ -31,5 +32,11 @@ public class UserRights {
 
 	public void setGroups(List<IdentReferenceList> groups) {
 		this.groups = groups;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 }

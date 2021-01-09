@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class Group {
+public class Group implements IA2LWriteable {
 	private String groupName;
 	private String longIdentifier;
 
@@ -85,5 +86,33 @@ public class Group {
 
 	public void setSubGroups(IdentReferenceList subGroups) {
 		this.subGroups = subGroups;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("GROUP", groupName, A2LWriter.toA2LString(longIdentifier));
+		writer.indent();
+		
+		writer.write(annotations);
+		writer.write(functionList);
+		writer.write(ifDatas);
+		
+		toA2lIfAvailable(writer, refCharacteristics, "REF_CHARACTERISTIC");
+		toA2lIfAvailable(writer, refMeasurements, "REF_MEASUREMENT");
+		
+		if(root) {
+			writer.writeln("ROOT");
+		}
+		
+		toA2lIfAvailable(writer, subGroups, "SUB_GROUP");
+		
+		writer.dedent();
+		writer.writelnEnd("GROUP");
+	}
+	
+	private static void toA2lIfAvailable(A2LWriter writer, IdentReferenceList lst, String name) throws IOException {
+		if (lst != null && lst.size() > 0) {
+			lst.toA2lAsBlock(writer, name);
+		}
 	}
 }

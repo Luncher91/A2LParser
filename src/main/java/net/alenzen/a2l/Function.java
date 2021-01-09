@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class Function {
+public class Function implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 
@@ -103,5 +104,35 @@ public class Function {
 
 	public void setSubFunctions(IdentReferenceList subFunctions) {
 		this.subFunctions = subFunctions;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("FUNCTION", name, A2LWriter.toA2LString(longIdentifier));
+		writer.indent();
+
+		writer.write(annotations);
+		
+		toA2lIfAvailable(writer, defCharacteristics, "DEF_CHARACTERISTIC");
+
+		if (functionVersion != null) {
+			writer.writelnSpaced("FUNCTION_VERSION", A2LWriter.toA2LString(functionVersion));
+		}
+		
+		writer.write(ifDatas);
+		toA2lIfAvailable(writer, inMeasurments, "IN_MEASUREMENT");
+		toA2lIfAvailable(writer, locMeasurments, "LOC_MEASUREMENT");
+		toA2lIfAvailable(writer, outMeasurments, "OUT_MEASUREMENT");
+		toA2lIfAvailable(writer, refCharacteristics, "REF_CHARACTERISTIC");
+		toA2lIfAvailable(writer, subFunctions, "SUB_FUNCTION");
+
+		writer.dedent();
+		writer.writelnEnd("FUNCTION");
+	}
+	
+	private static void toA2lIfAvailable(A2LWriter writer, IdentReferenceList lst, String name) throws IOException {
+		if (lst != null && lst.size() > 0) {
+			lst.toA2lAsBlock(writer, name);
+		}
 	}
 }

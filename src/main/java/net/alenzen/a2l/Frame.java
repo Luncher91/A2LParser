@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class Frame {
+public class Frame implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private long scalingUnit;
@@ -58,5 +59,19 @@ public class Frame {
 
 	public void setIfDatas(List<IfData> ifDatas) {
 		this.ifDatas = ifDatas;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("FRAME", name, A2LWriter.toA2LString(longIdentifier), Long.toString(scalingUnit), Long.toString(rate));
+		writer.indent();
+
+		if(frameMeasurements != null && frameMeasurements.size() > 0) {
+			frameMeasurements.toA2l(writer, "FRAME_MEASUREMENT");
+		}
+		writer.write(ifDatas);
+		
+		writer.dedent();
+		writer.writelnEnd("FRAME");
 	}
 }

@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class ModPar {
+public class ModPar implements IA2LWriteable {
 	private String comment;
 
 	// optional parameters
@@ -157,5 +158,11 @@ public class ModPar {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 }

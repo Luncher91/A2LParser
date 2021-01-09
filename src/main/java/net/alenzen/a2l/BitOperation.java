@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class BitOperation {
+import java.io.IOException;
+
+public class BitOperation implements IA2LWriteable {
 	// optional parameters
 	private Long leftShift;
 	private Long rightShift;
@@ -28,5 +30,26 @@ public class BitOperation {
 
 	public void setSignExtend(boolean signExtend) {
 		this.signExtend = signExtend;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("BIT_OPERATION");
+		writer.indent();
+		
+		if(leftShift != null) {
+			writer.writelnSpaced("LEFT_SHIFT", leftShift.toString());
+		}
+		
+		if(rightShift != null) {
+			writer.writelnSpaced("RIGHT_SHIFT", rightShift.toString());
+		}
+		
+		if(signExtend) {
+			writer.writeln("SIGN_EXTEND");
+		}
+		
+		writer.dedent();
+		writer.writelnEnd("BIT_OPERATION");
 	}
 }

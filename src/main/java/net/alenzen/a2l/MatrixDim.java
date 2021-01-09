@@ -1,31 +1,38 @@
 package net.alenzen.a2l;
 
-public class MatrixDim {
-	private Long xDim;
-	private Long yDim;
-	private Long zDim;
+import java.io.IOException;
 
-	public Long getxDim() {
+public class MatrixDim implements IA2LWriteable {
+	private long xDim;
+	private long yDim;
+	private long zDim;
+
+	public long getxDim() {
 		return xDim;
 	}
 
-	public void setxDim(Long xDim) {
+	public void setxDim(long xDim) {
 		this.xDim = xDim;
 	}
 
-	public Long getyDim() {
+	public long getyDim() {
 		return yDim;
 	}
 
-	public void setyDim(Long yDim) {
+	public void setyDim(long yDim) {
 		this.yDim = yDim;
 	}
 
-	public Long getzDim() {
+	public long getzDim() {
 		return zDim;
 	}
 
-	public void setzDim(Long zDim) {
+	public void setzDim(long zDim) {
 		this.zDim = zDim;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnSpaced("MATRIX_DIM", Long.toString(xDim), Long.toString(yDim), Long.toString(zDim));
 	}
 }

@@ -1,5 +1,6 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import net.alenzen.a2l.enums.CalibrationAccess;
 import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.Monotony;
 
-public class AxisPts {
+public class AxisPts implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private long address;
@@ -252,5 +253,75 @@ public class AxisPts {
 
 	public void setConversion(String conversion) {
 		this.conversion = conversion;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("AXIS_PTS", 
+				name, 
+				A2LWriter.toA2LString(longIdentifier), 
+				Long.toString(address),
+				inputQuantitiy,
+				deposit,
+				Double.toString(maxDiff),
+				conversion,
+				Long.toString(maxAxisPoints),
+				Double.toString(lowerLimit),
+				Double.toString(upperLimit));
+		writer.indent();
+		
+		writer.write(notes);
+		writer.write(byteorder);
+		writer.write(access);
+		
+		if(axisPointDeposit != null) {
+			writer.write(axisPointDeposit);
+		}
+		
+		if(displayIdentifier != null) {
+			writer.writelnSpaced("DISPLAY_IDENTIFIER", displayIdentifier);
+		}
+		
+		if(ecuAddressExtension != null) {
+			writer.writelnSpaced("ECU_ADDRESS_EXTENSION", ecuAddressExtension.toString());
+		}
+		
+		writer.write(extendedLimits);
+		
+		if(format != null ) {
+			writer.writelnSpaced("FORMAT", A2LWriter.toA2LString(format));
+		}
+		
+		writer.write(functions);
+		
+		if(guardRails) {
+			writer.write("GUARD_RAILS");
+		}
+		
+		writer.write(ifData);
+		writer.write(monotony);
+		
+		if(physUnit != null) {
+			writer.writelnSpaced("PHYS_UNIT", A2LWriter.toA2LString(physUnit));
+		}
+		
+		if(readOnly) {
+			writer.write("READ_ONLY");
+		}
+		
+		if(memorySegment != null) {
+			writer.writelnSpaced("REF_MEMORY_SEGMENT", memorySegment);
+		}
+		
+		if(stepSize != null) {
+			writer.writelnSpaced("STEP_SIZE", stepSize.toString());
+		}
+		
+		if(symbolLink != null) {
+			writer.writelnSpaced("SYMBOL_LINK", symbolLink);
+		}
+		
+		writer.dedent();
+		writer.writelnEnd("AXIS_PTS");
 	}
 }

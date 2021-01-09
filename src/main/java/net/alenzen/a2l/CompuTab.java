@@ -1,10 +1,11 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
 import net.alenzen.a2l.enums.ConversionType;
 
-public class CompuTab {
+public class CompuTab implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private ConversionType conversionType;
@@ -43,6 +44,11 @@ public class CompuTab {
 		return numberOfValuePairs;
 	}
 
+	/**
+	 * NumberOfValuePairs will actually not being used to write A2L.
+	 * Instead the actual size of the ValuePairs list will be written.
+	 * @param numberOfValuePairs
+	 */
 	public void setNumberOfValuePairs(long numberOfValuePairs) {
 		this.numberOfValuePairs = numberOfValuePairs;
 	}
@@ -69,5 +75,31 @@ public class CompuTab {
 
 	public void setDefaultValueNumeric(Double defaultValueNumeric) {
 		this.defaultValueNumeric = defaultValueNumeric;
+	}
+
+	/*
+	 * Instead of writing out the NumberOfValuePairs attribute 
+	 * the actual size of the array of valuePairs will be written.
+	 */
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("COMPU_TAB", name, A2LWriter.toA2LString(longIdentifier), conversionType.name(),
+				Integer.toString(valuePairs.size()));
+		writer.indent();
+
+		for(ValuePair<Double, Double> p : valuePairs) {
+			writer.writelnSpaced(Double.toString(p.getInVal()), Double.toString(p.getOutVal()));
+		}
+
+		if (defaultValue != null) {
+			writer.writelnSpaced("DEFAULT_VALUE", A2LWriter.toA2LString(defaultValue));
+		}
+
+		if (defaultValueNumeric != null) {
+			writer.writelnSpaced("DEFAULT_VALUE_NUMERIC", Double.toString(defaultValueNumeric));
+		}
+
+		writer.dedent();
+		writer.writelnEnd("COMPU_TAB");
 	}
 }

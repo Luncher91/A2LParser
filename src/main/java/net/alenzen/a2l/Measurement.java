@@ -1,11 +1,12 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.DataType;
 
-public class Measurement {
+public class Measurement implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private DataType datatype;
@@ -38,8 +39,13 @@ public class Measurement {
 	private SymbolLink symbolLink;
 	private Virtual virtual;
 
-	enum LayoutIndexMode {
-		ROW_DIR, COLUMN_DIR
+	enum LayoutIndexMode implements IA2LWriteable {
+		ROW_DIR, COLUMN_DIR;
+
+		@Override
+		public void writeTo(A2LWriter writer) throws IOException {
+			writer.writelnSpaced("LAYOUT", this.name());
+		}
 	}
 
 	public String getName() {
@@ -272,5 +278,74 @@ public class Measurement {
 
 	public void setVirtual(Virtual virtual) {
 		this.virtual = virtual;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("MEASUREMENT", name, A2LWriter.toA2LString(longIdentifier), datatype.name(),
+				conversion, Long.toString(resolution), Double.toString(accuracy), Double.toString(lowerLimit),
+				Double.toString(upperLimit));
+		writer.indent();
+
+		writer.write(annotations);
+		
+		if(arraySize != null) {
+			writer.writelnSpaced("ARRAY_SIZE", Long.toString(arraySize));
+		}
+		
+		if(bitMask != null) {
+			writer.writelnSpaced("BIT_MASK", "0x" + Long.toHexString(bitMask));
+		}
+		
+		writer.write(bitOperation);
+		writer.write(byteorder);
+		
+		if(discrete) {
+			writer.writeln("DISCRETE");
+		}
+		
+		if(displayIdentifier != null) {
+			writer.writelnSpaced("DISPLAY_IDENTIFIER", displayIdentifier);
+		}
+		
+		if(ecuAddress != null) {
+			writer.writelnSpaced("ECU_ADDRESS", "0x" + Long.toHexString(ecuAddress));
+		}
+		
+		if(ecuAddressExtension != null) {
+			writer.writelnSpaced("ECU_ADDRESS_EXTENSION", "0x" + Long.toHexString(ecuAddressExtension));
+		}
+		
+		if(errorMask != null) {
+			writer.writelnSpaced("ERROR_MASK", "0x" + Long.toHexString(errorMask));
+		}
+		
+		if(format != null) {
+			writer.writelnSpaced("FORMAT", A2LWriter.toA2LString(format));
+		}
+		
+		writer.write(functionList);
+		writer.write(ifDatas);
+		writer.write(layout);
+		writer.write(matrixDim);
+		writer.write(maxRefresh);
+		
+		if(physUnit != null) {
+			writer.writelnSpaced("PHYS_UNIT", A2LWriter.toA2LString(physUnit));
+		}
+		
+		if(readWrite) {
+			writer.writeln("READ_WRITE");
+		}
+		
+		if(memorySegment != null) {
+			writer.writelnSpaced("REF_MEMORY_SEGMENT", memorySegment);
+		}
+		
+		writer.write(symbolLink);
+		writer.write(virtual);
+		
+		writer.dedent();
+		writer.writelnEnd("MEASUREMENT");
 	}
 }

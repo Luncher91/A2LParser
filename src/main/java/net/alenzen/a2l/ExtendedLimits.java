@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class ExtendedLimits {
+import java.io.IOException;
+
+public class ExtendedLimits implements IA2LWriteable {
 	private double lowerLimit;
 	private double upperLimit;
 
@@ -18,5 +20,10 @@ public class ExtendedLimits {
 
 	public void setUpperLimit(double upperLimit) {
 		this.upperLimit = upperLimit;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnSpaced("EXTENDED_LIMITS", Double.toString(lowerLimit), Double.toString(upperLimit));
 	}
 }

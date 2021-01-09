@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class Header {
+import java.io.IOException;
+
+public class Header implements IA2LWriteable {
 	private String comment;
 
 	// optional parameters
@@ -29,5 +31,16 @@ public class Header {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("HEADER", A2LWriter.toA2LString(comment));
+		writer.indent();
+		
+		writer.writelnSpaced("PROJECT_NO", projectNo);
+		writer.writelnSpaced("VERSION", A2LWriter.toA2LString(version));	
+		
+		writer.dedent();
+		writer.writelnEnd("HEADER");
 	}
 }

@@ -1,12 +1,13 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.Monotony;
 
-public class AxisDescr {
+public class AxisDescr implements IA2LWriteable {
 	private Attribute attribute;
 	private String inputQuantity;
 	private String conversion;
@@ -201,5 +202,54 @@ public class AxisDescr {
 
 	public void setStepSize(Double stepSize) {
 		this.stepSize = stepSize;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("AXIS_DESCR", attribute.name(), inputQuantity, conversion,
+				Long.toString(maxAxisPoints), Double.toString(lowerLimit), Double.toString(upperLimit));
+		writer.indent();
+
+		writer.write(annotations);
+
+		if (axisPoints_ref != null) {
+			writer.writelnSpaced("AXIS_PTS_REF", axisPoints_ref);
+		}
+
+		writer.write(byteorder);
+
+		if (curveAxis_ref != null) {
+			writer.writelnSpaced("CURVE_AXIS_REF", curveAxis_ref);
+		}
+
+		writer.write(deposit);
+		writer.write(extendedLimits);
+		writer.write(fixAxisParDist);
+		writer.write(fixAxisParList);
+
+		if (format != null) {
+			writer.writelnSpaced("FORMAT", A2LWriter.toA2LString(format));
+		}
+
+		if (maxGrad != null) {
+			writer.writelnSpaced("MAX_GRAD", Double.toString(maxGrad));
+		}
+
+		writer.write(monotony);
+
+		if (physUnit != null) {
+			writer.writelnSpaced("PHYS_UNIT", A2LWriter.toA2LString(physUnit));
+		}
+
+		if (readOnly) {
+			writer.writeln("READ_ONLY");
+		}
+
+		if (stepSize != null) {
+			writer.writelnSpaced("STEP_SIZE", Double.toString(stepSize));
+		}
+
+		writer.dedent();
+		writer.writelnEnd("AXIS_DESCR");
 	}
 }
