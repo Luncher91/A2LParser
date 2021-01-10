@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class MemorySegment {
+public class MemorySegment implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private PrgType prgType;
@@ -97,5 +98,20 @@ public class MemorySegment {
 
 	public void setIfDatas(List<IfData> ifDatas) {
 		this.ifDatas = ifDatas;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("MEMORY_SEGMENT", name, A2LWriter.toA2LString(longIdentifier), prgType.name(), memoryType.name(), attribute.name(), "0x" + Long.toHexString(address), Long.toString(size));
+		writer.indent();
+		
+		for (long l : offset) {
+			writer.writeln(Long.toString(l));
+		}
+
+		writer.write(ifDatas);
+		
+		writer.dedent();
+		writer.writelnEnd("MEMORY_SEGMENT");
 	}
 }

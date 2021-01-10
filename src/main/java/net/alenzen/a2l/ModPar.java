@@ -162,7 +162,72 @@ public class ModPar implements IA2LWriteable {
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		// TODO Auto-generated method stub
+		writer.writelnBeginSpaced("MOD_PAR", A2LWriter.toA2LString(comment));
+		writer.indent();
+
+		writeAddresses(writer);
+		writer.write(calibrationMethods);
+
+		if (cpuType != null) {
+			writer.writelnSpaced("CPU_TYPE", A2LWriter.toA2LString(cpuType));
+		}
+
+		if (customer != null) {
+			writer.writelnSpaced("CUSTOMER", A2LWriter.toA2LString(customer));
+		}
+
+		if (customerNo != null) {
+			writer.writelnSpaced("CUSTOMER_NO", A2LWriter.toA2LString(customerNo));
+		}
+
+		if (ecu != null) {
+			writer.writelnSpaced("ECU", A2LWriter.toA2LString(ecu));
+		}
+
+		if (ecuCalibrationOffset != null) {
+			writer.writelnSpaced("ECU_CALIBRATION_OFFSET", Long.toString(ecuCalibrationOffset));
+		}
+
+		if (epk != null) {
+			writer.writelnSpaced("EPK", A2LWriter.toA2LString(epk));
+		}
+
+		writer.write(memoryLayouts);
+		writer.write(memorySegments);
 		
+		if(numberOfInterfaces != null) {
+			writer.writelnSpaced("NO_OF_INTERFACES", Long.toString(numberOfInterfaces));
+		}
+		
+		if(phoneNumber != null) {
+			writer.writelnSpaced("PHONE_NO", A2LWriter.toA2LString(phoneNumber));
+		}
+
+		if (supplier != null) {
+			writer.writelnSpaced("SUPPLIER", A2LWriter.toA2LString(supplier));
+		}
+
+		writer.write(systemConstants);
+		
+		if(user != null) {
+			writer.writelnSpaced("USER", A2LWriter.toA2LString(user));
+		}
+		
+		if(version != null) {
+			writer.writelnSpaced("VERSION", A2LWriter.toA2LString(version));
+		}
+
+		writer.dedent();
+		writer.writelnEnd("MOD_PAR");
+	}
+
+	private void writeAddresses(A2LWriter writer) throws IOException {
+		if (addresses != null && addresses.size() > 0) {
+			for (Long l : addresses) {
+				if (l != null) {
+					writer.writelnSpaced("ADDR_EPK", "0x" + Long.toHexString(l));
+				}
+			}
+		}
 	}
 }

@@ -24,7 +24,6 @@ public class SymbolLink implements IA2LWriteable {
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		// TODO Auto-generated method stub
-
+		writer.writelnSpaced("SYMBOL_LINK", A2LWriter.toA2LString(symbolName), Long.toString(offset));
 	}
 }

@@ -12,8 +12,17 @@ public class Virtual extends ArrayList<String> implements IA2LWriteable {
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		// TODO Auto-generated method stub
+		writer.writelnBeginSpaced("VIRTUAL");
+		writer.indent();
 		
+		for(String s : this) {
+			if(s != null) {
+				writer.writeln(s);
+			}
+		}
+		
+		writer.dedent();
+		writer.writelnEnd("VIRTUAL");
 	}
 
 }

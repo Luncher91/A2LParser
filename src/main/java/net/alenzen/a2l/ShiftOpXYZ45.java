@@ -21,4 +21,10 @@ public class ShiftOpXYZ45 {
 	public void setDataType(DataType dataType) {
 		this.dataType = dataType;
 	}
+	
+	public IA2LWriteable getA2lWritable(String dimension) {
+		return (A2LWriter writer) -> {
+			writer.writelnSpaced("SHIFT_OP_" + dimension, Long.toString(position), dataType.name());
+		};
+	}
 }

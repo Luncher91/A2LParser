@@ -75,7 +75,17 @@ public class Unit implements IA2LWriteable {
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		// TODO Auto-generated method stub
+		writer.writelnBeginSpaced("UNIT", name, A2LWriter.toA2LString(longIdentifier), A2LWriter.toA2LString(display), type.name());
+		writer.indent();
 		
+		if(unit_ref != null) {
+			writer.writelnSpaced("REF_UNIT", unit_ref);
+		}
+		
+		writer.write(siExponents);
+		writer.write(unitConversion);
+		
+		writer.dedent();
+		writer.writelnEnd("UNIT");
 	}
 }

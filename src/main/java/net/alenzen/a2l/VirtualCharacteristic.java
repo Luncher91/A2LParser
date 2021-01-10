@@ -24,7 +24,16 @@ public class VirtualCharacteristic implements IA2LWriteable {
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		// TODO Auto-generated method stub
-
+		writer.writelnBeginSpaced("VIRTUAL_CHARACTERISTIC", A2LWriter.toA2LString(formula));
+		writer.indent();
+		
+		if(characterstics != null) {
+			for(String s : characterstics) {
+				writer.writeln(s);
+			}
+		}
+		
+		writer.dedent();
+		writer.writelnEnd("VIRTUAL_CHARACTERISTIC");
 	}
 }

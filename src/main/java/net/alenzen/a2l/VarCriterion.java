@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class VarCriterion {
+public class VarCriterion implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 
@@ -49,5 +50,30 @@ public class VarCriterion {
 
 	public void setSelectionCharacteristic(String selectionCharacteristic) {
 		this.selectionCharacteristic = selectionCharacteristic;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("VAR_CRITERION", name, A2LWriter.toA2LString(longIdentifier));
+		writer.indent();
+
+		if (values != null) {
+			for (String s : values) {
+				if (s != null) {
+					writer.writeln(s);
+				}
+			}
+		}
+		
+		if(measurement != null) {
+			writer.writelnSpaced("VAR_MEASUREMENT", measurement);
+		}
+		
+		if(selectionCharacteristic != null) {
+			writer.writelnSpaced("VAR_SELECTION_CHARACTERISTIC", selectionCharacteristic);
+		}
+
+		writer.dedent();
+		writer.writelnEnd("VAR_CRITERION");
 	}
 }

@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-class CriterionTuple {
+import java.io.IOException;
+
+class CriterionTuple implements IA2LWriteable {
 	private String name;
 	private String value;
 
@@ -18,5 +20,10 @@ class CriterionTuple {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnSpaced(name, value);
 	}
 }

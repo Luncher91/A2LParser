@@ -1,8 +1,10 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
+
 import net.alenzen.a2l.enums.DataType;
 
-public class Identification {
+public class Identification implements IA2LWriteable {
 	private long position;
 	private DataType dataType;
 
@@ -20,5 +22,10 @@ public class Identification {
 
 	public void setDataType(DataType dataType) {
 		this.dataType = dataType;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnSpaced("IDENTIFICATION", Long.toString(position), dataType.name());
 	}
 }

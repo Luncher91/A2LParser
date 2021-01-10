@@ -41,4 +41,11 @@ public class AxisPtsXYZ45 {
 	public void setAddressing(AddrType addressing) {
 		this.addressing = addressing;
 	}
+
+	public IA2LWriteable getA2lWritable(String dimension) {
+		return (A2LWriter writer) -> {
+			writer.writelnSpaced("AXIS_PTS_" + dimension, Long.toString(position), datatype.name(), indexorder.name(),
+					addressing.name());
+		};
+	}
 }

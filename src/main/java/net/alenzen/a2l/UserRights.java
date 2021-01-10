@@ -36,7 +36,22 @@ public class UserRights implements IA2LWriteable {
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		// TODO Auto-generated method stub
+		writer.writelnBeginSpaced("USER_RIGHTS", userLevelId);
+		writer.indent();
 		
+		if(readOnly) {
+			writer.writeln("READ_ONLY");
+		}
+		
+		if(groups != null) {
+			for(IdentReferenceList g : groups) {
+				if(g != null) {
+					g.toA2lAsBlock(writer, "REF_GROUP");
+				}
+			}
+		}
+		
+		writer.dedent();
+		writer.writelnEnd("USER_RIGHTS");
 	}
 }

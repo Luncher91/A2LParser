@@ -224,6 +224,7 @@ public class AxisDescr implements IA2LWriteable {
 
 		writer.write(deposit);
 		writer.write(extendedLimits);
+		writer.write(fixAxisPar);
 		writer.write(fixAxisParDist);
 		writer.write(fixAxisParList);
 

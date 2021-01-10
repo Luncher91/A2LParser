@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class MemoryLayout {
+public class MemoryLayout implements IA2LWriteable {
 	private PrgType prgType;
 	private long address;
 	private long size;
@@ -53,5 +54,21 @@ public class MemoryLayout {
 
 	public void setIfDatas(List<IfData> ifDatas) {
 		this.ifDatas = ifDatas;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("MEMORY_LAYOUT", prgType.name(), "0x" + Long.toHexString(address),
+				Long.toString(size));
+		writer.indent();
+
+		for (long l : offset) {
+			writer.writeln(Long.toString(l));
+		}
+
+		writer.write(ifDatas);
+
+		writer.dedent();
+		writer.writelnEnd("MEMORY_LAYOUT");
 	}
 }

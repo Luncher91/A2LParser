@@ -10,8 +10,13 @@ public class VariantCoding implements IA2LWriteable {
 	private VarNaming varNaming;
 	private String varSeparator;
 
-	enum VarNaming {
-		NUMERIC
+	enum VarNaming implements IA2LWriteable {
+		NUMERIC;
+
+		@Override
+		public void writeTo(A2LWriter writer) throws IOException {
+			writer.writelnSpaced("VAR_NAMING", this.name());
+		}
 	}
 
 	public List<VarCharacteristic> getVarCharacteristics() {
@@ -56,7 +61,19 @@ public class VariantCoding implements IA2LWriteable {
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		// TODO Auto-generated method stub
-		
+		writer.writelnBeginSpaced("VARIANT_CODING");
+		writer.indent();
+
+		writer.write(varCharacteristics);
+		writer.write(varCriterion);
+		writer.write(varForbiddenComb);
+		writer.write(varNaming);
+
+		if (varSeparator != null) {
+			writer.writelnSpaced("VAR_SEPARATOR", A2LWriter.toA2LString(varSeparator));
+		}
+
+		writer.dedent();
+		writer.writelnEnd("VARIANT_CODING");
 	}
 }

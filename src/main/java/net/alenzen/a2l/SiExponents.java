@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
-public class SiExponents {
+import java.io.IOException;
+
+public class SiExponents implements IA2LWriteable {
 	private long length;
 	private long mass;
 	private long time;
@@ -63,5 +65,12 @@ public class SiExponents {
 
 	public void setLuminousIntensity(long luminousIntensity) {
 		this.luminousIntensity = luminousIntensity;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnSpaced("SI_EXPONENTS", Long.toString(length), Long.toString(mass), Long.toString(time),
+				Long.toString(electricCurrent), Long.toString(temperature), Long.toString(amountOfSubstance),
+				Long.toString(luminousIntensity));
 	}
 }

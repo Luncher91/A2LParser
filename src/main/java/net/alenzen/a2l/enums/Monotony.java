@@ -10,7 +10,6 @@ public enum Monotony implements IA2LWriteable {
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		// TODO Auto-generated method stub
-		
+		writer.writelnSpaced("MONOTONY", this.name());
 	}
 }

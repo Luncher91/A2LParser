@@ -110,7 +110,30 @@ public class ModCommon implements IA2LWriteable {
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		// TODO Auto-generated method stub
+		writer.writelnBeginSpaced("MOD_COMMON", A2LWriter.toA2LString(comment));
+		writer.indent();
+
+		writeLongOptionalAttribute(writer, "ALIGNMENT_BYTE", alignmentByte);		
+		writeLongOptionalAttribute(writer, "ALIGNMENT_FLOAT32_IEEE", alignmentFloat32IEEE);
+		writeLongOptionalAttribute(writer, "ALIGNMENT_FLOAT64_IEEE", alignmentFloat64IEEE);
+		writeLongOptionalAttribute(writer, "ALIGNMENT_INT64", alignmentInt64);
+		writeLongOptionalAttribute(writer, "ALIGNMENT_LONG", alignmentLong);
+		writeLongOptionalAttribute(writer, "ALIGNMENT_WORD", alignmentWord);
+		writer.write(byteorder);
+		writeLongOptionalAttribute(writer, "DATA_SIZE", dataSize);
+		writer.write(deposit);
 		
+		if(standardRecordLayout != null) {
+			writer.writelnSpaced("S_REC_LAYOUT", standardRecordLayout);
+		}
+		
+		writer.dedent();
+		writer.writelnEnd("MOD_COMMON");
+	}
+	
+	private static void writeLongOptionalAttribute(A2LWriter writer, String name, Long l) throws IOException {
+		if(l != null) {
+			writer.writelnSpaced(name, l.toString());
+		}
 	}
 }

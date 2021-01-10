@@ -21,4 +21,10 @@ public class SrcAddrXYZ45 {
 	public void setDataType(DataType dataType) {
 		this.dataType = dataType;
 	}
+	
+	public IA2LWriteable getA2lWritable(String dimension) {
+		return (A2LWriter writer) -> {
+			writer.writelnSpaced("SRC_ADDR_" + dimension, Long.toString(position), dataType.name());
+		};
+	}
 }

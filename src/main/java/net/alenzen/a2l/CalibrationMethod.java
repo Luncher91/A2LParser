@@ -1,8 +1,9 @@
 package net.alenzen.a2l;
 
+import java.io.IOException;
 import java.util.List;
 
-public class CalibrationMethod {
+public class CalibrationMethod implements IA2LWriteable {
 	private String name;
 	private long version;
 
@@ -31,5 +32,16 @@ public class CalibrationMethod {
 
 	public void setCalibrationHandles(List<CalibrationHandle> calibrationHandle) {
 		this.calibrationHandle = calibrationHandle;
+	}
+
+	@Override
+	public void writeTo(A2LWriter writer) throws IOException {
+		writer.writelnBeginSpaced("CALIBRATION_METHOD", A2LWriter.toA2LString(name), Long.toString(version));
+		writer.indent();
+
+		writer.write(calibrationHandle);
+
+		writer.dedent();
+		writer.writelnEnd("CALIBRATION_METHOD");
 	}
 }
