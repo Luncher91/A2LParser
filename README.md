@@ -64,7 +64,7 @@ This is a rough roadmap for the upcoming things I have in mind. I might repriori
 * ~~write unit tests~~ (done; 90.2% java code coverage)
 
 ## Epic 2: writing a2l files
-* generate A2L code from the object structure
+* ~~generate A2L code from the object structure~~
 
 ## Epic 3: handle includes
 * preprocess the a2l files to perform includes
