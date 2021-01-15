@@ -19,6 +19,12 @@ import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
 
@@ -152,16 +158,45 @@ public class Asap2Parser {
 	}
 
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
-		if (args.length < 1)
+		Options options = new Options();
+		
+		options.addOption("j", "json", true, "JSON file to convert to A2L");
+		options.addOption("a2l", "asap2", true, "Asap2 file to convert to JSON");
+		options.addOption("jsc", "jsonSchema", false, "Outputs the JSON schema for JSON outputs");
+		
+		CommandLineParser cmdParser = new DefaultParser();
+		CommandLine cmd;
+		try {
+			cmd = cmdParser.parse(options, args);
+		} catch (ParseException e) {
+			System.out.println(e.getMessage());
+			printHelp(options);
 			return;
-
-		if (args[0].startsWith("--schema")) {
+		}
+		
+		if (cmd.hasOption("jsc")) {
 			System.out.print(Asap2File.generateJsonSchema());
 			return;
 		}
 
-		Asap2Parser parser = new Asap2Parser(args[0]);
-		System.out.print(parser.parse().toJson());
+		if(cmd.hasOption("a2l")) {
+			Asap2Parser parser = new Asap2Parser(cmd.getOptionValue("a2l"));
+			System.out.print(parser.parse().toJson());
+			return;
+		}
+		
+		if(cmd.hasOption("j")) {
+			Asap2File a2l = Asap2File.fromJsonFile(cmd.getOptionValue("j"));
+			System.out.println(a2l.toA2L());
+			return;
+		}
+		
+		printHelp(options);
+	}
+
+	private static void printHelp(Options options) {
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp("A2LParser", options, true);
 	}
 
 }
