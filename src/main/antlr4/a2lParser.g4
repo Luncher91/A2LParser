@@ -235,7 +235,7 @@ calibration_method_sub_nodes: (
                                 calibration_handle_block
                               )*;
 
-calibration_handle_block : BEGIN CALIBRATION_HANDLE Handle+=int_value* calibration_handle_text_exp END CALIBRATION_HANDLE;
+calibration_handle_block : BEGIN CALIBRATION_HANDLE Handle+=int_value* calibration_handle_text_exp? END CALIBRATION_HANDLE;
 calibration_handle_text_exp : CALIBRATION_HANDLE_TEXT text=string_exp;
 
 ecu_calibration_offset_exp : ECU_CALIBRATION_OFFSET Offset=int_value;
