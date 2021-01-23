@@ -3,6 +3,7 @@ package net.alenzen.a2l;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -53,6 +54,11 @@ public class Asap2File {
 	public static Asap2File fromJsonFile(String jsonFilename) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.readValue(new File(jsonFilename), Asap2File.class);
+	}
+
+	public static Asap2File fromJsonStream(InputStream jsonInput) throws IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		return objectMapper.readValue(jsonInput, Asap2File.class);
 	}
 
 	public static Asap2File fromJson(String json) throws IOException {
