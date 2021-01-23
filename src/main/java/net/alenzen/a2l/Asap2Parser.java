@@ -199,7 +199,6 @@ public class Asap2Parser {
 
 		Option encodingOption = new Option("c", "encoding", true,
 				"Specify the encoding for the output file. e.g. US-ASCII, ISO-8859-1, UTF-8, UTF-16BE, UTF-16LE, UTF-32LE, UTF-32BE, UTF-16");
-		encodingOption.setOptionalArg(false);
 		options.addOption(encodingOption);
 
 		Option helpOption = new Option("h", "help", false, "Prints this help");
@@ -215,7 +214,6 @@ public class Asap2Parser {
 			return;
 		}
 
-
 		try (PrintStream outputStream = getPrintStream(cmd.getOptionValue("o"), cmd.getOptionValue("c"))) {
 			if (cmd.hasOption("h")) {
 				PrintStream stdOut = System.out;
@@ -226,7 +224,7 @@ public class Asap2Parser {
 				} finally {
 					System.setOut(stdOut);
 				}
-				
+
 				return;
 			}
 
@@ -272,7 +270,7 @@ public class Asap2Parser {
 			return System.out;
 		}
 
-		String csn = "";
+		String csn = Charset.defaultCharset().displayName();
 		if (encoding != null) {
 			csn = encoding;
 		}
