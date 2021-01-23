@@ -38,7 +38,30 @@ System.out.println("Project: " + fromJson.getProject().getName());
 
 ## Command Line Samples
 
+### Print out help
+
+```console
+java -jar A2LParser-2.0.0-jar-with-dependencies.jar --help
+```
+
+```console
+usage: A2LParser [-a2l <arg>] [-c <arg>] [-h] [-j <arg>] [-jsc] [-o <arg>]
+ -a2l,--asap2 <arg>    Either specify an A2L file or pipe A2L content to
+                       convert it to JSON
+ -c,--encoding <arg>   Specify the encoding for the output file. e.g.
+                       US-ASCII, ISO-8859-1, UTF-8, UTF-16BE, UTF-16LE,
+                       UTF-32LE, UTF-32BE, UTF-16
+ -h,--help             Prints this help
+ -j,--json <arg>       Either specify a JSON file or pipe JSON content to
+                       convert it to A2L
+ -jsc,--jsonSchema     Outputs the JSON schema for JSON outputs
+ -o,--output <arg>     Write result to file instead of std out
+```
+
 ### A2L to JSON
+
+It is possible to either give the parser a file path or stream the content to it through standard input while omitting the file path.
+
 ```console
 java -jar A2LParser-2.0.0-jar-with-dependencies.jar --json src/test/resources/freeTest.a2l
 ```
@@ -50,6 +73,9 @@ Output:
 ```
 
 ### JSON to A2L
+
+It is possible to either give the parser a file path or stream the content to it through standard input while omitting the file path.
+
 ```console
 java -jar A2LParser-2.0.0-jar-with-dependencies.jar --asap2 src/test/resources/freeTest.json
 ```
@@ -64,379 +90,18 @@ A2ML_VERSION 1 31
         PROJECT_NO Free42
         VERSION "V1.7.1"
     /end HEADER
-    /begin MODULE sample_module "great example with different escaped quotation \" marks like double quotes \" and backslash escaped at the end \""
-        /begin A2ML i am not parsed /end A2ML
-        /begin AXIS_PTS axis_pts_1 "I am a long identifier of an AXIS_PTS object" 11259375 in_quant axis_pts_deposit 1.1 axis_pts_conv 123 1.2 1.3
-            BYTE_ORDER MSB_FIRST
-            CALIBRATION_ACCESS NOT_IN_MCD_SYSTEM
-            DEPOSIT DIFFERENCE
-            DISPLAY_IDENTIFIER display.identifier.wohoo
-            ECU_ADDRESS_EXTENSION 38787
-            EXTENDED_LIMITS 0.1 0.5
-            FORMAT "%1212.21"
-            MONOTONY NOT_MON
-            PHYS_UNIT "m/(s*s)"
-            REF_MEMORY_SEGMENT memorySegment.42
-            STEP_SIZE 820.028
-        /end AXIS_PTS
-        /begin CHARACTERISTIC char_a "description here" CUBE_5 0x123 char_deposit 1.1 char_conv 0.0 10.0
-            /begin ANNOTATION
-                /begin ANNOTATION_TEXT
-                    "hello world"
-                /end ANNOTATION_TEXT
-            /end ANNOTATION
-            /begin AXIS_DESCR CURVE_AXIS in_quant_char char_axis_descr_conv 22 5.5 21.21
-                AXIS_PTS_REF axisPtsA
-                BYTE_ORDER MSB_FIRST
-                CURVE_AXIS_REF curveAxisA
-                DEPOSIT DIFFERENCE
-                FIX_AXIS_PAR 2 4 8
-                FIX_AXIS_PAR_DIST 4 16 32
-                /begin FIX_AXIS_PAR_LIST
-                    1.1
-                    2.2
-                    3.3
-                    4.4
-                    5.5
-                /end FIX_AXIS_PAR_LIST
-                FORMAT "%3.3"
-                MAX_GRAD 30.0
-                MONOTONY NOT_MON
-                PHYS_UNIT "m/(s*s)"
-                READ_ONLY
-                STEP_SIZE 1.2
-            /end AXIS_DESCR
-            BIT_MASK 0xffffff
-            BYTE_ORDER MSB_LAST
-            CALIBRATION_ACCESS CALIBRATION
-            COMPARISON_QUANTITY comparisonQuantity
-            /begin DEPENDENT_CHARACTERISTIC "X1*X2"
-                characA
-                characB
-            /end DEPENDENT_CHARACTERISTIC
-            DISCRETE
-            DISPLAY_IDENTIFIER display_ident_char
-            ECU_ADDRESS_EXTENSION 0x2710
-            EXTENDED_LIMITS 1.1 5.5
-            FORMAT "%12.12"
-            /begin FUNCTION_LIST
-                f1
-                f2
-                f3
-            /end FUNCTION_LIST
-            /begin IF_DATA i am not parsed yet /end IF_DATA
-            /begin MAP_LIST
-                identA
-                identB
-            /end MAP_LIST
-            MATRIX_DIM 3 4 5
-            MAX_REFRESH 6 10
-            NUMBER 1233123
-            PHYS_UNIT "kg"
-            READ_ONLY
-            REF_MEMORY_SEGMENT memory_seg_ref
-            STEP_SIZE 99.9
-            SYMBOL_LINK "symbol name char" 7
-            /begin VIRTUAL_CHARACTERISTIC "sin(cos(X2-X1))"
-                characteristicA
-                characteristicB
-            /end VIRTUAL_CHARACTERISTIC
-        /end CHARACTERISTIC
-        /begin COMPU_METHOD THE.IDENTITY "very unique" RAT_FUNC "%8.4" "?"
-            COEFFS 0.0 1.1 0.0 0.0 0.0 1.1
-            COEFFS_LINEAR 7.1 -12.5
-        /end COMPU_METHOD
-        /begin COMPU_METHOD THE.FORMULA "very unique" FORM "%8.4" "?"
-            /begin FORMULA "X1-42"
-                FORMULA_INV "X1+42"
-            /end FORMULA
-        /end COMPU_METHOD
-        /begin COMPU_TAB PERFECT_COMPU.TAB "very perfect compu tab" TAB_INTP 5
-            -1.1 -1.1
-            1.0 -1.0
-            1.123456 0.312312
-            3123.0 3123.0
-            0.0 0.0
-            DEFAULT_VALUE "invalid input value"
-        /end COMPU_TAB
-        /begin COMPU_VTAB firstVtab "very first vtab" TAB_VERB 3
-            1.1 "first entry"
-            0.9 "second entry"
-            0.0 "third entry"
-            DEFAULT_VALUE "default value"
-        /end COMPU_VTAB
-        /begin COMPU_VTAB_RANGE sophisticated.vtabRange "I am very sophisticated, trust me" 4
-            -5.5 5.5 "from minus five point five to five point five"
-            5.5 10.0 "from five point five to ten"
-            10.0 100.0 "from ten to one hundred"
-            100.0 200.0 "from one hundred to two hundred"
-            DEFAULT_VALUE "default"
-        /end COMPU_VTAB_RANGE
-        /begin FRAME frame "big frame" 7 49
-            FRAME_MEASUREMENT
-            identA
-            identB
-            identC
-        /end FRAME
-        /begin FUNCTION firstFunction "very first function"
-            /begin DEF_CHARACTERISTIC
-                char1
-                char2
-                char3
-            /end DEF_CHARACTERISTIC
-            FUNCTION_VERSION "version3.1.4.1"
-            /begin IN_MEASUREMENT
-                meas1
-                meas2
-                meas3
-            /end IN_MEASUREMENT
-            /begin LOC_MEASUREMENT
-                locMeas1
-                locMeas2
-                locMeas3
-            /end LOC_MEASUREMENT
-            /begin OUT_MEASUREMENT
-                outMeas1
-                outMeas2
-                outMeas3
-            /end OUT_MEASUREMENT
-            /begin REF_CHARACTERISTIC
-                refChar1
-                refChar2
-                refChar3
-            /end REF_CHARACTERISTIC
-            /begin SUB_FUNCTION
-                subFunc1
-                subFunc2
-                subFunc3
-            /end SUB_FUNCTION
-        /end FUNCTION
-        /begin GROUP groupies "stick to the group"
-            /begin REF_CHARACTERISTIC
-                refChar1
-                refChar2
-                refChar3
-            /end REF_CHARACTERISTIC
-            /begin REF_MEASUREMENT
-                meas1
-                meas2
-                meas3
-            /end REF_MEASUREMENT
-            ROOT
-            /begin SUB_GROUP
-                subGroup1
-                subGroup2
-                subGroup3
-            /end SUB_GROUP
-        /end GROUP
-        /begin MEASUREMENT superMeasurement "ultimate test" UBYTE THE.IDENTITY 1 2.1 4.2 255.0
-            /begin ANNOTATION
-                ANNOTATION_LABEL "annotation I"
-                ANNOTATION_ORIGIN "me"
-                /begin ANNOTATION_TEXT
-                    "row \\\'1\'\\"
-                    "row \'2\'\r\n"
-                    "row\t3"
-                /end ANNOTATION_TEXT
-            /end ANNOTATION
-            ARRAY_SIZE 7
-            BIT_MASK 0xafff
-            /begin BIT_OPERATION
-                RIGHT_SHIFT 4
-                SIGN_EXTEND
-            /end BIT_OPERATION
-            BYTE_ORDER MSB_FIRST
-            DISCRETE
-            DISPLAY_IDENTIFIER mega.superMeasurement
-            ECU_ADDRESS 0xabcdef
-            ECU_ADDRESS_EXTENSION 0xff
-            ERROR_MASK 0xe
-            FORMAT "%3.1"
-            /begin FUNCTION_LIST
-                firstFunction
-                secondFunction
-                thirdFunction
-            /end FUNCTION_LIST
-            /begin IF_DATA i am not parsed yet /end IF_DATA
-            LAYOUT ROW_DIR
-            MATRIX_DIM 7 8 10
-            MAX_REFRESH 12 42
-            PHYS_UNIT "kg/m"
-            READ_WRITE
-            REF_MEMORY_SEGMENT mem1
-            SYMBOL_LINK "symbol name" 84
-            /begin VIRTUAL
-                meas_1
-                meas_2
-            /end VIRTUAL
-        /end MEASUREMENT
-        /begin MOD_COMMON ""
-            ALIGNMENT_BYTE 2
-            ALIGNMENT_FLOAT32_IEEE 8
-            ALIGNMENT_FLOAT64_IEEE 8
-            ALIGNMENT_LONG 3
-            ALIGNMENT_WORD 1
-            BYTE_ORDER MSB_FIRST
-            DATA_SIZE 128
-            DEPOSIT DIFFERENCE
-        /end MOD_COMMON
-        /begin MOD_PAR "cmt"
-            ADDR_EPK 0x12
-            ADDR_EPK 0x123456
-            ADDR_EPK 0xf
-            /begin CALIBRATION_METHOD "methodA" 3141
-                /begin CALIBRATION_HANDLE
-                    0x10000
-                    0x300
-                    0x7
-                    0x700000
-                    0x40000
-                    CALIBRATION_HANDLE_TEXT "important!"
-                /end CALIBRATION_HANDLE
-            /end CALIBRATION_METHOD
-            CPU_TYPE "RISC"
-            CUSTOMER "public domain"
-            CUSTOMER_NO "42"
-            ECU "RISC-V"
-            ECU_CALIBRATION_OFFSET 84
-            EPK "EPROM_identification - should it be a string or an identifier?"
-            /begin MEMORY_LAYOUT PRG_CODE 0x10 4096
-                5
-                4
-                3
-                2
-                1
-            /end MEMORY_LAYOUT
-            /begin MEMORY_SEGMENT mem1 "lots of code in internal flash" CODE FLASH INTERN 0x42 4096
-                -1
-                -1
-                -1
-                -1
-                -1
-            /end MEMORY_SEGMENT
-            NO_OF_INTERFACES 168
-            PHONE_NO "911"
-            SUPPLIER "Andreas Lenzen"
-            SYSTEM_CONSTANT "close to 1" "value 1"
-            SYSTEM_CONSTANT "pi" "about 3"
-            USER "A2l stakeholders"
-            VERSION "Very high :-)"
-        /end MOD_PAR
-        /begin RECORD_LAYOUT master_record
-            ALIGNMENT_BYTE 2
-            ALIGNMENT_FLOAT32_IEEE 4
-            ALIGNMENT_FLOAT64_IEEE 8
-            ALIGNMENT_INT64 16
-            ALIGNMENT_LONG 32
-            ALIGNMENT_WORD 64
-            AXIS_PTS_X 1 SBYTE INDEX_INCR DIRECT
-            AXIS_PTS_Y 2 UBYTE INDEX_DECR PBYTE
-            AXIS_PTS_Z 3 UBYTE INDEX_DECR PBYTE
-            AXIS_PTS_4 4 UBYTE INDEX_DECR PBYTE
-            AXIS_PTS_5 5 UBYTE INDEX_DECR PBYTE
-            AXIS_RESCALE_X 6 UBYTE 3141 INDEX_DECR PBYTE
-            AXIS_RESCALE_Y 7 UBYTE 3141 INDEX_DECR PBYTE
-            AXIS_RESCALE_Z 8 UBYTE 3141 INDEX_DECR PBYTE
-            AXIS_RESCALE_4 9 UBYTE 3141 INDEX_DECR PBYTE
-            AXIS_RESCALE_5 10 UBYTE 3141 INDEX_DECR PBYTE
-            DIST_OP_X 11 SBYTE
-            DIST_OP_Y 12 SBYTE
-            DIST_OP_Z 13 SBYTE
-            DIST_OP_4 14 SBYTE
-            DIST_OP_5 15 SBYTE
-            FIX_NO_AXIS_PTS_X 1
-            FIX_NO_AXIS_PTS_Y 2
-            FIX_NO_AXIS_PTS_Z 3
-            FIX_NO_AXIS_PTS_4 4
-            FIX_NO_AXIS_PTS_5 5
-            FNC_VALUES 47 UBYTE ALTERNATE_CURVES PLONG
-            IDENTIFICATION 48 ULONG
-            NO_AXIS_PTS_X 16 UBYTE
-            NO_AXIS_PTS_Y 17 UBYTE
-            NO_AXIS_PTS_Z 18 UBYTE
-            NO_AXIS_PTS_4 19 UBYTE
-            NO_AXIS_PTS_5 20 UBYTE
-            NO_RESCALE_X 21 ULONG
-            NO_RESCALE_Y 22 ULONG
-            NO_RESCALE_Z 23 ULONG
-            NO_RESCALE_4 24 ULONG
-            NO_RESCALE_5 25 ULONG
-            OFFSET_X 26 ULONG
-            OFFSET_Y 27 ULONG
-            OFFSET_Z 28 ULONG
-            OFFSET_4 29 ULONG
-            OFFSET_5 30 ULONG
-            RESERVED 49 LONG
-            RESERVED 50 WORD
-            RIP_ADDR_W 31 ULONG
-            RIP_ADDR_X 32 ULONG
-            RIP_ADDR_Y 33 ULONG
-            RIP_ADDR_Z 34 ULONG
-            RIP_ADDR_4 35 ULONG
-            RIP_ADDR_5 36 ULONG
-            SRC_ADDR_X 37 ULONG
-            SRC_ADDR_Y 38 ULONG
-            SRC_ADDR_Z 39 ULONG
-            SRC_ADDR_4 40 ULONG
-            SRC_ADDR_5 41 ULONG
-            SHIFT_OP_X 42 ULONG
-            SHIFT_OP_Y 43 ULONG
-            SHIFT_OP_Z 44 ULONG
-            SHIFT_OP_4 45 ULONG
-            SHIFT_OP_5 46 ULONG
-            STATIC_RECORD_LAYOUT
-        /end RECORD_LAYOUT
-        /begin UNIT unitA "detailed description with spaces" "display string" DERIVED
-            REF_UNIT unitB
-            SI_EXPONENTS 5 2 7 10 12 14 16
-            UNIT_CONVERSION 10.1 2.2
-        /end UNIT
-        /begin USER_RIGHTS admins
-            READ_ONLY
-            /begin REF_GROUP
-                g1
-                g2
-                g3
-            /end REF_GROUP
-        /end USER_RIGHTS
-        /begin VARIANT_CODING
-            /begin VAR_CHARACTERISTIC varChar
-                crit1
-                crit2
-                crit3
-                /begin VAR_ADDRESS
-                    0x7444
-                    0x7445
-                    0x7446
-                    0x7447
-                /end VAR_ADDRESS
-            /end VAR_CHARACTERISTIC
-            /begin VAR_CRITERION varCriterion "var criterion"
-                A
-                B
-                C
-                D
-                E
-                F
-                VAR_MEASUREMENT superA
-                VAR_SELECTION_CHARACTERISTIC varSelectionCharac
-            /end VAR_CRITERION
-            /begin VAR_FORBIDDEN_COMB
-                varCriterion D
-                varCriterion F
-            /end VAR_FORBIDDEN_COMB
-            VAR_NAMING NUMERIC
-            VAR_SEPARATOR "#"
-        /end VARIANT_CODING
-        /begin BLOB i am not parsed neither /end BLOB
-    /end MODULE
+    [...]
 /end PROJECT
 ```
 
 ### JSON Schema
 
 ```console
-java -jar A2LParser-2.0.0-jar-with-dependencies.jar --schema
+java -jar A2LParser-2.0.0-jar-with-dependencies.jar --jsonSchema
+```
+
+```console
+{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Asap2File","properties":{"a2mlVersion":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:A2mlVersion","properties":{"versionNo":{"type":"integer"},"upgradeNo":{"type":"integer"}}},"asap2Version":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Asap2Version","properties":{"versionNo":{"type":"integer"},"upgradeNo":{"type":"integer"}}},"project":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Project","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"header":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Header","properties":{"comment":{"type":"string"},"projectNo":{"type":"string"},"version":{"type":"string"}}},"modules":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Module","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"a2ml":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:A2ml","properties":{"content":{"type":"string"}}}},"axisPts":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:AxisPts","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"address":{"type":"integer"},"inputQuantitiy":{"type":"string"},"deposit":{"type":"string"},"maxDiff":{"type":"number"},"conversion":{"type":"string"},"maxAxisPoints":{"type":"integer"},"lowerLimit":{"type":"number"},"upperLimit":{"type":"number"},"notes":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Annotation","properties":{"label":{"type":"string"},"origin":{"type":"string"},"text":{"type":"array","items":{"type":"string"}}}}},"byteorder":{"type":"string","enum":["LITTLE_ENDIAN","BIG_ENDIAN","MSB_LAST","MSB_FIRST"]},"access":{"type":"string","enum":["CALIBRATION","NO_CALIBRATION","NOT_IN_MCD_SYSTEM","OFFLINE_CALIBRATION"]},"axisPointDeposit":{"type":"string","enum":["ABSOLUTE","DIFFERENCE"]},"displayIdentifier":{"type":"string"},"ecuAddressExtension":{"type":"integer"},"extendedLimits":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:ExtendedLimits","properties":{"lowerLimit":{"type":"number"},"upperLimit":{"type":"number"}}},"format":{"type":"string"},"functions":{"type":"array","items":{"type":"string"}},"guardRails":{"type":"boolean"},"ifData":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:IfData","properties":{"content":{"type":"string"}}}},"monotony":{"type":"string","enum":["MON_DECREASE","MON_INCREASE","STRICT_DECREASE","STRICT_INCREASE","MONOTONOUS","STRICT_MON","NOT_MON"]},"physUnit":{"type":"string"},"readOnly":{"type":"boolean"},"memorySegment":{"type":"string"},"stepSize":{"type":"number"},"symbolLink":{"type":"string"}}}},"characteristics":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Characteristic","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"type":{"type":"string","enum":["ASCII","CURVE","MAP","CUBOID","CUBE_4","CUBE_5","VAL_BLK","VALUE"]},"address":{"type":"integer"},"deposit":{"type":"string"},"maxDiff":{"type":"number"},"conversion":{"type":"string"},"lowerLimit":{"type":"number"},"upperLimit":{"type":"number"},"notes":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:Annotation"}},"axisDescriptions":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:AxisDescr","properties":{"attribute":{"type":"string","enum":["CURVE_AXIS","COM_AXIS","FIX_AXIS","RES_AXIS","STD_AXIS"]},"inputQuantity":{"type":"string"},"conversion":{"type":"string"},"maxAxisPoints":{"type":"integer"},"lowerLimit":{"type":"number"},"upperLimit":{"type":"number"},"annotations":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:Annotation"}},"axisPoints_ref":{"type":"string"},"byteorder":{"type":"string","enum":["LITTLE_ENDIAN","BIG_ENDIAN","MSB_LAST","MSB_FIRST"]},"curveAxis_ref":{"type":"string"},"deposit":{"type":"string","enum":["ABSOLUTE","DIFFERENCE"]},"extendedLimits":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:ExtendedLimits"},"fixAxisPar":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:FixAxisPar","properties":{"offset":{"type":"integer"},"shift":{"type":"integer"},"numberapo":{"type":"integer"}}},"fixAxisParDist":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:FixAxisParDist","properties":{"offset":{"type":"integer"},"shift":{"type":"integer"},"numberapo":{"type":"integer"}}},"fixAxisParList":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:FixAxisParList","properties":{"axisPtsValues":{"type":"array","items":{"type":"number"}}}},"format":{"type":"string"},"maxGrad":{"type":"number"},"monotony":{"type":"string","enum":["MON_DECREASE","MON_INCREASE","STRICT_DECREASE","STRICT_INCREASE","MONOTONOUS","STRICT_MON","NOT_MON"]},"physUnit":{"type":"string"},"readOnly":{"type":"boolean"},"stepSize":{"type":"number"}}}},"bitmask":{"type":"integer"},"byteorder":{"type":"string","enum":["LITTLE_ENDIAN","BIG_ENDIAN","MSB_LAST","MSB_FIRST"]},"access":{"type":"string","enum":["CALIBRATION","NO_CALIBRATION","NOT_IN_MCD_SYSTEM","OFFLINE_CALIBRATION"]},"comparisonQuantityMeasurment":{"type":"string"},"dependetCharacteristic":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:DependentCharacteristic","properties":{"formula":{"type":"string"},"characterstics":{"type":"array","items":{"type":"string"}}}},"discrete":{"type":"boolean"},"displayIdentifier":{"type":"string"},"ecuAddressExtension":{"type":"integer"},"extendedLimits":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:ExtendedLimits"},"format":{"type":"string"},"functions":{"type":"array","items":{"type":"string"}},"guardRails":{"type":"boolean"},"ifData":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:IfData"}},"mapList":{"type":"array","items":{"type":"string"}},"matrixDim":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:MatrixDim","properties":{"xDim":{"type":"integer"},"yDim":{"type":"integer"},"zDim":{"type":"integer"}}},"maxRefresh":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:MaxRefresh","properties":{"scalingUnit":{"type":"integer"},"rate":{"type":"integer"}}},"number":{"type":"integer"},"physUnit":{"type":"string"},"readOnly":{"type":"boolean"},"memorySegment":{"type":"string"},"stepSize":{"type":"number"},"symbolLink":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:SymbolLink","properties":{"symbolName":{"type":"string"},"offset":{"type":"integer"}}},"virtualCharacteristic":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:VirtualCharacteristic","properties":{"formula":{"type":"string"},"characterstics":{"type":"array","items":{"type":"string"}}}}}}},"compuMethods":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:CompuMethod","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"conversionType":{"type":"string","enum":["IDENTICAL","FORM","LINEAR","RAT_FUNC","TAB_INTP","TAB_NOINTP","TAB_VERB"]},"format":{"type":"string"},"unit":{"type":"string"},"coeffs":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Coeffs","properties":{"a":{"type":"number"},"b":{"type":"number"},"c":{"type":"number"},"d":{"type":"number"},"e":{"type":"number"},"f":{"type":"number"}}},"coeffsLinear":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:CoeffsLinear","properties":{"a":{"type":"number"},"b":{"type":"number"}}},"compuTab_ref":{"type":"string"},"formula":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Formula","properties":{"fx":{"type":"string"},"gx":{"type":"string"}}},"unit_ref":{"type":"string"},"conversionTable_ref":{"type":"string"}}}},"compuTabs":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:CompuTab","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"conversionType":{"type":"string","enum":["IDENTICAL","FORM","LINEAR","RAT_FUNC","TAB_INTP","TAB_NOINTP","TAB_VERB"]},"numberOfValuePairs":{"type":"integer"},"valuePairs":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:ValuePair<java:lang:Double,java:lang:Double>","properties":{"inVal":{"type":"number"},"outVal":{"type":"number"}}}},"defaultValue":{"type":"string"},"defaultValueNumeric":{"type":"number"}}}},"compuVTabs":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:CompuVTab","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"conversionType":{"type":"string","enum":["IDENTICAL","FORM","LINEAR","RAT_FUNC","TAB_INTP","TAB_NOINTP","TAB_VERB"]},"numberOfValuePairs":{"type":"integer"},"valuePairs":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:ValuePair<java:lang:Double,java:lang:String>","properties":{"inVal":{"type":"number"},"outVal":{"type":"string"}}}},"defaultValue":{"type":"string"}}}},"compuVTabRanges":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:CompuVTabRange","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"numberOfValueTriples":{"type":"integer"},"valueTriples":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:ValueTriple<java:lang:Double,java:lang:String>","properties":{"inValMin":{"type":"number"},"inValMax":{"type":"number"},"outVal":{"type":"string"}}}},"defaultValue":{"type":"string"}}}},"frame":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Frame","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"scalingUnit":{"type":"integer"},"rate":{"type":"integer"},"frameMeasurements":{"type":"array","items":{"type":"string"}},"ifDatas":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:IfData"}}}},"functions":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Function","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"annotations":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:Annotation"}},"defCharacteristics":{"type":"array","items":{"type":"string"}},"functionVersion":{"type":"string"},"ifDatas":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:IfData"}},"inMeasurments":{"type":"array","items":{"type":"string"}},"locMeasurments":{"type":"array","items":{"type":"string"}},"outMeasurments":{"type":"array","items":{"type":"string"}},"refCharacteristics":{"type":"array","items":{"type":"string"}},"subFunctions":{"type":"array","items":{"type":"string"}}}}},"groups":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Group","properties":{"groupName":{"type":"string"},"longIdentifier":{"type":"string"},"annotations":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:Annotation"}},"functionList":{"type":"array","items":{"type":"string"}},"ifDatas":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:IfData"}},"refCharacteristics":{"type":"array","items":{"type":"string"}},"refMeasurements":{"type":"array","items":{"type":"string"}},"root":{"type":"boolean"},"subGroups":{"type":"array","items":{"type":"string"}}}}},"ifDatas":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:IfData"}},"measurements":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Measurement","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"datatype":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]},"conversion":{"type":"string"},"resolution":{"type":"integer"},"accuracy":{"type":"number"},"lowerLimit":{"type":"number"},"upperLimit":{"type":"number"},"annotations":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:Annotation"}},"arraySize":{"type":"integer"},"bitMask":{"type":"integer"},"bitOperation":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:BitOperation","properties":{"leftShift":{"type":"integer"},"rightShift":{"type":"integer"},"signExtend":{"type":"boolean"}}},"byteorder":{"type":"string","enum":["LITTLE_ENDIAN","BIG_ENDIAN","MSB_LAST","MSB_FIRST"]},"discrete":{"type":"boolean"},"displayIdentifier":{"type":"string"},"ecuAddress":{"type":"integer"},"ecuAddressExtension":{"type":"integer"},"errorMask":{"type":"integer"},"format":{"type":"string"},"functionList":{"type":"array","items":{"type":"string"}},"ifDatas":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:IfData"}},"layout":{"type":"string","enum":["ROW_DIR","COLUMN_DIR"]},"matrixDim":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:MatrixDim"},"maxRefresh":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:MaxRefresh"},"physUnit":{"type":"string"},"readWrite":{"type":"boolean"},"memorySegment":{"type":"string"},"symbolLink":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:SymbolLink"},"virtual":{"type":"array","items":{"type":"string"}}}}},"modCommon":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:ModCommon","properties":{"comment":{"type":"string"},"alignmentByte":{"type":"integer"},"alignmentFloat32IEEE":{"type":"integer"},"alignmentFloat64IEEE":{"type":"integer"},"alignmentInt64":{"type":"integer"},"alignmentLong":{"type":"integer"},"alignmentWord":{"type":"integer"},"byteorder":{"type":"string","enum":["LITTLE_ENDIAN","BIG_ENDIAN","MSB_LAST","MSB_FIRST"]},"dataSize":{"type":"integer"},"deposit":{"type":"string","enum":["ABSOLUTE","DIFFERENCE"]},"standardRecordLayout":{"type":"string"}}},"modPar":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:ModPar","properties":{"comment":{"type":"string"},"addresses":{"type":"array","items":{"type":"integer"}},"calibrationMethods":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:CalibrationMethod","properties":{"name":{"type":"string"},"version":{"type":"integer"},"calibrationHandle":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:CalibrationHandle","properties":{"handles":{"type":"array","items":{"type":"integer"}},"calibrationText":{"type":"string"}}}}}}},"cpuType":{"type":"string"},"customer":{"type":"string"},"customerNo":{"type":"string"},"ecu":{"type":"string"},"ecuCalibrationOffset":{"type":"integer"},"epk":{"type":"string"},"memoryLayouts":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:MemoryLayout","properties":{"prgType":{"type":"string","enum":["PRG_CODE","PRG_DATA","PRG_RESERVED"]},"address":{"type":"integer"},"size":{"type":"integer"},"offset":{"type":"array","items":{"type":"number"}},"ifDatas":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:IfData"}}}}},"memorySegments":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:MemorySegment","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"prgType":{"type":"string","enum":["CALIBRATION_VARIABLES","CODE","DATA","EXCLUDE_FROM_FLASH","OFFLINE_DATA","RESERVED","SERAM","VARIABLES"]},"memoryType":{"type":"string","enum":["EEPROM","EPROM","FLASH","RAM","ROM","REGISTER","NOT_IN_ECU"]},"attribute":{"type":"string","enum":["INTERN","EXTERN"]},"address":{"type":"integer"},"size":{"type":"integer"},"offset":{"type":"array","items":{"type":"number"}},"ifDatas":{"type":"array","items":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:IfData"}}}}},"numberOfInterfaces":{"type":"integer"},"phoneNumber":{"type":"string"},"supplier":{"type":"string"},"systemConstants":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:SystemConstant","properties":{"name":{"type":"string"},"value":{"type":"string"}}}},"user":{"type":"string"},"version":{"type":"string"}}},"recordLayouts":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:RecordLayout","properties":{"name":{"type":"string"},"alignmentByte":{"type":"integer"},"alignmentFloat32IEEE":{"type":"integer"},"alignmentFloat64IEEE":{"type":"integer"},"alignmentInt64":{"type":"integer"},"alignmentLong":{"type":"integer"},"alignmentWord":{"type":"integer"},"axisPtsX":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:AxisPtsXYZ45","properties":{"position":{"type":"integer"},"datatype":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]},"indexorder":{"type":"string","enum":["INDEX_INCR","INDEX_DECR"]},"addressing":{"type":"string","enum":["PBYTE","PWORD","PLONG","DIRECT"]}}},"axisPtsY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:AxisPtsXYZ45"},"axisPtsZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:AxisPtsXYZ45"},"axisPts4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:AxisPtsXYZ45"},"axisPts5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:AxisPtsXYZ45"},"axisRescaleX":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:AxisRescaleXYZ45","properties":{"position":{"type":"integer"},"datatype":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]},"maxNumberOfRescalePairs":{"type":"integer"},"indexorder":{"type":"string","enum":["INDEX_INCR","INDEX_DECR"]},"addressing":{"type":"string","enum":["PBYTE","PWORD","PLONG","DIRECT"]}}},"axisRescaleY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:AxisRescaleXYZ45"},"axisRescaleZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:AxisRescaleXYZ45"},"axisRescale4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:AxisRescaleXYZ45"},"axisRescale5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:AxisRescaleXYZ45"},"distOpX":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:DistOpXYZ45","properties":{"position":{"type":"integer"},"dataType":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]}}},"distOpY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:DistOpXYZ45"},"distOpZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:DistOpXYZ45"},"distOp4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:DistOpXYZ45"},"distOp5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:DistOpXYZ45"},"fixNoAxisPtsX":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:FixNoAxisPtsXYZ45","properties":{"numberOfAxisPoints":{"type":"integer"}}},"fixNoAxisPtsY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:FixNoAxisPtsXYZ45"},"fixNoAxisPtsZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:FixNoAxisPtsXYZ45"},"fixNoAxisPts4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:FixNoAxisPtsXYZ45"},"fixNoAxisPts5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:FixNoAxisPtsXYZ45"},"functionValues":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:FncValues","properties":{"position":{"type":"integer"},"dataType":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]},"indexMode":{"type":"string","enum":["ALTERNATE_CURVES","ALTERNATE_WITH_X","ALTERNATE_WITH_Y","COLUMN_DIR","ROW_DIR"]},"addressType":{"type":"string","enum":["PBYTE","PWORD","PLONG","DIRECT"]}}},"identification":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Identification","properties":{"position":{"type":"integer"},"dataType":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]}}},"noAxisPtsX":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:NoAxisPtsXYZ45","properties":{"position":{"type":"integer"},"dataType":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]}}},"noAxisPtsY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:NoAxisPtsXYZ45"},"noAxisPtsZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:NoAxisPtsXYZ45"},"noAxisPts4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:NoAxisPtsXYZ45"},"noAxisPts5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:NoAxisPtsXYZ45"},"noRescaleX":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:NoRescaleXYZ45","properties":{"position":{"type":"integer"},"dataType":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]}}},"noRescaleY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:NoRescaleXYZ45"},"noRescaleZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:NoRescaleXYZ45"},"noRescale4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:NoRescaleXYZ45"},"noRescale5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:NoRescaleXYZ45"},"offsetX":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:OffsetXYZ45","properties":{"position":{"type":"integer"},"dataType":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]}}},"offsetY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:OffsetXYZ45"},"offsetZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:OffsetXYZ45"},"offset4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:OffsetXYZ45"},"offset5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:OffsetXYZ45"},"reserved":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Reserved","properties":{"position":{"type":"integer"},"dataSize":{"type":"string","enum":["BYTE","WORD","LONG"]}}}},"ripAddressW":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:RipAddrWXYZ45","properties":{"position":{"type":"integer"},"dataType":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]}}},"ripAddressX":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:RipAddrWXYZ45"},"ripAddressY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:RipAddrWXYZ45"},"ripAddressZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:RipAddrWXYZ45"},"ripAddress4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:RipAddrWXYZ45"},"ripAddress5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:RipAddrWXYZ45"},"srcAddressX":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:SrcAddrXYZ45","properties":{"position":{"type":"integer"},"dataType":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]}}},"srcAddressY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:SrcAddrXYZ45"},"srcAddressZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:SrcAddrXYZ45"},"srcAddress4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:SrcAddrXYZ45"},"srcAddress5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:SrcAddrXYZ45"},"shiftOpX":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:ShiftOpXYZ45","properties":{"position":{"type":"integer"},"dataType":{"type":"string","enum":["UBYTE","SBYTE","UWORD","SWORD","ULONG","SLONG","A_UINT64","A_INT64","FLOAT32_IEEE","FLOAT64_IEEE"]}}},"shiftOpY":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:ShiftOpXYZ45"},"shiftOpZ":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:ShiftOpXYZ45"},"shiftOp4":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:ShiftOpXYZ45"},"shiftOp5":{"type":"object","$ref":"urn:jsonschema:net:alenzen:a2l:ShiftOpXYZ45"},"staticRecordLayout":{"type":"boolean"}}}},"units":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Unit","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"display":{"type":"string"},"type":{"type":"string","enum":["DERIVED","EXTENDED_SI"]},"unit_ref":{"type":"string"},"siExponents":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:SiExponents","properties":{"length":{"type":"integer"},"mass":{"type":"integer"},"time":{"type":"integer"},"electricCurrent":{"type":"integer"},"temperature":{"type":"integer"},"amountOfSubstance":{"type":"integer"},"luminousIntensity":{"type":"integer"}}},"unitConversion":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:UnitConversion","properties":{"gradient":{"type":"number"},"offset":{"type":"number"}}}}}},"userRights":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:UserRights","properties":{"userLevelId":{"type":"string"},"readOnly":{"type":"boolean"},"groups":{"type":"array","items":{"type":"array","items":{"type":"string"}}}}}},"variantCoding":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:VariantCoding","properties":{"varCharacteristics":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:VarCharacteristic","properties":{"name":{"type":"string"},"criterions":{"type":"array","items":{"type":"string"}},"addresses":{"type":"array","items":{"type":"integer"}}}}},"varCriterion":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:VarCriterion","properties":{"name":{"type":"string"},"longIdentifier":{"type":"string"},"values":{"type":"array","items":{"type":"string"}},"measurement":{"type":"string"},"selectionCharacteristic":{"type":"string"}}}},"varForbiddenComb":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:VarForbiddenComb","properties":{"tuples":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:CriterionTuple","properties":{"name":{"type":"string"},"value":{"type":"string"}}}}}}},"varNaming":{"type":"string","enum":["NUMERIC"]},"varSeparator":{"type":"string"}}},"blobs":{"type":"array","items":{"type":"object","id":"urn:jsonschema:net:alenzen:a2l:Blob","properties":{"content":{"type":"string"}}}}}}}}}}}
 ```
 
 # Roadmap
