@@ -52,7 +52,7 @@ public class GroupTest {
 	
 	@Test
 	void testRefMeasurement() {
-		String[] measurements = new String[] {"meas1", "meas2", "meas3"};
+		String[] measurements = new String[] {"meas1", "meas2", "meas3", "meas[0][0]"};
 		IdentReferenceList refMeas = group.getRefMeasurements();
 		
 		assertEquals(measurements.length, refMeas.size());
