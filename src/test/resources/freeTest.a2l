@@ -352,7 +352,7 @@ A2ML_VERSION 1 31
 		/begin GROUP groupies "stick to the group"
 			ROOT
 			/begin REF_CHARACTERISTIC refChar1 refChar2 refChar3 /end REF_CHARACTERISTIC
-			/begin REF_MEASUREMENT meas1 meas2 meas3 /end REF_MEASUREMENT
+			/begin REF_MEASUREMENT meas1 meas2 meas3 meas[0][0] /end REF_MEASUREMENT
 			/begin SUB_GROUP subGroup1 subGroup2 subGroup3 /end SUB_GROUP
 		/end GROUP
 		
