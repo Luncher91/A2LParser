@@ -1,5 +1,7 @@
 package net.alenzen.a2l;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,13 +34,20 @@ import net.alenzen.a2l.enums.IndexOrder;
 import net.alenzen.a2l.enums.Monotony;
 
 class A2LVisitor extends a2lParserBaseVisitor<Object> {
+	private IIncludedFileMapper includeFileMap = (filename) -> {
+		throw new FileNotFoundException("Cannot map included file " + filename);
+	};
 	private IParserEventHandler log;
 
 	public A2LVisitor() {
 		log = new DefaultParserEventHandler();
 	}
 
-	public A2LVisitor(IParserEventHandler logger) {
+	public A2LVisitor(IParserEventHandler logger, IIncludedFileMapper includeFileMap) {
+		if(includeFileMap != null) {
+			this.includeFileMap = includeFileMap;
+		}
+		
 		log = logger;
 
 		if (log == null) {
@@ -89,10 +98,50 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 		p.setHeader((Header) visitSingleOpt(ctx.project_sub_nodes().header_block()));
 
-		// modules
-		p.setModules(visitMultipleOpt(ctx.project_sub_nodes().module_block(), Module.class));
+		visitProjectSubNodes(p, ctx.project_sub_nodes());
 
 		return p;
+	}
+
+	protected void visitProjectSubNodes(ProjectSubBlocks p, Project_sub_nodesContext ctx) {
+		// modules
+		p.setModules(visitMultipleOpt(ctx.module_block(), Module.class));
+
+		p.setIncluded(visitProjectInclude(ctx.include_exp()));
+	}
+
+	private List<ProjectSubBlocks> visitProjectInclude(List<Include_expContext> include_exp) {
+		List<ProjectSubBlocks> projects = new ArrayList<ProjectSubBlocks>();
+		for (Include_expContext incl : include_exp) {
+			String extractedFilepath = extractIncludeFilename(incl.Filename);
+			ProjectSubBlocks p = parseProjectInclude(extractedFilepath);
+			if (p != null) {
+				projects.add(p);
+			}
+		}
+		return projects;
+	}
+
+	private ProjectSubBlocks parseProjectInclude(String extractedFilepath) {
+		try {
+			Asap2Parser parser = new Asap2Parser(includeFileMap.includeMao(extractedFilepath));
+			parser.setEventHandler(log);
+			return parser.parseProjectInclude();
+		} catch (IOException e) {
+			log.log(-1, -1, "Failed to read included file (" + extractedFilepath + "): " + e.getMessage());
+		}
+
+		return null;
+	}
+
+	private String extractIncludeFilename(Token filenameToken) {
+		String fileText = filenameToken.getText();
+
+		if (fileText.startsWith("\"") && fileText.endsWith("\"")) {
+			return fileText.substring(1, fileText.length() - 1);
+		}
+
+		return fileText;
 	}
 
 	@Override
@@ -1190,13 +1239,13 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 		return r;
 	}
-	
+
 	@Override
 	public Object visitStatic_record_layout_exp(Static_record_layout_expContext ctx) {
-		if(ctx.STATIC_RECORD_LAYOUT() != null) {
+		if (ctx.STATIC_RECORD_LAYOUT() != null) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -1579,14 +1628,14 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 		return c;
 	}
-	
+
 	@Override
 	public Object visitDependent_characteristic_block(Dependent_characteristic_blockContext ctx) {
 		DependentCharacteristic depChar = new DependentCharacteristic();
-		
+
 		depChar.setFormula(visitString(ctx.dependent_characteristic_exp().Formula));
 		depChar.setCharacterstics(visitIdentifierTokenList(ctx.Characteristic));
-		
+
 		return depChar;
 	}
 
@@ -2104,10 +2153,10 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 			log.log(stringToken.getLine(), stringToken.getCharPositionInLine(),
 					"Cannot match string: " + stringToken.getText());
 		}
-		
+
 		return stringVal;
 	}
-	
+
 	public static String toJavaString(String a2lString) throws InvalidParameterException {
 		if (a2lString.startsWith("\"") && a2lString.endsWith("\"")) {
 			// remove trailing "
@@ -2115,7 +2164,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 			return replaceEscapedCharacters(a2lString);
 		}
-		
+
 		throw new InvalidParameterException("The given string is not enclosed by \": " + a2lString);
 	}
 

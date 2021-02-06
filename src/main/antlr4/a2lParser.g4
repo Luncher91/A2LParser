@@ -33,12 +33,12 @@ value : INT | DECIMAL | HEX_VALUE;
 value_pair : InVal=value OutVal=value;
 
 /*
-ROOT rule to interprate content
+ROOT rule to interpret content
 */
 a2l_file : (a2ml_version_exp | asap2_version_exp)* project_block;
 
 /*
-ROOT rule to interprate includes
+ROOT rule to interpret includes
 */
 a2l_file_includes : (Includes+=include_exp | .)*?;
 include_exp : INCLUDE Filename=FILEPATH;
@@ -61,6 +61,7 @@ project_block : BEGIN project_exp project_sub_nodes END PROJECT;
 project_sub_nodes : (
                       header_block 
                     | module_block
+                    | include_exp
                     )*;
 
 /*
@@ -103,6 +104,7 @@ module_sub_nodes : (
 	                | transformer_block
 	                | blob_block
 	                | variant_coding_block
+	                | include_exp
 	                  // TODO: TYPEDEF_BLOB TYPEDEF_MEASURMENT
                   )*
                 ;

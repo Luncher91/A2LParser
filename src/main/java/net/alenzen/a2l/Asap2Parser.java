@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.BitSet;
 
 import org.antlr.v4.runtime.ANTLRErrorListener;
@@ -37,30 +38,95 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import net.alenzen.a2l.antlr.a2lLexer;
 import net.alenzen.a2l.antlr.a2lParser;
+import net.alenzen.a2l.antlr.a2lParser.Project_sub_nodesContext;
 
 public class Asap2Parser {
-
 	private InputStream filecontent;
 	private IParserEventHandler eventHandler = (line, position, message) -> {
 		System.err.println("Line " + line + "@" + position + ": " + message);
 	};
+	private IIncludedFileMapper includeFileMapper = (f) -> {
+		throw new FileNotFoundException("Cannot map included file " + f);
+	};
 
+	/**
+	 * Creates a parser instance to parse ASAP2 files.
+	 * 
+	 * A default includeFileMapper will be used which resolves /include paths
+	 * relative to the given filename
+	 * 
+	 * @see Asap2Parser#parse()
+	 * @see Asap2Parser#getStandardFileMapper(String)
+	 * @param filename
+	 * @throws FileNotFoundException
+	 */
 	public Asap2Parser(String filename) throws FileNotFoundException {
+		includeFileMapper = getStandardFileMapper(filename);
 		this.filecontent = new FileInputStream(new File(filename));
 	}
 
-	public Asap2Parser(File f) throws FileNotFoundException {
-		this.filecontent = new FileInputStream(f);
+	/**
+	 * Creates a parser instance to parse ASAP2 files.
+	 * 
+	 * A default includeFileMapper will be used which resolves /include paths
+	 * relative to the given asap2File
+	 * 
+	 * @see Asap2Parser#parse()
+	 * @see Asap2Parser#getStandardFileMapper(String)
+	 * @param asap2File
+	 * @throws FileNotFoundException
+	 */
+	public Asap2Parser(File asap2File) throws FileNotFoundException {
+		includeFileMapper = getStandardFileMapper(asap2File.getAbsolutePath());
+		this.filecontent = new FileInputStream(asap2File);
+	}
+
+	public IIncludedFileMapper getStandardFileMapper(String rootFile) {
+		return (filepath) -> {
+			String finaPathToIncludeFile = rootFile;
+			if (filepath != null) {
+				String filePathDir = new File(filepath).getParent();
+				finaPathToIncludeFile = Paths.get(filePathDir, rootFile).toString();
+			}
+			return new FileInputStream(finaPathToIncludeFile);
+		};
 	}
 
 	/**
-	 * The filecontent stream will be closed by using parse()
+	 * Creates a parser instance to parse ASAP2 files. The filecontent stream will
+	 * be closed by using parse()
 	 * 
 	 * @see Asap2Parser#parse()
-	 * @param filecontent
+	 * @param filecontent       The ASAP2 content to parse.
+	 * @param includeFileMapper In case an /include is processed the parser will ask
+	 *                          this mapper for the InputStream of the included
+	 *                          file.
+	 */
+	public Asap2Parser(InputStream filecontent, IIncludedFileMapper includeFileMapper) {
+		this.includeFileMapper = includeFileMapper;
+		this.filecontent = filecontent;
+	}
+
+	/**
+	 * Creates a parser instance to parse ASAP2 files. The filecontent stream will
+	 * be closed by using parse()
+	 * 
+	 * @see Asap2Parser#parse()
+	 * @param filecontent The ASAP2 content to parse.
 	 */
 	public Asap2Parser(InputStream filecontent) {
 		this.filecontent = filecontent;
+	}
+
+	/**
+	 * Sets the new includeFileMapper to be used for parsing.
+	 * 
+	 * @see Asap2Parser#parse()
+	 * @param inclFileMapper will be consulted whenever the parser needs to process
+	 *                       and /include for the InputStream.
+	 */
+	public void setIncludeFileMapper(IIncludedFileMapper inclFileMapper) {
+		this.includeFileMapper = inclFileMapper;
 	}
 
 	/**
@@ -74,8 +140,8 @@ public class Asap2Parser {
 		this.eventHandler = eh;
 	}
 
-	private Asap2File parse(IParserEventHandler eventHandler) throws IOException {
-		ANTLRErrorListener listener = new ANTLRErrorListener() {
+	private ANTLRErrorListener createANTLRErrorListener(IParserEventHandler eventHandler) {
+		return new ANTLRErrorListener() {
 
 			@Override
 			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
@@ -98,20 +164,6 @@ public class Asap2Parser {
 					BitSet ambigAlts, ATNConfigSet configs) {
 			}
 		};
-		CharStream chStream = determineCharStream();
-		// lexing file
-		a2lLexer lexer = new a2lLexer(chStream);
-		lexer.removeErrorListeners();
-		lexer.addErrorListener(listener);
-
-		// parsing tokens
-		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
-		parser.removeErrorListeners();
-		parser.addErrorListener(listener);
-		ParseTree tree = parser.a2l_file();
-
-		// visit ParseTree to create usable object structure
-		return (Asap2File) new A2LVisitor(eventHandler).visit(tree);
 	}
 
 	/**
@@ -128,7 +180,21 @@ public class Asap2Parser {
 	 *                     stream.
 	 */
 	public Asap2File parse() throws IOException {
-		return parse(eventHandler);
+		ANTLRErrorListener listener = createANTLRErrorListener(eventHandler);
+		CharStream chStream = determineCharStream();
+		// lexing file
+		a2lLexer lexer = new a2lLexer(chStream);
+		lexer.removeErrorListeners();
+		lexer.addErrorListener(listener);
+
+		// parsing tokens
+		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
+		parser.removeErrorListeners();
+		parser.addErrorListener(listener);
+		ParseTree tree = parser.a2l_file();
+
+		// visit ParseTree to create usable object structure
+		return (Asap2File) new A2LVisitor(eventHandler, includeFileMapper).visit(tree);
 	}
 
 	private CharStream determineCharStream() throws IOException {
@@ -309,6 +375,26 @@ public class Asap2Parser {
 	private static void printHelp(Options options) {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp("A2LParser", options, true);
+	}
+
+	protected ProjectSubBlocks parseProjectInclude() throws IOException {
+		ANTLRErrorListener listener = createANTLRErrorListener(eventHandler);
+		CharStream chStream = determineCharStream();
+		// lexing file
+		a2lLexer lexer = new a2lLexer(chStream);
+		lexer.removeErrorListeners();
+		lexer.addErrorListener(listener);
+
+		// parsing tokens
+		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
+		parser.removeErrorListeners();
+		parser.addErrorListener(listener);
+		Project_sub_nodesContext tree = parser.project_sub_nodes();
+
+		// visit ParseTree to create usable object structure
+		ProjectSubBlocks p = new ProjectSubBlocks();
+		new A2LVisitor(eventHandler, this.includeFileMapper).visitProjectSubNodes(p, tree);
+		return p;
 	}
 
 }

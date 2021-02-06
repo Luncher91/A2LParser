@@ -360,6 +360,10 @@ IF_DATA_BLOCK : BEGIN WS+ IF_DATA (.*?) END WS+ IF_DATA;
 INCLUDE : '/include' -> pushMode(INCLUDE_MODE);
 
 mode INCLUDE_MODE;
-FILEPATH : (SPACELESS_PATH | PAR_PATH | NEWLINE | COMMENT) -> popMode;
+COMMENT_INCL : '/*' .*? '*/' -> skip;
+COMMENT_LINE_INCL : '//' .*? NEWLINE_INCL  -> skip;
+WS_INCL : (' ' | '\t') -> skip;
+NEWLINE_INCL : ('\r'? '\n' | '\r')+ -> skip;
+FILEPATH : (SPACELESS_PATH | PAR_PATH) -> popMode;
 PAR_PATH : '"' ~["\r\n]* '"';
 SPACELESS_PATH : ~[ \t\r\n"]+;
