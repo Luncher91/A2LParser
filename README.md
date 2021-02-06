@@ -129,8 +129,8 @@ This is a rough roadmap for the upcoming things I have in mind. I might repriori
 
 ## Epic 3: handle includes
 * support includes
-** ~~include within project block~~
-** include within module block
+    * ~~include within project block~~
+    * include within module block
 
 ## ~~Epic 4: library can be used with other languages as well~~
 ~~This will be archived by creating object structures from the schema and control the parser via command line~~
