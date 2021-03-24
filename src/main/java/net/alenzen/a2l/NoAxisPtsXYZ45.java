@@ -2,7 +2,7 @@ package net.alenzen.a2l;
 
 import net.alenzen.a2l.enums.DataType;
 
-public class NoAxisPtsXYZ45 {
+public class NoAxisPtsXYZ45 implements IA2LDimensionWriteable {
 	private long position;
 	private DataType dataType;
 
@@ -21,7 +21,8 @@ public class NoAxisPtsXYZ45 {
 	public void setDataType(DataType dataType) {
 		this.dataType = dataType;
 	}
-	
+
+	@Override
 	public IA2LWriteable getA2lWritable(String dimension) {
 		return (A2LWriter writer) -> {
 			writer.writelnSpaced("NO_AXIS_PTS_" + dimension, Long.toString(position), dataType.name());

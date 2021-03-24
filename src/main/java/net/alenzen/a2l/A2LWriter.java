@@ -188,6 +188,12 @@ public class A2LWriter {
 		}
 	}
 
+	public void write(IA2LDimensionWriteable writeable, String dimension) throws IOException {
+		if(writeable != null) {
+			write(writeable.getA2lWritable(dimension));
+		}
+	}
+
 	public void writeMultiLine(String content) throws IOException {
 		String[] lines = content.split("\\r?\\n");
 		for(String l : lines) {

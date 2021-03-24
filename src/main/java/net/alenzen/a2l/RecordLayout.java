@@ -589,72 +589,72 @@ public class RecordLayout implements IA2LWriteable {
 		writeLongOptionalAttribute(writer, "ALIGNMENT_INT64", alignmentInt64);
 		writeLongOptionalAttribute(writer, "ALIGNMENT_LONG", alignmentLong);
 		writeLongOptionalAttribute(writer, "ALIGNMENT_WORD", alignmentWord);
-		
-		writer.write(axisPtsX.getA2lWritable("X"));
-		writer.write(axisPtsY.getA2lWritable("Y"));
-		writer.write(axisPtsZ.getA2lWritable("Z"));
-		writer.write(axisPts4.getA2lWritable("4"));
-		writer.write(axisPts5.getA2lWritable("5"));
-		
-		writer.write(axisRescaleX.getA2lWritable("X"));
-		writer.write(axisRescaleY.getA2lWritable("Y"));
-		writer.write(axisRescaleZ.getA2lWritable("Z"));
-		writer.write(axisRescale4.getA2lWritable("4"));
-		writer.write(axisRescale5.getA2lWritable("5"));
-		
-		writer.write(distOpX.getA2lWritable("X"));
-		writer.write(distOpY.getA2lWritable("Y"));
-		writer.write(distOpZ.getA2lWritable("Z"));
-		writer.write(distOp4.getA2lWritable("4"));
-		writer.write(distOp5.getA2lWritable("5"));
-		
-		writer.write(fixNoAxisPtsX.getA2lWritable("X"));
-		writer.write(fixNoAxisPtsY.getA2lWritable("Y"));
-		writer.write(fixNoAxisPtsZ.getA2lWritable("Z"));
-		writer.write(fixNoAxisPts4.getA2lWritable("4"));
-		writer.write(fixNoAxisPts5.getA2lWritable("5"));
+
+		writer.write(axisPtsX, "X");
+		writer.write(axisPtsY, "Y");
+		writer.write(axisPtsZ, "Z");
+		writer.write(axisPts4, "4");
+		writer.write(axisPts5, "5");
+
+		writer.write(axisRescaleX, "X");
+		writer.write(axisRescaleY, "Y");
+		writer.write(axisRescaleZ, "Z");
+		writer.write(axisRescale4, "4");
+		writer.write(axisRescale5, "5");
+
+		writer.write(distOpX, "X");
+		writer.write(distOpY, "Y");
+		writer.write(distOpZ, "Z");
+		writer.write(distOp4, "4");
+		writer.write(distOp5, "5");
+
+		writer.write(fixNoAxisPtsX, "X");
+		writer.write(fixNoAxisPtsY, "Y");
+		writer.write(fixNoAxisPtsZ, "Z");
+		writer.write(fixNoAxisPts4, "4");
+		writer.write(fixNoAxisPts5, "5");
 		
 		writer.write(functionValues);
 		writer.write(identification);
-		
-		writer.write(noAxisPtsX.getA2lWritable("X"));
-		writer.write(noAxisPtsY.getA2lWritable("Y"));
-		writer.write(noAxisPtsZ.getA2lWritable("Z"));
-		writer.write(noAxisPts4.getA2lWritable("4"));
-		writer.write(noAxisPts5.getA2lWritable("5"));
-		
-		writer.write(noRescaleX.getA2lWritable("X"));
-		writer.write(noRescaleY.getA2lWritable("Y"));
-		writer.write(noRescaleZ.getA2lWritable("Z"));
-		writer.write(noRescale4.getA2lWritable("4"));
-		writer.write(noRescale5.getA2lWritable("5"));
-		
-		writer.write(offsetX.getA2lWritable("X"));
-		writer.write(offsetY.getA2lWritable("Y"));
-		writer.write(offsetZ.getA2lWritable("Z"));
-		writer.write(offset4.getA2lWritable("4"));
-		writer.write(offset5.getA2lWritable("5"));
+
+		writer.write(noAxisPtsX, "X");
+		writer.write(noAxisPtsY, "Y");
+		writer.write(noAxisPtsZ, "Z");
+		writer.write(noAxisPts4, "4");
+		writer.write(noAxisPts5, "5");
+
+		writer.write(noRescaleX, "X");
+		writer.write(noRescaleY, "Y");
+		writer.write(noRescaleZ, "Z");
+		writer.write(noRescale4, "4");
+		writer.write(noRescale5, "5");
+
+		writer.write(offsetX, "X");
+		writer.write(offsetY, "Y");
+		writer.write(offsetZ, "Z");
+		writer.write(offset4, "4");
+		writer.write(offset5, "5");
 		
 		writer.write(reserved);
-		
-		writer.write(ripAddressW.getA2lWritable("W"));
-		writer.write(ripAddressX.getA2lWritable("X"));
-		writer.write(ripAddressY.getA2lWritable("Y"));
-		writer.write(ripAddressZ.getA2lWritable("Z"));
-		writer.write(ripAddress4.getA2lWritable("4"));
-		writer.write(ripAddress5.getA2lWritable("5"));
-		
-		writer.write(srcAddressX.getA2lWritable("X"));
-		writer.write(srcAddressY.getA2lWritable("Y"));
-		writer.write(srcAddressZ.getA2lWritable("Z"));
-		writer.write(srcAddress4.getA2lWritable("4"));
-		writer.write(srcAddress5.getA2lWritable("5"));
-		
-		writer.write(shiftOpX.getA2lWritable("X"));
-		writer.write(shiftOpY.getA2lWritable("Y"));
-		writer.write(shiftOpZ.getA2lWritable("Z"));
-		writer.write(shiftOp4.getA2lWritable("4"));
-		writer.write(shiftOp5.getA2lWritable("5"));
+
+		writer.write(ripAddressW, "W");
+		writer.write(ripAddressX, "X");
+		writer.write(ripAddressY, "Y");
+		writer.write(ripAddressZ, "Z");
+		writer.write(ripAddress4, "4");
+		writer.write(ripAddress5, "5");
+
+		writer.write(srcAddressX, "X");
+		writer.write(srcAddressY, "Y");
+		writer.write(srcAddressZ, "Z");
+		writer.write(srcAddress4, "4");
+		writer.write(srcAddress5, "5");
+
+		writer.write(shiftOpX, "X");
+		writer.write(shiftOpY, "Y");
+		writer.write(shiftOpZ, "Z");
+		writer.write(shiftOp4, "4");
+		writer.write(shiftOp5, "5");
 		
 		if(staticRecordLayout) {
 			writer.writeln("STATIC_RECORD_LAYOUT");
