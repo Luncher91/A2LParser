@@ -1768,7 +1768,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		a.setReadOnly(visitSingleOptBool(sn.read_only_exp()));
 		a.setMemorySegment((String) visitSingleOpt(sn.ref_memory_segment_exp()));
 		a.setStepSize((Double) visitSingleOpt(sn.step_size_exp()));
-		a.setSymbolLink((String) visitSingleOpt(sn.symbol_link_exp()));
+		a.setSymbolLink((SymbolLink) visitSingleOpt(sn.symbol_link_exp()));
 
 		return a;
 	}

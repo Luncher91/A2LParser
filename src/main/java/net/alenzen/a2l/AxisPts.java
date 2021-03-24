@@ -37,7 +37,7 @@ public class AxisPts implements IA2LWriteable {
 	private boolean readOnly = false;
 	private String memorySegment;
 	private Double stepSize;
-	private String symbolLink;
+	private SymbolLink symbolLink;
 
 	public String getName() {
 		return name;
@@ -239,11 +239,11 @@ public class AxisPts implements IA2LWriteable {
 		this.stepSize = stepSize;
 	}
 
-	public String getSymbolLink() {
+	public SymbolLink getSymbolLink() {
 		return symbolLink;
 	}
 
-	public void setSymbolLink(String symbolLink) {
+	public void setSymbolLink(SymbolLink symbolLink) {
 		this.symbolLink = symbolLink;
 	}
 
@@ -316,10 +316,8 @@ public class AxisPts implements IA2LWriteable {
 		if(stepSize != null) {
 			writer.writelnSpaced("STEP_SIZE", stepSize.toString());
 		}
-		
-		if(symbolLink != null) {
-			writer.writelnSpaced("SYMBOL_LINK", symbolLink);
-		}
+
+		writer.write(symbolLink);
 		
 		writer.dedent();
 		writer.writelnEnd("AXIS_PTS");
