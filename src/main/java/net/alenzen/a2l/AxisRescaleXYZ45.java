@@ -4,7 +4,7 @@ import net.alenzen.a2l.enums.AddrType;
 import net.alenzen.a2l.enums.DataType;
 import net.alenzen.a2l.enums.IndexOrder;
 
-public class AxisRescaleXYZ45 {
+public class AxisRescaleXYZ45 implements IA2LDimensionWriteable {
 	private long position;
 	private DataType datatype;
 	private long maxNumberOfRescalePairs;
@@ -51,6 +51,7 @@ public class AxisRescaleXYZ45 {
 		this.addressing = addressing;
 	}
 
+	@Override
 	public IA2LWriteable getA2lWritable(String dimension) {
 		return (A2LWriter writer) -> {
 			writer.writelnSpaced("AXIS_RESCALE_" + dimension, Long.toString(position), datatype.name(),

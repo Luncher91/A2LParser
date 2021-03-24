@@ -4,7 +4,7 @@ import net.alenzen.a2l.enums.AddrType;
 import net.alenzen.a2l.enums.DataType;
 import net.alenzen.a2l.enums.IndexOrder;
 
-public class AxisPtsXYZ45 {
+public class AxisPtsXYZ45 implements IA2LDimensionWriteable {
 	private long position;
 	private DataType datatype;
 	private IndexOrder indexorder;
@@ -42,6 +42,7 @@ public class AxisPtsXYZ45 {
 		this.addressing = addressing;
 	}
 
+	@Override
 	public IA2LWriteable getA2lWritable(String dimension) {
 		return (A2LWriter writer) -> {
 			writer.writelnSpaced("AXIS_PTS_" + dimension, Long.toString(position), datatype.name(), indexorder.name(),
