@@ -135,4 +135,10 @@ public class AxisPtsTest {
 	void testStepSize() {
 		assertEquals(820.028, axisPts.getStepSize());
 	}
+	
+	@Test
+	void testSymbolLink() {
+		assertEquals("symbol name char 99", axisPts.getSymbolLink().getSymbolName());
+		assertEquals(99l, axisPts.getSymbolLink().getOffset());
+	}
 }
