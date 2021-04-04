@@ -113,25 +113,37 @@ public class Asap2ParserTest {
 
 	@Test
 	void testSystemInJsonFile() throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
-		try (InputStream a2lFileContent = new ByteArrayInputStream(Asap2FileTest.TEST_FILE_A_JSON.getBytes(StandardCharsets.UTF_8))) {
+		try (InputStream a2lFileContent = new ByteArrayInputStream(
+				Asap2FileTest.TEST_FILE_A_JSON.getBytes(StandardCharsets.UTF_8))) {
 			String[] arguments = new String[] { "-j" };
 
 			PrintStream stdOut = System.out;
 			InputStream stdIn = System.in;
 			try (ByteArrayOutputStream outStream = new ByteArrayOutputStream()) {
-				System.setOut(new PrintStream(outStream));
+				PrintStream printStream = new PrintStream(outStream, false, StandardCharsets.UTF_8.name());
+				System.setOut(printStream);
 				System.setIn(a2lFileContent);
 
 				Asap2Parser.main(arguments);
 
-				String fileOutput = outStream.toString();
-				Asap2Parser parser = new Asap2Parser(new ByteArrayInputStream(fileOutput.getBytes()));
+				String fileOutput = new String(outStream.toByteArray(), StandardCharsets.UTF_8);
+				Asap2Parser parser = new Asap2Parser(
+						new ByteArrayInputStream(fileOutput.getBytes(StandardCharsets.ISO_8859_1)));
 				parser.setEventHandler((a, b, c) -> {
-					fail(a + ":" + b + ":" + c);
+					System.setOut(stdOut);
+					System.setIn(stdIn);
+					fail(a + ":" + b + ":" + c + "\nComplete content: " + fileOutput);
 				});
-				Asap2File fromOutput = parser.parse();
 
-				assertEquals(Asap2FileTest.TEST_FILE_A_JSON, fromOutput.toJson());
+				try {
+					Asap2File fromOutput = parser.parse();
+
+					assertEquals(Asap2FileTest.TEST_FILE_A_JSON, fromOutput.toJson());
+				} catch (IOException e) {
+					System.setOut(stdOut);
+					System.setIn(stdIn);
+					fail("Cannot parse output: " + fileOutput, e);
+				}
 			} finally {
 				System.setOut(stdOut);
 				System.setIn(stdIn);

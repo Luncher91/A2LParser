@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
 
@@ -94,7 +95,8 @@ public class Asap2FileTest {
 	void testToA2l_parsable() throws IOException {
 		Asap2File fromA2l = getTestFile(TestFile.A);
 		String generatedA2l = fromA2l.toA2L();
-		Asap2Parser parser = new Asap2Parser(new ByteArrayInputStream(generatedA2l.getBytes()));
+		// A2L default charset for files without BOM is ISO 8859-1
+		Asap2Parser parser = new Asap2Parser(new ByteArrayInputStream(generatedA2l.getBytes(StandardCharsets.ISO_8859_1)));
 		parser.setEventHandler((a, b, c) -> {
 			fail(a + ":" + b + ":" + c);
 		});
@@ -106,7 +108,8 @@ public class Asap2FileTest {
 		Asap2File fromA2l = getTestFile(TestFile.A);
 		String jsonTestfileA = fromA2l.toJson();
 		String toA2lResult = fromA2l.toA2L();
-		Asap2Parser parser = new Asap2Parser(new ByteArrayInputStream(toA2lResult.getBytes()));
+		// A2L default charset for files without BOM is ISO 8859-1
+		Asap2Parser parser = new Asap2Parser(new ByteArrayInputStream(toA2lResult.getBytes(StandardCharsets.ISO_8859_1)));
 		parser.setEventHandler((a, b, c) -> {
 			fail(a + ":" + b + ":" + c);
 		});
