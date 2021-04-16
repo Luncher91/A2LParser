@@ -2,6 +2,13 @@
 
 This library parses an A2L file according the 1.6.1 standards and provides a Java Object structure with all the data.
 
+## Features
+
+* parse A2L to Java object structure
+* JAR standalone
+    * A2L to JSON
+    * JSON to A2L
+
 ## Java Samples
 
 ### Parse A2L
@@ -116,10 +123,11 @@ Output:
 
 # Roadmap
 
-This is a rough roadmap for the upcoming things I have in mind. I might reprioritize the features at any time.
+This is a rough roadmap for the upcoming things I have in mind.
 
+* Deploy to https://mvnrepository.com/
 * API documentation
-* Add more tests for json API
+* Add more detailed tests for JSON API
 
 ## ~~Epic 1: basic read functionality~~ (Version 1.0)
 * ~~write unit tests~~ (done; over 90% java code coverage of not generated code)
@@ -127,10 +135,10 @@ This is a rough roadmap for the upcoming things I have in mind. I might repriori
 ## ~~Epic 2: writing a2l files~~
 * ~~generate A2L code from the object structure~~
 
-## Epic 3: handle includes
-* support includes
+## ~~Epic 3: handle includes~~
+* ~~support includes~~
     * ~~include within project block~~
-    * include within module block
+    * ~~include within module block~~
 
 ## ~~Epic 4: library can be used with other languages as well~~
 ~~This will be archived by creating object structures from the schema and control the parser via command line~~
@@ -143,6 +151,5 @@ This is a rough roadmap for the upcoming things I have in mind. I might repriori
 I wont bother to support ulong; instead I use long! - An alternative would be to use BigInteger but it would probably make the library slower and consuming more memory.
 
 # Known issues
-* does not provide objects for typedef's and instance (need access to the most recent specification)
-* does not support include (Epic 3)
+* does not provide objects for typedef's and instance (I need access to the most recent specification to implement that)
 * the library treats ulong as long (accepted)
