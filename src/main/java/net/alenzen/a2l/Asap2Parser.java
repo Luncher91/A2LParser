@@ -38,6 +38,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import net.alenzen.a2l.antlr.a2lLexer;
 import net.alenzen.a2l.antlr.a2lParser;
+import net.alenzen.a2l.antlr.a2lParser.Module_sub_nodesContext;
 import net.alenzen.a2l.antlr.a2lParser.Project_sub_nodesContext;
 
 public class Asap2Parser {
@@ -397,4 +398,23 @@ public class Asap2Parser {
 		return p;
 	}
 
+	protected ModuleSubBlocks parseModuleInclude() throws IOException {
+		ANTLRErrorListener listener = createANTLRErrorListener(eventHandler);
+		CharStream chStream = determineCharStream();
+		// lexing file
+		a2lLexer lexer = new a2lLexer(chStream);
+		lexer.removeErrorListeners();
+		lexer.addErrorListener(listener);
+
+		// parsing tokens
+		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
+		parser.removeErrorListeners();
+		parser.addErrorListener(listener);
+		Module_sub_nodesContext tree = parser.module_sub_nodes();
+
+		// visit ParseTree to create usable object structure
+		ModuleSubBlocks m = new ModuleSubBlocks();
+		new A2LVisitor(eventHandler, this.includeFileMapper).visitModuleSubNodes(m, tree);
+		return m;
+	}
 }

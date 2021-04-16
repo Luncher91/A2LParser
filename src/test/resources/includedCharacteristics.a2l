@@ -1,0 +1,11 @@
+/begin CHARACTERISTIC 
+	inclChar 
+	"included characteristic" 
+	ASCII 
+	0x0 
+	dataRecord 
+	10.0 
+	conversionMethod 
+	0.0 
+	10.0
+/end CHARACTERISTIC

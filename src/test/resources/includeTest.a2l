@@ -53,6 +53,8 @@ A2ML_VERSION 1 31
 			STEP_SIZE 820.028
 		/end AXIS_PTS
 		
+		/include "includedCharacteristics.a2l"
+		
 		/begin CHARACTERISTIC char_a "description here" CUBE_5 0x123 char_deposit 1.1 char_conv 0.0 10.0
 			/begin AXIS_DESCR CURVE_AXIS in_quant_char char_axis_descr_conv 22 5.5 21.21
 				AXIS_PTS_REF axisPtsA

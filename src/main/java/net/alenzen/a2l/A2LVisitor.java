@@ -121,12 +121,36 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		}
 		return projects;
 	}
+	
+	private List<ModuleSubBlocks> visitModuleInclude(List<Include_expContext> include_exp) {
+		List<ModuleSubBlocks> modules = new ArrayList<ModuleSubBlocks>();
+		for (Include_expContext incl : include_exp) {
+			String extractedFilepath = extractIncludeFilename(incl.Filename);
+			ModuleSubBlocks m = parseModuleInclude(extractedFilepath);
+			if (m != null) {
+				modules.add(m);
+			}
+		}
+		return modules;
+	}
 
 	private ProjectSubBlocks parseProjectInclude(String extractedFilepath) {
 		try {
 			Asap2Parser parser = new Asap2Parser(includeFileMap.includeMao(extractedFilepath));
 			parser.setEventHandler(log);
 			return parser.parseProjectInclude();
+		} catch (IOException e) {
+			log.log(-1, -1, "Failed to read included file (" + extractedFilepath + "): " + e.getMessage());
+		}
+
+		return null;
+	}
+	
+	private ModuleSubBlocks parseModuleInclude(String extractedFilepath) {
+		try {
+			Asap2Parser parser = new Asap2Parser(includeFileMap.includeMao(extractedFilepath));
+			parser.setEventHandler(log);
+			return parser.parseModuleInclude();
 		} catch (IOException e) {
 			log.log(-1, -1, "Failed to read included file (" + extractedFilepath + "): " + e.getMessage());
 		}
@@ -172,8 +196,12 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		m.setName(ctx.module_exp().Name.getText());
 		m.setLongIdentifier(visitString(ctx.module_exp().LongIdentifier));
 
-		Module_sub_nodesContext sn = ctx.module_sub_nodes();
+		visitModuleSubNodes(m, ctx.module_sub_nodes());
 
+		return m;
+	}
+
+	protected void visitModuleSubNodes(ModuleSubBlocks m, Module_sub_nodesContext sn) {
 		m.setA2ml(visitMultipleOpt(sn.a2ml_block(), A2ml.class));
 		m.setIfDatas(visitMultipleOpt(sn.if_data_block(), IfData.class));
 		m.setModCommon((ModCommon) visitSingleOpt(sn.mod_common_block()));
@@ -200,7 +228,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		m.setVariantCoding((VariantCoding) visitSingleOpt(sn.variant_coding_block()));
 		// TODO not yet in parser definition: typedef_blob, typedef_measurement
 
-		return m;
+		m.setIncluded(visitModuleInclude(sn.include_exp()));
 	}
 
 	@Override
