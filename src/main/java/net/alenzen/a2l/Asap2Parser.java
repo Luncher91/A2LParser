@@ -302,7 +302,10 @@ public class Asap2Parser {
 			}
 
 			if (cmd.hasOption("jsc")) {
-				outputStream.print(Asap2File.generateJsonSchema());
+				outputStream.print(Asap2File.generateJsonSchema(
+						cmd.hasOption(minimizeOption.getOpt()), // exclude null fields 
+						cmd.hasOption(indentOption.getOpt()) // indent
+						));
 				return;
 			}
 
@@ -317,7 +320,7 @@ public class Asap2Parser {
 				}
 
 				outputStream.print(parser.parse().toJson(
-						cmd.hasOption(minimizeOption.getOpt()), // exclude empty fields 
+						cmd.hasOption(minimizeOption.getOpt()), // exclude null fields 
 						cmd.hasOption(indentOption.getOpt()) // indent
 						));
 				return;

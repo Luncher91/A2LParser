@@ -50,10 +50,10 @@ public class Asap2File {
 		return toJson(true, false);
 	}
 	
-	public String toJson(boolean excludeEmpty, boolean indent) throws JsonGenerationException, JsonMappingException, IOException {
+	public String toJson(boolean excludeNull, boolean indent) throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		
-		if(excludeEmpty) {
+		if(excludeNull) {
 			objectMapper.setSerializationInclusion(Include.NON_NULL);
 		}
 		
@@ -65,7 +65,20 @@ public class Asap2File {
 	}
 
 	public static String generateJsonSchema() throws JsonProcessingException {
+		return generateJsonSchema(false, false);
+	}
+	
+	public static String generateJsonSchema(boolean excludeNull, boolean indent) throws JsonMappingException, JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
+		
+		if(excludeNull) {
+			mapper.setSerializationInclusion(Include.NON_NULL);
+		}
+		
+		if(indent) {
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		}
+		
 		JsonSchemaGenerator schemaGen = new JsonSchemaGenerator(mapper);
 		return mapper.writeValueAsString(schemaGen.generateSchema(Asap2File.class));
 	}
