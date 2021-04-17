@@ -260,7 +260,7 @@ public class Asap2Parser {
 		Option schemaOption = new Option("jsc", "jsonSchema", false, "Outputs the JSON schema for JSON outputs");
 		options.addOption(schemaOption);
 		
-		Option minimizeOption = new Option("mj", "minJson", false, "Outputs the JSON without empty fields");
+		Option minimizeOption = new Option("mj", "minJson", false, "Outputs the JSON without null fields");
 		options.addOption(minimizeOption);
 		
 		Option indentOption = new Option("ij", "indentJson", false, "Outputs the JSON with indentation");

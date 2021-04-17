@@ -54,7 +54,7 @@ public class Asap2File {
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		if(excludeEmpty) {
-			objectMapper.setSerializationInclusion(Include.NON_EMPTY);
+			objectMapper.setSerializationInclusion(Include.NON_NULL);
 		}
 		
 		if(indent) {

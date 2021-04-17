@@ -16,6 +16,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 
 import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
@@ -69,23 +70,40 @@ public class Asap2ParserTest {
 
 	@Test
 	void testSystemOutResult() throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
-		URL testFileResource = ClassLoader.getSystemResource(TestFile.A.getFilename());
+		String fileOutput = generateJsonFromA2l(TestFile.A, false, false);
+		assertEquals(Asap2FileTest.TEST_FILE_A_JSON, fileOutput);
+	}
+
+	private String generateJsonFromA2l(TestFile file, boolean minimized, boolean indentation)
+			throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
+		String fileOutput;
+		URL testFileResource = ClassLoader.getSystemResource(file.getFilename());
 		String a2lPath = Paths.get(testFileResource.toURI()).toFile().getAbsolutePath();
 
-		String[] arguments = new String[] { "-a2l", a2lPath };
+		ArrayList<String> arguments = new ArrayList<String>();
+		arguments.add("-a2l");
+		arguments.add(a2lPath);
+		
+		if(minimized) {
+			arguments.add("-mj");
+		}
+		
+		if(indentation) {
+			arguments.add("-ij");
+		}
 
 		PrintStream stdOut = System.out;
 		try (ByteArrayOutputStream outStream = new ByteArrayOutputStream()) {
 			System.setOut(new PrintStream(outStream));
 
-			Asap2Parser.main(arguments);
+			Asap2Parser.main(arguments.toArray(new String[0]));
 
-			String fileOutput = outStream.toString();
+			fileOutput = outStream.toString();
 
-			assertEquals(Asap2FileTest.TEST_FILE_A_JSON, fileOutput);
 		} finally {
 			System.setOut(stdOut);
 		}
+		return fileOutput;
 	}
 
 	@Test
@@ -149,6 +167,36 @@ public class Asap2ParserTest {
 				System.setIn(stdIn);
 			}
 		}
+	}
+	
+	@Test
+	void testMinimizedJson() throws JsonGenerationException, JsonMappingException, URISyntaxException, IOException {
+		String minimizedJson = generateJsonFromA2l(TestFile.A, true, false);
+		
+		Asap2File a2l = Asap2File.fromJson(minimizedJson);
+		String normalJson = a2l.toJson();
+		
+		assertEquals(Asap2FileTest.TEST_FILE_A_JSON, normalJson);
+	}
+	
+	@Test
+	void testMinimizedAndIndentedJson() throws JsonGenerationException, JsonMappingException, URISyntaxException, IOException {
+		String minimizedJson = generateJsonFromA2l(TestFile.A, true, true);
+		
+		Asap2File a2l = Asap2File.fromJson(minimizedJson);
+		String normalJson = a2l.toJson();
+		
+		assertEquals(Asap2FileTest.TEST_FILE_A_JSON, normalJson);
+	}
+	
+	@Test
+	void testIndentedJson() throws JsonGenerationException, JsonMappingException, URISyntaxException, IOException {
+		String minimizedJson = generateJsonFromA2l(TestFile.A, false, true);
+		
+		Asap2File a2l = Asap2File.fromJson(minimizedJson);
+		String normalJson = a2l.toJson();
+		
+		assertEquals(Asap2FileTest.TEST_FILE_A_JSON, normalJson);
 	}
 
 	private void testBOMOutput(Charset charsetToTest)
