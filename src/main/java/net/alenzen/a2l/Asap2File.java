@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
 public class Asap2File {
@@ -41,7 +43,24 @@ public class Asap2File {
 	}
 
 	public String toJson() throws JsonGenerationException, JsonMappingException, IOException {
+		return toJson(false, false);
+	}
+	
+	public String toMinimizedJson() throws JsonGenerationException, JsonMappingException, IOException {
+		return toJson(true, false);
+	}
+	
+	public String toJson(boolean excludeEmpty, boolean indent) throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
+		
+		if(excludeEmpty) {
+			objectMapper.setSerializationInclusion(Include.NON_EMPTY);
+		}
+		
+		if(indent) {
+			objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+		}
+		
 		return objectMapper.writeValueAsString(this);
 	}
 

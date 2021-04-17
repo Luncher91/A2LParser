@@ -259,6 +259,12 @@ public class Asap2Parser {
 
 		Option schemaOption = new Option("jsc", "jsonSchema", false, "Outputs the JSON schema for JSON outputs");
 		options.addOption(schemaOption);
+		
+		Option minimizeOption = new Option("mj", "minJson", false, "Outputs the JSON without empty fields");
+		options.addOption(minimizeOption);
+		
+		Option indentOption = new Option("ij", "indentJson", false, "Outputs the JSON with indentation");
+		options.addOption(indentOption);
 
 		Option outputOption = new Option("o", "output", true, "Write result to file instead of std out");
 		outputOption.setOptionalArg(false);
@@ -310,7 +316,10 @@ public class Asap2Parser {
 					parser = new Asap2Parser(a2lFile);
 				}
 
-				outputStream.print(parser.parse().toJson());
+				outputStream.print(parser.parse().toJson(
+						cmd.hasOption(minimizeOption.getOpt()), // exclude empty fields 
+						cmd.hasOption(indentOption.getOpt()) // indent
+						));
 				return;
 			}
 
