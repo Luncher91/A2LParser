@@ -123,33 +123,23 @@ Output:
 
 # Roadmap
 
-This is a rough roadmap for the upcoming things I have in mind.
+This is a rough roadmap for the upcoming things I have in mind. Please create an issue if you like to see a feature being worked on.
 
 * Deploy to https://mvnrepository.com/
 * API documentation
 * Add more detailed tests for JSON API
-
-## ~~Epic 1: basic read functionality~~ (Version 1.0)
-* ~~write unit tests~~ (done; over 90% java code coverage of not generated code)
-
-## ~~Epic 2: writing a2l files~~
-* ~~generate A2L code from the object structure~~
-
-## ~~Epic 3: handle includes~~
-* ~~support includes~~
-    * ~~include within project block~~
-    * ~~include within module block~~
-
-## ~~Epic 4: library can be used with other languages as well~~
-~~This will be archived by creating object structures from the schema and control the parser via command line~~
-* ~~generate JSON from it~~
-* ~~make an executable which converts a2l to JSON~~
-* ~~generate JSON schema from it~~
-* ~~add a function that converts JSON to a2l~~
-
-# Notes
-I wont bother to support ulong; instead I use long! - An alternative would be to use BigInteger but it would probably make the library slower and consuming more memory.
+* Add a validation API
+    * check of unique identifiers
+    * valid identifier references
+    * valid lower vs upper limit
+    * ...
+* FORMULA Parser
+* fix integer types: ASAM defines int as 2-byte integer and long is a 4-byte integer
+    * may speed up the parser
+    * use short where int is specified
+    * use int where uint is specified
+    * use int where long is specified
+    * use long where ulong is specified
 
 # Known issues
 * does not provide objects for typedef's and instance (I need access to the most recent specification to implement that)
-* the library treats ulong as long (accepted)
