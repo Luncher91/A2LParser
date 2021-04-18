@@ -106,6 +106,12 @@ A2ML_VERSION 1 31
 			/end ANNOTATION
 		/end CHARACTERISTIC
 		
+		/begin CHARACTERISTIC char_b "description here" CUBE_5 0x123 char_deposit 1.1 char_conv .1 1.
+		/end CHARACTERISTIC
+		
+		/begin CHARACTERISTIC char_c "description here" CUBE_5 0x123 char_deposit 1.1 char_conv .1E-2 1.E2
+		/end CHARACTERISTIC
+		
 		/begin MOD_COMMON ""
 			DEPOSIT DIFFERENCE
 			BYTE_ORDER MSB_FIRST
