@@ -45,6 +45,8 @@ System.out.println("Project: " + fromJson.getProject().getName());
 
 ## Command Line Samples
 
+In this chapter A2LParser.jar references the JAR with dependencies.
+
 ### Print out help
 
 ```console
@@ -52,16 +54,19 @@ java -jar A2LParser.jar --help
 ```
 
 ```console
-usage: A2LParser [-a2l <arg>] [-c <arg>] [-h] [-j <arg>] [-jsc] [-o <arg>]
+usage: A2LParser [-a2l <arg>] [-c <arg>] [-h] [-ij] [-j <arg>] [-jsc]
+       [-mj] [-o <arg>]
  -a2l,--asap2 <arg>    Either specify an A2L file or pipe A2L content to
                        convert it to JSON
  -c,--encoding <arg>   Specify the encoding for the output file. e.g.
                        US-ASCII, ISO-8859-1, UTF-8, UTF-16BE, UTF-16LE,
                        UTF-32LE, UTF-32BE, UTF-16
  -h,--help             Prints this help
+ -ij,--indentJson      Outputs the JSON with indentation
  -j,--json <arg>       Either specify a JSON file or pipe JSON content to
                        convert it to A2L
  -jsc,--jsonSchema     Outputs the JSON schema for JSON outputs
+ -mj,--minJson         Outputs the JSON without null fields
  -o,--output <arg>     Write result to file instead of std out
 ```
 
