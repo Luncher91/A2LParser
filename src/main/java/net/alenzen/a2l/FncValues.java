@@ -11,7 +11,7 @@ public class FncValues implements IA2LWriteable {
 	private IndexMode indexMode;
 	private AddrType addressType;
 
-	enum IndexMode {
+	public enum IndexMode {
 		ALTERNATE_CURVES, ALTERNATE_WITH_X, ALTERNATE_WITH_Y, COLUMN_DIR, ROW_DIR
 	}
 
