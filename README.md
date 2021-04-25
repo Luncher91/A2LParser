@@ -1,5 +1,7 @@
 # A2LParser
 
+[![Build Status](https://travis-ci.com/Luncher91/A2LParser.svg?branch=master)](https://travis-ci.com/Luncher91/A2LParser)
+
 This library parses an A2L file according the 1.6.1 standards and provides a Java Object structure with all the data.
 
 ## Features
