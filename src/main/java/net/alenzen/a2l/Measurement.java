@@ -2,6 +2,7 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.DataType;
@@ -347,5 +348,37 @@ public class Measurement implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("MEASUREMENT");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Measurement that = (Measurement) o;
+		return resolution == that.resolution && Double.compare(that.accuracy, accuracy) == 0
+				&& Double.compare(that.lowerLimit, lowerLimit) == 0 && Double.compare(that.upperLimit, upperLimit) == 0
+				&& discrete == that.discrete && readWrite == that.readWrite && Objects.equals(name, that.name)
+				&& Objects.equals(longIdentifier, that.longIdentifier) && datatype == that.datatype && Objects
+				.equals(conversion, that.conversion) && Objects.equals(annotations, that.annotations) && Objects
+				.equals(arraySize, that.arraySize) && Objects.equals(bitMask, that.bitMask) && Objects
+				.equals(bitOperation, that.bitOperation) && byteorder == that.byteorder && Objects
+				.equals(displayIdentifier, that.displayIdentifier) && Objects.equals(ecuAddress, that.ecuAddress)
+				&& Objects.equals(ecuAddressExtension, that.ecuAddressExtension) && Objects
+				.equals(errorMask, that.errorMask) && Objects.equals(format, that.format) && Objects
+				.equals(functionList, that.functionList) && Objects.equals(ifDatas, that.ifDatas)
+				&& layout == that.layout && Objects.equals(matrixDim, that.matrixDim) && Objects
+				.equals(maxRefresh, that.maxRefresh) && Objects.equals(physUnit, that.physUnit) && Objects
+				.equals(memorySegment, that.memorySegment) && Objects.equals(symbolLink, that.symbolLink) && Objects
+				.equals(virtual, that.virtual);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, longIdentifier, datatype, conversion, resolution, accuracy, lowerLimit, upperLimit,
+				annotations, arraySize, bitMask, bitOperation, byteorder, discrete, displayIdentifier, ecuAddress,
+				ecuAddressExtension, errorMask, format, functionList, ifDatas, layout, matrixDim, maxRefresh, physUnit,
+				readWrite, memorySegment, symbolLink, virtual);
 	}
 }

@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class CalibrationMethod implements IA2LWriteable {
 	private String name;
@@ -43,5 +45,21 @@ public class CalibrationMethod implements IA2LWriteable {
 
 		writer.dedent();
 		writer.writelnEnd("CALIBRATION_METHOD");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		CalibrationMethod that = (CalibrationMethod) o;
+		return version == that.version && Objects.equals(name, that.name) && Objects
+				.equals(calibrationHandle, that.calibrationHandle);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, version, calibrationHandle);
 	}
 }

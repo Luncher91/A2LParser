@@ -1,6 +1,7 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import net.alenzen.a2l.enums.DataSize;
 
@@ -27,5 +28,20 @@ public class Reserved implements IA2LWriteable {
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
 		writer.writelnSpaced("RESERVED", Long.toString(position), dataSize.name());
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Reserved reserved = (Reserved) o;
+		return position == reserved.position && dataSize == reserved.dataSize;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(position, dataSize);
 	}
 }

@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class ModuleSubBlocks implements IA2LWriteable {
 	// optional parameters
@@ -209,5 +211,31 @@ public class ModuleSubBlocks implements IA2LWriteable {
 		writer.write(blobs);
 		
 		writer.write(getIncluded());
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		ModuleSubBlocks that = (ModuleSubBlocks) o;
+		return Objects.equals(a2ml, that.a2ml) && Objects.equals(axisPts, that.axisPts) && Objects
+				.equals(characteristics, that.characteristics) && Objects.equals(compuMethods, that.compuMethods)
+				&& Objects.equals(compuTabs, that.compuTabs) && Objects.equals(compuVTabs, that.compuVTabs) && Objects
+				.equals(compuVTabRanges, that.compuVTabRanges) && Objects.equals(frame, that.frame) && Objects
+				.equals(functions, that.functions) && Objects.equals(groups, that.groups) && Objects
+				.equals(ifDatas, that.ifDatas) && Objects.equals(measurements, that.measurements) && Objects
+				.equals(modCommon, that.modCommon) && Objects.equals(modPar, that.modPar) && Objects
+				.equals(recordLayouts, that.recordLayouts) && Objects.equals(units, that.units) && Objects
+				.equals(userRights, that.userRights) && Objects.equals(variantCoding, that.variantCoding) && Objects
+				.equals(blobs, that.blobs) && Objects.equals(included, that.included);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(a2ml, axisPts, characteristics, compuMethods, compuTabs, compuVTabs, compuVTabRanges, frame,
+				functions, groups, ifDatas, measurements, modCommon, modPar, recordLayouts, units, userRights,
+				variantCoding, blobs, included);
 	}
 }

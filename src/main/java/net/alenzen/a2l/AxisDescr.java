@@ -2,6 +2,7 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
@@ -252,5 +253,32 @@ public class AxisDescr implements IA2LWriteable {
 
 		writer.dedent();
 		writer.writelnEnd("AXIS_DESCR");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		AxisDescr axisDescr = (AxisDescr) o;
+		return maxAxisPoints == axisDescr.maxAxisPoints && Double.compare(axisDescr.lowerLimit, lowerLimit) == 0
+				&& Double.compare(axisDescr.upperLimit, upperLimit) == 0 && readOnly == axisDescr.readOnly
+				&& attribute == axisDescr.attribute && Objects.equals(inputQuantity, axisDescr.inputQuantity) && Objects
+				.equals(conversion, axisDescr.conversion) && Objects.equals(annotations, axisDescr.annotations)
+				&& Objects.equals(axisPoints_ref, axisDescr.axisPoints_ref) && byteorder == axisDescr.byteorder
+				&& Objects.equals(curveAxis_ref, axisDescr.curveAxis_ref) && deposit == axisDescr.deposit && Objects
+				.equals(extendedLimits, axisDescr.extendedLimits) && Objects.equals(fixAxisPar, axisDescr.fixAxisPar)
+				&& Objects.equals(fixAxisParDist, axisDescr.fixAxisParDist) && Objects
+				.equals(fixAxisParList, axisDescr.fixAxisParList) && Objects.equals(format, axisDescr.format) && Objects
+				.equals(maxGrad, axisDescr.maxGrad) && monotony == axisDescr.monotony && Objects
+				.equals(physUnit, axisDescr.physUnit) && Objects.equals(stepSize, axisDescr.stepSize);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(attribute, inputQuantity, conversion, maxAxisPoints, lowerLimit, upperLimit, annotations,
+				axisPoints_ref, byteorder, curveAxis_ref, deposit, extendedLimits, fixAxisPar, fixAxisParDist,
+				fixAxisParList, format, maxGrad, monotony, physUnit, readOnly, stepSize);
 	}
 }

@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class ModPar implements IA2LWriteable {
 	private String comment;
@@ -229,5 +231,32 @@ public class ModPar implements IA2LWriteable {
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		ModPar modPar = (ModPar) o;
+		return Objects.equals(comment, modPar.comment) && Objects.equals(addresses, modPar.addresses) && Objects
+				.equals(calibrationMethods, modPar.calibrationMethods) && Objects.equals(cpuType, modPar.cpuType)
+				&& Objects.equals(customer, modPar.customer) && Objects.equals(customerNo, modPar.customerNo) && Objects
+				.equals(ecu, modPar.ecu) && Objects.equals(ecuCalibrationOffset, modPar.ecuCalibrationOffset) && Objects
+				.equals(epk, modPar.epk) && Objects.equals(memoryLayouts, modPar.memoryLayouts) && Objects
+				.equals(memorySegments, modPar.memorySegments) && Objects
+				.equals(numberOfInterfaces, modPar.numberOfInterfaces) && Objects
+				.equals(phoneNumber, modPar.phoneNumber) && Objects.equals(supplier, modPar.supplier) && Objects
+				.equals(systemConstants, modPar.systemConstants) && Objects.equals(user, modPar.user) && Objects
+				.equals(version, modPar.version);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects
+				.hash(comment, addresses, calibrationMethods, cpuType, customer, customerNo, ecu, ecuCalibrationOffset,
+						epk, memoryLayouts, memorySegments, numberOfInterfaces, phoneNumber, supplier, systemConstants,
+						user, version);
 	}
 }

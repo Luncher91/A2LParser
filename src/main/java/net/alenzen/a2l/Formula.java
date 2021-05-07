@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class Formula implements IA2LWriteable {
 	private String fx;
@@ -33,5 +35,20 @@ public class Formula implements IA2LWriteable {
 		}
 		writer.dedent();
 		writer.writelnEnd("FORMULA");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Formula formula = (Formula) o;
+		return Objects.equals(fx, formula.fx) && Objects.equals(gx, formula.gx);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(fx, gx);
 	}
 }

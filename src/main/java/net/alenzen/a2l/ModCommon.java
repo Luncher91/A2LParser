@@ -1,6 +1,7 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
@@ -135,5 +136,29 @@ public class ModCommon implements IA2LWriteable {
 		if(l != null) {
 			writer.writelnSpaced(name, l.toString());
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		ModCommon modCommon = (ModCommon) o;
+		return Objects.equals(comment, modCommon.comment) && Objects.equals(alignmentByte, modCommon.alignmentByte)
+				&& Objects.equals(alignmentFloat32IEEE, modCommon.alignmentFloat32IEEE) && Objects
+				.equals(alignmentFloat64IEEE, modCommon.alignmentFloat64IEEE) && Objects
+				.equals(alignmentInt64, modCommon.alignmentInt64) && Objects
+				.equals(alignmentLong, modCommon.alignmentLong) && Objects
+				.equals(alignmentWord, modCommon.alignmentWord) && byteorder == modCommon.byteorder && Objects
+				.equals(dataSize, modCommon.dataSize) && deposit == modCommon.deposit && Objects
+				.equals(standardRecordLayout, modCommon.standardRecordLayout);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects
+				.hash(comment, alignmentByte, alignmentFloat32IEEE, alignmentFloat64IEEE, alignmentInt64, alignmentLong,
+						alignmentWord, byteorder, dataSize, deposit, standardRecordLayout);
 	}
 }

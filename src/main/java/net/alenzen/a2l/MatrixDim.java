@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class MatrixDim implements IA2LWriteable {
 	private long xDim;
@@ -34,5 +36,20 @@ public class MatrixDim implements IA2LWriteable {
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
 		writer.writelnSpaced("MATRIX_DIM", Long.toString(xDim), Long.toString(yDim), Long.toString(zDim));
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		MatrixDim matrixDim = (MatrixDim) o;
+		return xDim == matrixDim.xDim && yDim == matrixDim.yDim && zDim == matrixDim.zDim;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(xDim, yDim, zDim);
 	}
 }

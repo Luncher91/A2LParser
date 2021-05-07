@@ -1,7 +1,10 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+
 
 public class MemoryLayout implements IA2LWriteable {
 	private PrgType prgType;
@@ -70,5 +73,23 @@ public class MemoryLayout implements IA2LWriteable {
 
 		writer.dedent();
 		writer.writelnEnd("MEMORY_LAYOUT");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		MemoryLayout that = (MemoryLayout) o;
+		return address == that.address && size == that.size && prgType == that.prgType && Arrays
+				.equals(offset, that.offset) && Objects.equals(ifDatas, that.ifDatas);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = Objects.hash(prgType, address, size, ifDatas);
+		result = 31 * result + Arrays.hashCode(offset);
+		return result;
 	}
 }

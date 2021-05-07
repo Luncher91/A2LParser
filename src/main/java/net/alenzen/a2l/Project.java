@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class Project extends ProjectSubBlocks implements IA2LWriteable {
 	private String name;
@@ -42,5 +44,23 @@ public class Project extends ProjectSubBlocks implements IA2LWriteable {
 
 		writer.dedent();
 		writer.writelnEnd("PROJECT");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		if (!super.equals(o))
+			return false;
+		Project project = (Project) o;
+		return Objects.equals(name, project.name) && Objects.equals(longIdentifier, project.longIdentifier) && Objects
+				.equals(header, project.header);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.hashCode(), name, longIdentifier, header);
 	}
 }

@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class MaxRefresh implements IA2LWriteable {
 	private long scalingUnit;
@@ -25,5 +27,20 @@ public class MaxRefresh implements IA2LWriteable {
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
 		writer.writelnSpaced("MAX_REFRESH", Long.toString(scalingUnit), Long.toString(rate));
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		MaxRefresh that = (MaxRefresh) o;
+		return scalingUnit == that.scalingUnit && rate == that.rate;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(scalingUnit, rate);
 	}
 }

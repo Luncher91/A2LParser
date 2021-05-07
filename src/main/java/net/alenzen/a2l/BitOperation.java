@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class BitOperation implements IA2LWriteable {
 	// optional parameters
@@ -51,5 +53,21 @@ public class BitOperation implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("BIT_OPERATION");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		BitOperation that = (BitOperation) o;
+		return signExtend == that.signExtend && Objects.equals(leftShift, that.leftShift) && Objects
+				.equals(rightShift, that.rightShift);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(leftShift, rightShift, signExtend);
 	}
 }

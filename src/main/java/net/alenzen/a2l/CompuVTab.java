@@ -2,6 +2,7 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import net.alenzen.a2l.enums.ConversionType;
 
@@ -88,5 +89,23 @@ public class CompuVTab implements IA2LWriteable {
 
 		writer.dedent();
 		writer.writelnEnd("COMPU_VTAB");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		CompuVTab compuVTab = (CompuVTab) o;
+		return numberOfValuePairs == compuVTab.numberOfValuePairs && Objects.equals(name, compuVTab.name) && Objects
+				.equals(longIdentifier, compuVTab.longIdentifier) && conversionType == compuVTab.conversionType
+				&& Objects.equals(valuePairs, compuVTab.valuePairs) && Objects
+				.equals(defaultValue, compuVTab.defaultValue);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, longIdentifier, conversionType, numberOfValuePairs, valuePairs, defaultValue);
 	}
 }

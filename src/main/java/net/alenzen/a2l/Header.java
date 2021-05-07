@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class Header implements IA2LWriteable {
 	private String comment;
@@ -42,5 +44,21 @@ public class Header implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("HEADER");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Header header = (Header) o;
+		return Objects.equals(comment, header.comment) && Objects.equals(projectNo, header.projectNo) && Objects
+				.equals(version, header.version);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(comment, projectNo, version);
 	}
 }

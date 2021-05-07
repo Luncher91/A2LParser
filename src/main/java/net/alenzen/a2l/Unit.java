@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class Unit implements IA2LWriteable {
 	private String name;
@@ -87,5 +89,22 @@ public class Unit implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("UNIT");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Unit unit = (Unit) o;
+		return Objects.equals(name, unit.name) && Objects.equals(longIdentifier, unit.longIdentifier) && Objects
+				.equals(display, unit.display) && type == unit.type && Objects.equals(unit_ref, unit.unit_ref)
+				&& Objects.equals(siExponents, unit.siExponents) && Objects.equals(unitConversion, unit.unitConversion);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, longIdentifier, display, type, unit_ref, siExponents, unitConversion);
 	}
 }

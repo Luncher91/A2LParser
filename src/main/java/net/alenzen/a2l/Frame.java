@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class Frame implements IA2LWriteable {
 	private String name;
@@ -73,5 +75,22 @@ public class Frame implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("FRAME");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Frame frame = (Frame) o;
+		return scalingUnit == frame.scalingUnit && rate == frame.rate && Objects.equals(name, frame.name) && Objects
+				.equals(longIdentifier, frame.longIdentifier) && Objects
+				.equals(frameMeasurements, frame.frameMeasurements) && Objects.equals(ifDatas, frame.ifDatas);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, longIdentifier, scalingUnit, rate, frameMeasurements, ifDatas);
 	}
 }

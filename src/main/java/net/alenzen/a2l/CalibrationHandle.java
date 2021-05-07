@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class CalibrationHandle implements IA2LWriteable {
 	private List<Long> handles;
@@ -44,5 +46,20 @@ public class CalibrationHandle implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("CALIBRATION_HANDLE");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		CalibrationHandle that = (CalibrationHandle) o;
+		return Objects.equals(handles, that.handles) && Objects.equals(calibrationText, that.calibrationText);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(handles, calibrationText);
 	}
 }

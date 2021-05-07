@@ -1,5 +1,8 @@
 package net.alenzen.a2l;
 
+import java.util.Objects;
+
+
 public class ValueTriple<T1, T2> {
 	private T1 inValMin;
 	private T1 inValMax;
@@ -27,5 +30,21 @@ public class ValueTriple<T1, T2> {
 
 	public void setOutVal(T2 outVal) {
 		this.outVal = outVal;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		ValueTriple<?, ?> that = (ValueTriple<?, ?>) o;
+		return Objects.equals(inValMin, that.inValMin) && Objects.equals(inValMax, that.inValMax) && Objects
+				.equals(outVal, that.outVal);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(inValMin, inValMax, outVal);
 	}
 }

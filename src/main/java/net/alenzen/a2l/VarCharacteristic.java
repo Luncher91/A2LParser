@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class VarCharacteristic implements IA2LWriteable {
 	private String name;
@@ -48,5 +50,21 @@ public class VarCharacteristic implements IA2LWriteable {
 
 		writer.dedent();
 		writer.writelnEnd("VAR_CHARACTERISTIC");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		VarCharacteristic that = (VarCharacteristic) o;
+		return Objects.equals(name, that.name) && Objects.equals(criterions, that.criterions) && Objects
+				.equals(addresses, that.addresses);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, criterions, addresses);
 	}
 }

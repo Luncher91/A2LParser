@@ -1,5 +1,7 @@
 package net.alenzen.a2l;
 
+import java.util.Objects;
+
 import net.alenzen.a2l.enums.DataType;
 
 public class SrcAddrXYZ45 implements IA2LDimensionWriteable {
@@ -27,5 +29,20 @@ public class SrcAddrXYZ45 implements IA2LDimensionWriteable {
 		return (A2LWriter writer) -> {
 			writer.writelnSpaced("SRC_ADDR_" + dimension, Long.toString(position), dataType.name());
 		};
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		SrcAddrXYZ45 that = (SrcAddrXYZ45) o;
+		return position == that.position && dataType == that.dataType;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(position, dataType);
 	}
 }

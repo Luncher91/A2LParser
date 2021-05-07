@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class Group implements IA2LWriteable {
 	private String groupName;
@@ -114,5 +116,25 @@ public class Group implements IA2LWriteable {
 		if (lst != null && lst.size() > 0) {
 			lst.toA2lAsBlock(writer, name);
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Group group = (Group) o;
+		return root == group.root && Objects.equals(groupName, group.groupName) && Objects
+				.equals(longIdentifier, group.longIdentifier) && Objects.equals(annotations, group.annotations)
+				&& Objects.equals(functionList, group.functionList) && Objects.equals(ifDatas, group.ifDatas) && Objects
+				.equals(refCharacteristics, group.refCharacteristics) && Objects
+				.equals(refMeasurements, group.refMeasurements) && Objects.equals(subGroups, group.subGroups);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(groupName, longIdentifier, annotations, functionList, ifDatas, refCharacteristics,
+				refMeasurements, root, subGroups);
 	}
 }
