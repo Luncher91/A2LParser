@@ -1,7 +1,10 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+
 
 public class MemorySegment implements IA2LWriteable {
 	private String name;
@@ -113,5 +116,25 @@ public class MemorySegment implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("MEMORY_SEGMENT");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		MemorySegment that = (MemorySegment) o;
+		return address == that.address && size == that.size && Objects.equals(name, that.name) && Objects
+				.equals(longIdentifier, that.longIdentifier) && prgType == that.prgType && memoryType == that.memoryType
+				&& attribute == that.attribute && Arrays.equals(offset, that.offset) && Objects
+				.equals(ifDatas, that.ifDatas);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = Objects.hash(name, longIdentifier, prgType, memoryType, attribute, address, size, ifDatas);
+		result = 31 * result + Arrays.hashCode(offset);
+		return result;
 	}
 }

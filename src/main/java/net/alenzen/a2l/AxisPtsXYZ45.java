@@ -1,5 +1,7 @@
 package net.alenzen.a2l;
 
+import java.util.Objects;
+
 import net.alenzen.a2l.enums.AddrType;
 import net.alenzen.a2l.enums.DataType;
 import net.alenzen.a2l.enums.IndexOrder;
@@ -48,5 +50,21 @@ public class AxisPtsXYZ45 implements IA2LDimensionWriteable {
 			writer.writelnSpaced("AXIS_PTS_" + dimension, Long.toString(position), datatype.name(), indexorder.name(),
 					addressing.name());
 		};
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		AxisPtsXYZ45 that = (AxisPtsXYZ45) o;
+		return position == that.position && datatype == that.datatype && indexorder == that.indexorder
+				&& addressing == that.addressing;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(position, datatype, indexorder, addressing);
 	}
 }

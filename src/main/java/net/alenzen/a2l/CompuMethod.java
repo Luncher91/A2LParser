@@ -1,6 +1,7 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import net.alenzen.a2l.enums.ConversionType;
 
@@ -131,5 +132,27 @@ public class CompuMethod implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("COMPU_METHOD");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		CompuMethod that = (CompuMethod) o;
+		return Objects.equals(name, that.name) && Objects.equals(longIdentifier, that.longIdentifier)
+				&& conversionType == that.conversionType && Objects.equals(format, that.format) && Objects
+				.equals(unit, that.unit) && Objects.equals(coeffs, that.coeffs) && Objects
+				.equals(coeffsLinear, that.coeffsLinear) && Objects.equals(compuTab_ref, that.compuTab_ref) && Objects
+				.equals(formula, that.formula) && Objects.equals(unit_ref, that.unit_ref) && Objects
+				.equals(conversionTable_ref, that.conversionTable_ref);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects
+				.hash(name, longIdentifier, conversionType, format, unit, coeffs, coeffsLinear, compuTab_ref, formula,
+						unit_ref, conversionTable_ref);
 	}
 }

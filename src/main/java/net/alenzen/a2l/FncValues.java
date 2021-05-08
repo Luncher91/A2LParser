@@ -1,6 +1,7 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import net.alenzen.a2l.enums.AddrType;
 import net.alenzen.a2l.enums.DataType;
@@ -51,5 +52,21 @@ public class FncValues implements IA2LWriteable {
 	public void writeTo(A2LWriter writer) throws IOException {
 		writer.writelnSpaced("FNC_VALUES", Long.toString(position), dataType.name(), indexMode.name(),
 				addressType.name());
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		FncValues fncValues = (FncValues) o;
+		return position == fncValues.position && dataType == fncValues.dataType && indexMode == fncValues.indexMode
+				&& addressType == fncValues.addressType;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(position, dataType, indexMode, addressType);
 	}
 }

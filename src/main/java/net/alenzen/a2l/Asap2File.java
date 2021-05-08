@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -113,5 +114,21 @@ public class Asap2File {
 		writer.write(asap2Version);
 		writer.write(a2mlVersion);
 		writer.write(project);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Asap2File asap2File = (Asap2File) o;
+		return Objects.equals(a2mlVersion, asap2File.a2mlVersion) && Objects
+				.equals(asap2Version, asap2File.asap2Version) && Objects.equals(project, asap2File.project);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(a2mlVersion, asap2Version, project);
 	}
 }

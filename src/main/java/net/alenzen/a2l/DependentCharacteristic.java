@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class DependentCharacteristic implements IA2LWriteable {
 	private String formula;
@@ -38,5 +40,20 @@ public class DependentCharacteristic implements IA2LWriteable {
 
 		writer.dedent();
 		writer.writelnEnd("DEPENDENT_CHARACTERISTIC");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		DependentCharacteristic that = (DependentCharacteristic) o;
+		return Objects.equals(formula, that.formula) && Objects.equals(characterstics, that.characterstics);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(formula, characterstics);
 	}
 }

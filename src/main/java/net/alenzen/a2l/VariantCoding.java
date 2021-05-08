@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class VariantCoding implements IA2LWriteable {
 	private List<VarCharacteristic> varCharacteristics;
@@ -75,5 +77,22 @@ public class VariantCoding implements IA2LWriteable {
 
 		writer.dedent();
 		writer.writelnEnd("VARIANT_CODING");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		VariantCoding that = (VariantCoding) o;
+		return Objects.equals(varCharacteristics, that.varCharacteristics) && Objects
+				.equals(varCriterion, that.varCriterion) && Objects.equals(varForbiddenComb, that.varForbiddenComb)
+				&& varNaming == that.varNaming && Objects.equals(varSeparator, that.varSeparator);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(varCharacteristics, varCriterion, varForbiddenComb, varNaming, varSeparator);
 	}
 }

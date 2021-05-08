@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class Annotation implements IA2LWriteable {
 	private String label;
@@ -48,5 +50,21 @@ public class Annotation implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("ANNOTATION");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Annotation that = (Annotation) o;
+		return Objects.equals(label, that.label) && Objects.equals(origin, that.origin) && Objects
+				.equals(text, that.text);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(label, origin, text);
 	}
 }

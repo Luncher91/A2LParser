@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class Function implements IA2LWriteable {
 	private String name;
@@ -134,5 +136,30 @@ public class Function implements IA2LWriteable {
 		if (lst != null && lst.size() > 0) {
 			lst.toA2lAsBlock(writer, name);
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Function function = (Function) o;
+		return Objects.equals(name, function.name) && Objects.equals(longIdentifier, function.longIdentifier) && Objects
+				.equals(annotations, function.annotations) && Objects
+				.equals(defCharacteristics, function.defCharacteristics) && Objects
+				.equals(functionVersion, function.functionVersion) && Objects.equals(ifDatas, function.ifDatas)
+				&& Objects.equals(inMeasurments, function.inMeasurments) && Objects
+				.equals(locMeasurments, function.locMeasurments) && Objects
+				.equals(outMeasurments, function.outMeasurments) && Objects
+				.equals(refCharacteristics, function.refCharacteristics) && Objects
+				.equals(subFunctions, function.subFunctions);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects
+				.hash(name, longIdentifier, annotations, defCharacteristics, functionVersion, ifDatas, inMeasurments,
+						locMeasurments, outMeasurments, refCharacteristics, subFunctions);
 	}
 }

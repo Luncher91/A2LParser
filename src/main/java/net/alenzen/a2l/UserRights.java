@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class UserRights implements IA2LWriteable {
 	private String userLevelId;
@@ -53,5 +55,21 @@ public class UserRights implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("USER_RIGHTS");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		UserRights that = (UserRights) o;
+		return readOnly == that.readOnly && Objects.equals(userLevelId, that.userLevelId) && Objects
+				.equals(groups, that.groups);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(userLevelId, readOnly, groups);
 	}
 }

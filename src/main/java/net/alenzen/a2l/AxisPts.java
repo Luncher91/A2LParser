@@ -3,6 +3,7 @@ package net.alenzen.a2l;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.CalibrationAccess;
@@ -321,5 +322,38 @@ public class AxisPts implements IA2LWriteable {
 		
 		writer.dedent();
 		writer.writelnEnd("AXIS_PTS");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		AxisPts axisPts = (AxisPts) o;
+		return address == axisPts.address && Double.compare(axisPts.maxDiff, maxDiff) == 0
+				&& maxAxisPoints == axisPts.maxAxisPoints && Double.compare(axisPts.lowerLimit, lowerLimit) == 0
+				&& Double.compare(axisPts.upperLimit, upperLimit) == 0 && guardRails == axisPts.guardRails
+				&& readOnly == axisPts.readOnly && Objects.equals(name, axisPts.name) && Objects
+				.equals(longIdentifier, axisPts.longIdentifier) && Objects
+				.equals(inputQuantitiy, axisPts.inputQuantitiy) && Objects.equals(deposit, axisPts.deposit) && Objects
+				.equals(conversion, axisPts.conversion) && Objects.equals(notes, axisPts.notes)
+				&& byteorder == axisPts.byteorder && access == axisPts.access
+				&& axisPointDeposit == axisPts.axisPointDeposit && Objects
+				.equals(displayIdentifier, axisPts.displayIdentifier) && Objects
+				.equals(ecuAddressExtension, axisPts.ecuAddressExtension) && Objects
+				.equals(extendedLimits, axisPts.extendedLimits) && Objects.equals(format, axisPts.format) && Objects
+				.equals(functions, axisPts.functions) && Objects.equals(ifData, axisPts.ifData)
+				&& monotony == axisPts.monotony && Objects.equals(physUnit, axisPts.physUnit) && Objects
+				.equals(memorySegment, axisPts.memorySegment) && Objects.equals(stepSize, axisPts.stepSize) && Objects
+				.equals(symbolLink, axisPts.symbolLink);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, longIdentifier, address, inputQuantitiy, deposit, maxDiff, conversion, maxAxisPoints,
+				lowerLimit, upperLimit, notes, byteorder, access, axisPointDeposit, displayIdentifier,
+				ecuAddressExtension, extendedLimits, format, functions, guardRails, ifData, monotony, physUnit,
+				readOnly, memorySegment, stepSize, symbolLink);
 	}
 }

@@ -1,6 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class SiExponents implements IA2LWriteable {
 	private long length;
@@ -72,5 +74,22 @@ public class SiExponents implements IA2LWriteable {
 		writer.writelnSpaced("SI_EXPONENTS", Long.toString(length), Long.toString(mass), Long.toString(time),
 				Long.toString(electricCurrent), Long.toString(temperature), Long.toString(amountOfSubstance),
 				Long.toString(luminousIntensity));
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		SiExponents that = (SiExponents) o;
+		return length == that.length && mass == that.mass && time == that.time
+				&& electricCurrent == that.electricCurrent && temperature == that.temperature
+				&& amountOfSubstance == that.amountOfSubstance && luminousIntensity == that.luminousIntensity;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(length, mass, time, electricCurrent, temperature, amountOfSubstance, luminousIntensity);
 	}
 }

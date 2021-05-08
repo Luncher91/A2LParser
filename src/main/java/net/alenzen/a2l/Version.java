@@ -1,5 +1,8 @@
 package net.alenzen.a2l;
 
+import java.util.Objects;
+
+
 public abstract class Version implements IA2LWriteable {
 	private long versionNo;
 	private long upgradeNo;
@@ -25,5 +28,20 @@ public abstract class Version implements IA2LWriteable {
 
 	public void setUpgradeNo(long upgradeNo) {
 		this.upgradeNo = upgradeNo;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Version version = (Version) o;
+		return versionNo == version.versionNo && upgradeNo == version.upgradeNo;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(versionNo, upgradeNo);
 	}
 }

@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class VarCriterion implements IA2LWriteable {
 	private String name;
@@ -75,5 +77,22 @@ public class VarCriterion implements IA2LWriteable {
 
 		writer.dedent();
 		writer.writelnEnd("VAR_CRITERION");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		VarCriterion that = (VarCriterion) o;
+		return Objects.equals(name, that.name) && Objects.equals(longIdentifier, that.longIdentifier) && Objects
+				.equals(values, that.values) && Objects.equals(measurement, that.measurement) && Objects
+				.equals(selectionCharacteristic, that.selectionCharacteristic);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, longIdentifier, values, measurement, selectionCharacteristic);
 	}
 }

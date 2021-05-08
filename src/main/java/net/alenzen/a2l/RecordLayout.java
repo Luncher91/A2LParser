@@ -2,6 +2,8 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
 
 public class RecordLayout implements IA2LWriteable {
 	private String name;
@@ -668,5 +670,62 @@ public class RecordLayout implements IA2LWriteable {
 		if(l != null) {
 			writer.writelnSpaced(name, l.toString());
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		RecordLayout that = (RecordLayout) o;
+		return staticRecordLayout == that.staticRecordLayout && Objects.equals(name, that.name) && Objects
+				.equals(alignmentByte, that.alignmentByte) && Objects
+				.equals(alignmentFloat32IEEE, that.alignmentFloat32IEEE) && Objects
+				.equals(alignmentFloat64IEEE, that.alignmentFloat64IEEE) && Objects
+				.equals(alignmentInt64, that.alignmentInt64) && Objects.equals(alignmentLong, that.alignmentLong)
+				&& Objects.equals(alignmentWord, that.alignmentWord) && Objects.equals(axisPtsX, that.axisPtsX)
+				&& Objects.equals(axisPtsY, that.axisPtsY) && Objects.equals(axisPtsZ, that.axisPtsZ) && Objects
+				.equals(axisPts4, that.axisPts4) && Objects.equals(axisPts5, that.axisPts5) && Objects
+				.equals(axisRescaleX, that.axisRescaleX) && Objects.equals(axisRescaleY, that.axisRescaleY) && Objects
+				.equals(axisRescaleZ, that.axisRescaleZ) && Objects.equals(axisRescale4, that.axisRescale4) && Objects
+				.equals(axisRescale5, that.axisRescale5) && Objects.equals(distOpX, that.distOpX) && Objects
+				.equals(distOpY, that.distOpY) && Objects.equals(distOpZ, that.distOpZ) && Objects
+				.equals(distOp4, that.distOp4) && Objects.equals(distOp5, that.distOp5) && Objects
+				.equals(fixNoAxisPtsX, that.fixNoAxisPtsX) && Objects.equals(fixNoAxisPtsY, that.fixNoAxisPtsY)
+				&& Objects.equals(fixNoAxisPtsZ, that.fixNoAxisPtsZ) && Objects
+				.equals(fixNoAxisPts4, that.fixNoAxisPts4) && Objects.equals(fixNoAxisPts5, that.fixNoAxisPts5)
+				&& Objects.equals(functionValues, that.functionValues) && Objects
+				.equals(identification, that.identification) && Objects.equals(noAxisPtsX, that.noAxisPtsX) && Objects
+				.equals(noAxisPtsY, that.noAxisPtsY) && Objects.equals(noAxisPtsZ, that.noAxisPtsZ) && Objects
+				.equals(noAxisPts4, that.noAxisPts4) && Objects.equals(noAxisPts5, that.noAxisPts5) && Objects
+				.equals(noRescaleX, that.noRescaleX) && Objects.equals(noRescaleY, that.noRescaleY) && Objects
+				.equals(noRescaleZ, that.noRescaleZ) && Objects.equals(noRescale4, that.noRescale4) && Objects
+				.equals(noRescale5, that.noRescale5) && Objects.equals(offsetX, that.offsetX) && Objects
+				.equals(offsetY, that.offsetY) && Objects.equals(offsetZ, that.offsetZ) && Objects
+				.equals(offset4, that.offset4) && Objects.equals(offset5, that.offset5) && Objects
+				.equals(reserved, that.reserved) && Objects.equals(ripAddressW, that.ripAddressW) && Objects
+				.equals(ripAddressX, that.ripAddressX) && Objects.equals(ripAddressY, that.ripAddressY) && Objects
+				.equals(ripAddressZ, that.ripAddressZ) && Objects.equals(ripAddress4, that.ripAddress4) && Objects
+				.equals(ripAddress5, that.ripAddress5) && Objects.equals(srcAddressX, that.srcAddressX) && Objects
+				.equals(srcAddressY, that.srcAddressY) && Objects.equals(srcAddressZ, that.srcAddressZ) && Objects
+				.equals(srcAddress4, that.srcAddress4) && Objects.equals(srcAddress5, that.srcAddress5) && Objects
+				.equals(shiftOpX, that.shiftOpX) && Objects.equals(shiftOpY, that.shiftOpY) && Objects
+				.equals(shiftOpZ, that.shiftOpZ) && Objects.equals(shiftOp4, that.shiftOp4) && Objects
+				.equals(shiftOp5, that.shiftOp5);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects
+				.hash(name, alignmentByte, alignmentFloat32IEEE, alignmentFloat64IEEE, alignmentInt64, alignmentLong,
+						alignmentWord, axisPtsX, axisPtsY, axisPtsZ, axisPts4, axisPts5, axisRescaleX, axisRescaleY,
+						axisRescaleZ, axisRescale4, axisRescale5, distOpX, distOpY, distOpZ, distOp4, distOp5,
+						fixNoAxisPtsX, fixNoAxisPtsY, fixNoAxisPtsZ, fixNoAxisPts4, fixNoAxisPts5, functionValues,
+						identification, noAxisPtsX, noAxisPtsY, noAxisPtsZ, noAxisPts4, noAxisPts5, noRescaleX,
+						noRescaleY, noRescaleZ, noRescale4, noRescale5, offsetX, offsetY, offsetZ, offset4, offset5,
+						reserved, ripAddressW, ripAddressX, ripAddressY, ripAddressZ, ripAddress4, ripAddress5,
+						srcAddressX, srcAddressY, srcAddressZ, srcAddress4, srcAddress5, shiftOpX, shiftOpY, shiftOpZ,
+						shiftOp4, shiftOp5, staticRecordLayout);
 	}
 }
