@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 class MatrixDimTest {
 	private Asap2File file;
@@ -26,5 +27,10 @@ class MatrixDimTest {
 		assertEquals(7L, matrixDim.getxDim());
 		assertEquals(8L, matrixDim.getyDim());
 		assertEquals(10L, matrixDim.getzDim());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(MatrixDim.class).verify();
 	}
 }

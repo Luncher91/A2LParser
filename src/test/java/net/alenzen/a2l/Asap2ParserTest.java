@@ -83,12 +83,12 @@ public class Asap2ParserTest {
 		ArrayList<String> arguments = new ArrayList<String>();
 		arguments.add("-a2l");
 		arguments.add(a2lPath);
-		
-		if(minimized) {
+
+		if (minimized) {
 			arguments.add("-mj");
 		}
-		
-		if(indentation) {
+
+		if (indentation) {
 			arguments.add("-ij");
 		}
 
@@ -168,34 +168,35 @@ public class Asap2ParserTest {
 			}
 		}
 	}
-	
+
 	@Test
 	void testMinimizedJson() throws JsonGenerationException, JsonMappingException, URISyntaxException, IOException {
 		String minimizedJson = generateJsonFromA2l(TestFile.A, true, false);
-		
+
 		Asap2File a2l = Asap2File.fromJson(minimizedJson);
 		String normalJson = a2l.toJson();
-		
+
 		assertEquals(Asap2FileTest.TEST_FILE_A_JSON, normalJson);
 	}
-	
+
 	@Test
-	void testMinimizedAndIndentedJson() throws JsonGenerationException, JsonMappingException, URISyntaxException, IOException {
+	void testMinimizedAndIndentedJson()
+			throws JsonGenerationException, JsonMappingException, URISyntaxException, IOException {
 		String minimizedJson = generateJsonFromA2l(TestFile.A, true, true);
-		
+
 		Asap2File a2l = Asap2File.fromJson(minimizedJson);
 		String normalJson = a2l.toJson();
-		
+
 		assertEquals(Asap2FileTest.TEST_FILE_A_JSON, normalJson);
 	}
-	
+
 	@Test
 	void testIndentedJson() throws JsonGenerationException, JsonMappingException, URISyntaxException, IOException {
 		String minimizedJson = generateJsonFromA2l(TestFile.A, false, true);
-		
+
 		Asap2File a2l = Asap2File.fromJson(minimizedJson);
 		String normalJson = a2l.toJson();
-		
+
 		assertEquals(Asap2FileTest.TEST_FILE_A_JSON, normalJson);
 	}
 

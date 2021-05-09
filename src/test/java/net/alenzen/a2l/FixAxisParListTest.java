@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class FixAxisParListTest {
 	private Asap2File file;
@@ -27,11 +28,16 @@ public class FixAxisParListTest {
 	void testValues() {
 		double[] values = new double[] { 1.1, 2.2, 3.3, 4.4, 5.5 };
 		double[] vs = fixAxisParList.getAxisPtsValues();
-		
+
 		assertEquals(values.length, vs.length);
-		
-		for(int i = 0; i < vs.length; i++) {
+
+		for (int i = 0; i < vs.length; i++) {
 			assertEquals(values[i], vs[i]);
 		}
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(FixAxisParList.class).verify();
 	}
 }

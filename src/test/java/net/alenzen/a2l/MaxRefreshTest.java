@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 class MaxRefreshTest {
 	private Asap2File file;
@@ -29,5 +30,10 @@ class MaxRefreshTest {
 	@Test
 	void testScalingUnit() {
 		assertEquals(12, maxRefresh.getScalingUnit());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(MaxRefresh.class).verify();
 	}
 }

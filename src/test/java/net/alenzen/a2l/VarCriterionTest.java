@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class VarCriterionTest {
 	private Asap2File file;
@@ -53,5 +54,10 @@ public class VarCriterionTest {
 	@Test
 	void testVarSelectionCharacteristic() {
 		assertEquals("varSelectionCharac", varCriterion.getSelectionCharacteristic());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(VarCriterion.class).verify();
 	}
 }

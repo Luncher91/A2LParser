@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class BlobTest {
 	private Asap2File file;
@@ -25,5 +26,10 @@ public class BlobTest {
 	@Test
 	void testContent() {
 		assertEquals("/begin BLOB i am not parsed neither /end BLOB", blob.getContent());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(Blob.class).verify();
 	}
 }

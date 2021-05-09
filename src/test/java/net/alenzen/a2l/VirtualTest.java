@@ -29,4 +29,16 @@ public class VirtualTest {
 			assertEquals(meas[i], virtual.get(i));
 		}
 	}
+
+	public static Virtual getPrefabRed() {
+		Virtual v = new Virtual();
+		v.add("RedText");
+		return v;
+	}
+
+	public static Virtual getPrefabBlue() {
+		Virtual v = new Virtual();
+		v.add("BlueText");
+		return v;
+	}
 }

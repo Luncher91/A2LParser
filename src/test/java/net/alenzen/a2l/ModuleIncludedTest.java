@@ -21,12 +21,12 @@ public class ModuleIncludedTest {
 
 		assertNotNull(module);
 	}
-	
+
 	@Test
 	void testIncluded() {
 		assertEquals(1, module.getIncluded().size());
 	}
-	
+
 	@Test
 	void testIncludedCharacteristic() {
 		assertEquals("inclChar", module.getIncluded().get(0).getCharacteristics().get(0).getName());

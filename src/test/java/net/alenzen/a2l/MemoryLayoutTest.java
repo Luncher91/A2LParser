@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class MemoryLayoutTest {
 	private Asap2File file;
@@ -46,5 +47,10 @@ public class MemoryLayoutTest {
 		for (int i = 0; i < memoryLayout.getOffset().length; i++) {
 			assertEquals(offsets[i], memoryLayout.getOffset()[i]);
 		}
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(MemoryLayout.class).verify();
 	}
 }

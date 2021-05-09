@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class VarForbiddenCombTest {
 	private Asap2File file;
@@ -28,13 +29,18 @@ public class VarForbiddenCombTest {
 		String[] criterions = new String[] { "varCriterion", "varCriterion" };
 		String[] values = new String[] { "D", "F" };
 		List<CriterionTuple> pairs = varCharacteristic.getTuples();
-		
+
 		assertEquals(criterions.length, pairs.size());
 		assertEquals(values.length, pairs.size());
-		
-		for(int i = 0; i < pairs.size(); i++) {
+
+		for (int i = 0; i < pairs.size(); i++) {
 			assertEquals(criterions[i], pairs.get(i).getName());
 			assertEquals(values[i], pairs.get(i).getValue());
 		}
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(VarForbiddenComb.class).verify();
 	}
 }

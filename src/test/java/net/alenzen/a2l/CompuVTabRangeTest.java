@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class CompuVTabRangeTest {
 	private Asap2File file;
@@ -61,5 +62,10 @@ public class CompuVTabRangeTest {
 	@Test
 	void testDefaultValue() {
 		assertEquals("default", compuVTabRange.getDefaultValue());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(CompuVTabRange.class).verify();
 	}
 }

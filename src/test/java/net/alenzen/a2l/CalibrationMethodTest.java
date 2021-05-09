@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class CalibrationMethodTest {
 	private Asap2File file;
@@ -21,14 +22,19 @@ public class CalibrationMethodTest {
 
 		assertNotNull(calibrationMethod);
 	}
-	
+
 	@Test
 	void testMethod() {
 		assertEquals("methodA", calibrationMethod.getName());
 	}
-	
+
 	@Test
 	void testVersion() {
 		assertEquals(3141, calibrationMethod.getVersion());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(CalibrationMethod.class).verify();
 	}
 }

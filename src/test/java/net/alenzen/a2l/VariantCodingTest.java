@@ -22,14 +22,19 @@ public class VariantCodingTest {
 
 		assertNotNull(variantCoding);
 	}
-	
+
 	@Test
 	void testVarSeparator() {
 		assertEquals("#", variantCoding.getVarSeparator());
 	}
-	
+
 	@Test
 	void testVarNaming() {
 		assertEquals(VarNaming.NUMERIC, variantCoding.getVarNaming());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(VariantCoding.class).verify();
 	}
 }

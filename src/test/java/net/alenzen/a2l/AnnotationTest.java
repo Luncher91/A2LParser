@@ -43,4 +43,9 @@ public class AnnotationTest {
 			assertEquals(textLines[i], actualText.get(i));
 		}
 	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(Annotation.class).verify();
+	}
 }

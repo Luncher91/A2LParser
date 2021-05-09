@@ -17,21 +17,27 @@ public class VirtualCharacteristicTest {
 	@BeforeEach
 	void initTestfile() throws IOException {
 		file = Asap2FileTest.getTestFile(TestFile.A);
-		virtualCharacteristic = file.getProject().getModules().get(0).getCharacteristics().get(0).getVirtualCharacteristic();
+		virtualCharacteristic = file.getProject().getModules().get(0).getCharacteristics().get(0)
+				.getVirtualCharacteristic();
 
 		assertNotNull(virtualCharacteristic);
 	}
-	
+
 	@Test
 	void testName() {
 		assertEquals("sin(cos(X2-X1))", virtualCharacteristic.getFormula());
 	}
-	
+
 	@Test
 	void testCharacteristics() {
-		String[] chars = new String[] {"characteristicA", "characteristicB"};
-		for(int i = 0; i < virtualCharacteristic.getCharacterstics().size(); i++) {
+		String[] chars = new String[] { "characteristicA", "characteristicB" };
+		for (int i = 0; i < virtualCharacteristic.getCharacterstics().size(); i++) {
 			assertEquals(chars[i], virtualCharacteristic.getCharacterstics().get(i));
 		}
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(VirtualCharacteristic.class).verify();
 	}
 }

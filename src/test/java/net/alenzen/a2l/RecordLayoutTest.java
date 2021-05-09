@@ -15,6 +15,7 @@ import net.alenzen.a2l.enums.AddrType;
 import net.alenzen.a2l.enums.DataSize;
 import net.alenzen.a2l.enums.DataType;
 import net.alenzen.a2l.enums.IndexOrder;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class RecordLayoutTest {
 	private Asap2File file;
@@ -231,14 +232,14 @@ public class RecordLayoutTest {
 		assertEquals(IndexMode.ALTERNATE_CURVES, fncValues.getIndexMode());
 		assertEquals(AddrType.PLONG, fncValues.getAddressType());
 	}
-	
+
 	@Test
 	void testIdentification() {
 		Identification ident = recordLayout.getIdentification();
 		assertEquals(48, ident.getPosition());
 		assertEquals(DataType.ULONG, ident.getDataType());
 	}
-	
+
 	@Test
 	void testNoAxisPtsX() {
 		NoAxisPtsXYZ45 noAxisPts = recordLayout.getNoAxisPtsX();
@@ -346,14 +347,14 @@ public class RecordLayoutTest {
 
 	@Test
 	void testReserved() {
-		long[] positions = new long[] {49, 50};
-		DataSize[] dataSizes = new DataSize[] {DataSize.LONG, DataSize.WORD};
+		long[] positions = new long[] { 49, 50 };
+		DataSize[] dataSizes = new DataSize[] { DataSize.LONG, DataSize.WORD };
 		List<Reserved> reserved = recordLayout.getReserved();
-		
+
 		assertEquals(positions.length, reserved.size());
 		assertEquals(dataSizes.length, reserved.size());
-		
-		for(int i = 0; i < reserved.size(); i++) {
+
+		for (int i = 0; i < reserved.size(); i++) {
 			Reserved r = reserved.get(i);
 			assertEquals(positions[i], r.getPosition());
 			assertEquals(dataSizes[i], r.getDataSize());
@@ -475,5 +476,10 @@ public class RecordLayoutTest {
 	@Test
 	void testStaticRecordLayout() {
 		assertEquals(true, recordLayout.isStaticRecordLayout());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(RecordLayout.class).verify();
 	}
 }

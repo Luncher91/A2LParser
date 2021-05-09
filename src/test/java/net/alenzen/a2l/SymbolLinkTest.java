@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 class SymbolLinkTest {
 	private Asap2File file;
@@ -29,5 +30,10 @@ class SymbolLinkTest {
 	@Test
 	void testOffset() {
 		assertEquals(84, symbolLink.getOffset());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(SymbolLink.class).verify();
 	}
 }

@@ -39,9 +39,14 @@ public class UserRightsTest {
 		List<String> gr = userRights.getGroups().get(0);
 
 		assertEquals(groups.length, gr.size());
-		
-		for(int i = 0; i < gr.size(); i++) {
+
+		for (int i = 0; i < gr.size(); i++) {
 			assertEquals(groups[i], gr.get(i));
 		}
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(UserRights.class).verify();
 	}
 }

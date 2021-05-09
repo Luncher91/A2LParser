@@ -46,11 +46,16 @@ public class FrameTest {
 	void testFrameMeasurement() {
 		String[] identifier = new String[] { "identA", "identB", "identC" };
 		IdentReferenceList idents = frame.getFrameMeasurements();
-		
+
 		assertEquals(identifier.length, idents.size());
-		
-		for(int i = 0; i < idents.size(); i++) {
+
+		for (int i = 0; i < idents.size(); i++) {
 			assertEquals(identifier[i], idents.get(i));
 		}
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(Frame.class).verify();
 	}
 }

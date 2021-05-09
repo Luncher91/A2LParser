@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
 import net.alenzen.a2l.enums.ConversionType;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class CompuVTabTest {
 	private Asap2File file;
@@ -62,5 +63,10 @@ public class CompuVTabTest {
 	@Test
 	void testDefaultValue() {
 		assertEquals("default value", compuVTab.getDefaultValue());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(CompuVTab.class).verify();
 	}
 }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class ExtendedLimitsTest {
 	private Asap2File file;
@@ -30,5 +31,10 @@ public class ExtendedLimitsTest {
 	@Test
 	void testUpperLimit() {
 		assertEquals(0.5, extendedLimits.getUpperLimit());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(ExtendedLimits.class).verify();
 	}
 }

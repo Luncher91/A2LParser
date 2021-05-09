@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class HeaderTest {
 	private Asap2File file;
@@ -35,5 +36,10 @@ public class HeaderTest {
 	@Test
 	void testVersion() {
 		assertEquals("V1.7.1", header.getVersion());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(Header.class).verify();
 	}
 }

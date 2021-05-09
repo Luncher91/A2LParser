@@ -50,4 +50,9 @@ public class VarCharacteristicTest {
 			assertEquals(addresses[i], varAdresses.get(i).longValue());
 		}
 	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(VarCharacteristic.class).verify();
+	}
 }

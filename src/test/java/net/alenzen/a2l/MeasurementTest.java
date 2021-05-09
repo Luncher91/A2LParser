@@ -63,32 +63,32 @@ public class MeasurementTest {
 	void testUpperLimit() {
 		assertEquals(255, measurement.getUpperLimit());
 	}
-	
+
 	@Test
 	void testArraySize() {
 		assertEquals(7, measurement.getArraySize());
 	}
-	
+
 	@Test
 	void testDiscrete() {
 		assertEquals(true, measurement.isDiscrete());
 	}
-	
+
 	@Test
 	void testEcuAddressExtension() {
 		assertEquals(0xFF, measurement.getEcuAddressExtension());
 	}
-	
+
 	@Test
 	void testErrorMask() {
 		assertEquals(0x000E, measurement.getErrorMask());
 	}
-	
+
 	@Test
 	void testLayout() {
 		assertEquals(Measurement.LayoutIndexMode.ROW_DIR, measurement.getLayout());
 	}
-	
+
 	@Test
 	void testReadWrite() {
 		assertEquals(true, measurement.isReadWrite());
@@ -127,5 +127,10 @@ public class MeasurementTest {
 	@Test
 	void testDisplayIdentifier() {
 		assertEquals("mega.superMeasurement", measurement.getDisplayIdentifier());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(Measurement.class).verify();
 	}
 }

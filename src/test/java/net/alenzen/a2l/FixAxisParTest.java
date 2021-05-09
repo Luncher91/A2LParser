@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class FixAxisParTest {
 	private Asap2File file;
@@ -36,5 +37,10 @@ public class FixAxisParTest {
 	@Test
 	void testNumberapo() {
 		assertEquals(8, fixAxisPar.getNumberapo());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(FixAxisPar.class).verify();
 	}
 }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class CoeffsLinearTest {
 	private Asap2File file;
@@ -21,15 +22,19 @@ public class CoeffsLinearTest {
 
 		assertNotNull(coeffsLinear);
 	}
-	
 
 	@Test
 	void testA() {
 		assertEquals(7.1, coeffsLinear.getA());
 	}
-	
+
 	@Test
 	void testB() {
 		assertEquals(-12.5, coeffsLinear.getB());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(CoeffsLinear.class).verify();
 	}
 }

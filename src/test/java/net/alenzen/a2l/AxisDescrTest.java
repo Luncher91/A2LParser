@@ -104,4 +104,9 @@ public class AxisDescrTest {
 	void testStepSize() {
 		assertEquals(1.2, axisDescr.getStepSize());
 	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(AxisDescr.class).verify();
+	}
 }

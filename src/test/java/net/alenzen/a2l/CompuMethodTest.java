@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
 import net.alenzen.a2l.enums.ConversionType;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class CompuMethodTest {
 	private Asap2File file;
@@ -46,5 +47,10 @@ public class CompuMethodTest {
 	@Test
 	void testUnit() {
 		assertEquals("°", compuMethod.getUnit());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(CompuMethod.class).verify();
 	}
 }

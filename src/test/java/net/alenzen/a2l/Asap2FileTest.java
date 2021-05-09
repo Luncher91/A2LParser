@@ -98,7 +98,8 @@ public class Asap2FileTest {
 		Asap2File fromA2l = getTestFile(TestFile.A);
 		String generatedA2l = fromA2l.toA2L();
 		// A2L default charset for files without BOM is ISO 8859-1
-		Asap2Parser parser = new Asap2Parser(new ByteArrayInputStream(generatedA2l.getBytes(StandardCharsets.ISO_8859_1)));
+		Asap2Parser parser = new Asap2Parser(
+				new ByteArrayInputStream(generatedA2l.getBytes(StandardCharsets.ISO_8859_1)));
 		parser.setEventHandler((a, b, c) -> {
 			fail(a + ":" + b + ":" + c);
 		});
@@ -111,7 +112,8 @@ public class Asap2FileTest {
 		String jsonTestfileA = fromA2l.toJson();
 		String toA2lResult = fromA2l.toA2L();
 		// A2L default charset for files without BOM is ISO 8859-1
-		Asap2Parser parser = new Asap2Parser(new ByteArrayInputStream(toA2lResult.getBytes(StandardCharsets.ISO_8859_1)));
+		Asap2Parser parser = new Asap2Parser(
+				new ByteArrayInputStream(toA2lResult.getBytes(StandardCharsets.ISO_8859_1)));
 		parser.setEventHandler((a, b, c) -> {
 			fail(a + ":" + b + ":" + c);
 		});
@@ -120,5 +122,10 @@ public class Asap2FileTest {
 
 		double relativeDifference = (double) jsonGeneratedA2lFile.length() / jsonTestfileA.length() * 100.0;
 		assertEquals(jsonTestfileA, jsonGeneratedA2lFile, "Completness: " + relativeDifference + "%");
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(Asap2File.class).verify();
 	}
 }

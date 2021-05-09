@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class UnitConversionTest {
 	private Asap2File file;
@@ -21,14 +22,19 @@ public class UnitConversionTest {
 
 		assertNotNull(unitConversion);
 	}
-	
+
 	@Test
 	void testGradient() {
 		assertEquals(10.1, unitConversion.getGradient());
 	}
-	
+
 	@Test
 	void testOffset() {
 		assertEquals(2.2, unitConversion.getOffset());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(UnitConversion.class).verify();
 	}
 }

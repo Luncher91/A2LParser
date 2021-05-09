@@ -39,4 +39,9 @@ public class ModuleTest {
 				"great example with different escaped quotation \" marks like double quotes \" and backslash escaped at the end \"",
 				module.getLongIdentifier());
 	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(Module.class).verify();
+	}
 }

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class CalibrationHandleTest {
 	private Asap2File file;
@@ -28,16 +29,21 @@ public class CalibrationHandleTest {
 	void testHandleValues() {
 		long[] values = new long[] { 0x10000, 0x300, 0x7, 0x700000, 0x40000 };
 		List<Long> vs = calibrationHandle.getHandles();
-		
+
 		assertEquals(values.length, vs.size());
-		
-		for(int i = 0; i < vs.size(); i++) {
+
+		for (int i = 0; i < vs.size(); i++) {
 			assertEquals(values[i], vs.get(i));
 		}
 	}
-	
+
 	@Test
 	void testCalibrationText() {
 		assertEquals("important!", calibrationHandle.getCalibrationText());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(CalibrationHandle.class).verify();
 	}
 }

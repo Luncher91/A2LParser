@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class CoeffsTest {
 	private Asap2File file;
@@ -50,5 +51,10 @@ public class CoeffsTest {
 	@Test
 	void testF() {
 		assertEquals(1.1, coeffs.getF());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(Coeffs.class).verify();
 	}
 }

@@ -21,17 +21,17 @@ public class ProjectIncludedTest {
 
 		assertNotNull(project);
 	}
-	
+
 	@Test
 	void testIncluded() {
 		assertEquals(1, project.getIncluded().size());
 	}
-	
+
 	@Test
 	void testIncludedModuleSize() {
 		assertEquals(1, project.getIncluded().get(0).getModules().size());
 	}
-	
+
 	@Test
 	void testIncludedModuleName() {
 		assertEquals("sample_module_included", project.getIncluded().get(0).getModules().get(0).getName());

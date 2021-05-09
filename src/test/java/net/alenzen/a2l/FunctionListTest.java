@@ -29,4 +29,16 @@ public class FunctionListTest {
 			assertEquals(values[i], functionList.get(i));
 		}
 	}
+
+	public static FunctionList getPrefabRed() {
+		FunctionList fl = new FunctionList();
+		fl.add("RedFunction");
+		return fl;
+	}
+
+	public static FunctionList getPrefabBlue() {
+		FunctionList fl = new FunctionList();
+		fl.add("BlueFunction");
+		return fl;
+	}
 }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class A2mlTest {
 	private Asap2File file;
@@ -25,5 +26,10 @@ public class A2mlTest {
 	@Test
 	void testContent() {
 		assertEquals("/begin A2ML i am not parsed /end A2ML", a2ml.getContent());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(A2ml.class).verify();
 	}
 }

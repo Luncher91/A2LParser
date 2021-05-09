@@ -31,4 +31,9 @@ public class ProjectTest {
 	void testLongIdentifier() {
 		assertEquals("MIT licensed example file", project.getLongIdentifier());
 	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(Project.class).verify();
+	}
 }

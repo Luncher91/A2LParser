@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class ModParTest {
 	private Asap2File file;
@@ -99,13 +100,18 @@ public class ModParTest {
 		String[] names = new String[] { "close to 1", "pi" };
 		String[] values = new String[] { "value 1", "about 3" };
 		List<SystemConstant> sysConstants = modPar.getSystemConstants();
-		
+
 		assertEquals(names.length, sysConstants.size());
 		assertEquals(values.length, sysConstants.size());
-		
-		for(int i = 0; i < sysConstants.size(); i++) {
+
+		for (int i = 0; i < sysConstants.size(); i++) {
 			assertEquals(names[i], sysConstants.get(i).getName());
 			assertEquals(values[i], sysConstants.get(i).getValue());
 		}
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(ModPar.class).verify();
 	}
 }

@@ -184,16 +184,21 @@ public class CharacteristicTest {
 	void testFunctionList() {
 		String[] functions = new String[] { "f1", "f2", "f3" };
 		FunctionList funcs = characteristic.getFunctions();
-		
+
 		assertEquals(functions.length, funcs.size());
-		
-		for(int i = 0; i < funcs.size(); i++) {
+
+		for (int i = 0; i < funcs.size(); i++) {
 			assertEquals(functions[i], funcs.get(i));
 		}
 	}
-	
+
 	@Test
 	void testAnnotations() {
 		assertEquals("hello world", characteristic.getNotes().get(0).getText().get(0));
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(Characteristic.class).verify();
 	}
 }

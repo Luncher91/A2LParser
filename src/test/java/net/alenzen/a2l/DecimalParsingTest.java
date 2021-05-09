@@ -22,25 +22,25 @@ public class DecimalParsingTest {
 
 		assertNotNull(characteristics);
 	}
-	
+
 	@Test
 	void testMissingTrailingZero() {
 		// 1.
 		assertEquals(1.0, characteristics.get(1).getUpperLimit());
 	}
-	
+
 	@Test
 	void testMissingLeadingZero() {
 		// .1
 		assertEquals(0.1, characteristics.get(1).getLowerLimit());
 	}
-	
+
 	@Test
 	void testMissingTrailingZeroExpontents() {
 		// 1.E2
 		assertEquals(100.0, characteristics.get(2).getUpperLimit());
 	}
-	
+
 	@Test
 	void testMissingLeadingZeroExpontents() {
 		// .1E-2

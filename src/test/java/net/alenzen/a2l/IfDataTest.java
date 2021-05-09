@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class IfDataTest {
 	private Asap2File file;
@@ -25,5 +26,10 @@ public class IfDataTest {
 	@Test
 	void testContent() {
 		assertEquals("/begin IF_DATA i am not parsed yet /end IF_DATA", ifData.getContent());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(IfData.class).verify();
 	}
 }

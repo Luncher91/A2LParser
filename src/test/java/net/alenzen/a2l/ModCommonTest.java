@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import net.alenzen.a2l.Asap2FileTest.TestFile;
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class ModCommonTest {
 	private Asap2File file;
@@ -73,5 +74,10 @@ public class ModCommonTest {
 	@Test
 	void testAlignmentFloat64() {
 		assertEquals(8L, modCommon.getAlignmentFloat64IEEE());
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(ModCommon.class).verify();
 	}
 }

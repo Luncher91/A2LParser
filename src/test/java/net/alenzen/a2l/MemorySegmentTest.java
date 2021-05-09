@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class MemorySegmentTest {
 	private Asap2File file;
@@ -67,5 +68,10 @@ public class MemorySegmentTest {
 		for (int i = 0; i < actualOffsets.length; i++) {
 			assertEquals(offsets[i], actualOffsets[i]);
 		}
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifier.simple().forClass(MemorySegment.class).verify();
 	}
 }

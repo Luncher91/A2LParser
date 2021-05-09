@@ -22,55 +22,60 @@ public class GroupTest {
 
 		assertNotNull(group);
 	}
-	
+
 	@Test
 	void testName() {
 		assertEquals("groupies", group.getGroupName());
 	}
-	
+
 	@Test
 	void testLongIdentifier() {
 		assertEquals("stick to the group", group.getLongIdentifier());
 	}
-	
+
 	@Test
 	void testRoot() {
 		assertTrue(group.isRoot());
 	}
-	
+
 	@Test
 	void testRefCharacteristic() {
-		String[] characteristics = new String[] {"refChar1", "refChar2", "refChar3"};
+		String[] characteristics = new String[] { "refChar1", "refChar2", "refChar3" };
 		IdentReferenceList refChars = group.getRefCharacteristics();
-		
+
 		assertEquals(characteristics.length, refChars.size());
-		
-		for(int i = 0; i < refChars.size(); i++) {
+
+		for (int i = 0; i < refChars.size(); i++) {
 			assertEquals(characteristics[i], refChars.get(i));
 		}
 	}
-	
+
 	@Test
 	void testRefMeasurement() {
-		String[] measurements = new String[] {"meas1", "meas2", "meas3", "meas[0][0]"};
+		String[] measurements = new String[] { "meas1", "meas2", "meas3", "meas[0][0]" };
 		IdentReferenceList refMeas = group.getRefMeasurements();
-		
+
 		assertEquals(measurements.length, refMeas.size());
-		
-		for(int i = 0; i < refMeas.size(); i++) {
+
+		for (int i = 0; i < refMeas.size(); i++) {
 			assertEquals(measurements[i], refMeas.get(i));
 		}
 	}
-	
+
 	@Test
 	void testSubGroup() {
-		String[] groups = new String[] {"subGroup1", "subGroup2", "subGroup3"};
+		String[] groups = new String[] { "subGroup1", "subGroup2", "subGroup3" };
 		IdentReferenceList subGroups = group.getSubGroups();
-		
+
 		assertEquals(groups.length, subGroups.size());
-		
-		for(int i = 0; i < subGroups.size(); i++) {
+
+		for (int i = 0; i < subGroups.size(); i++) {
 			assertEquals(groups[i], subGroups.get(i));
 		}
+	}
+
+	@Test
+	public void equalsContract() {
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(Group.class).verify();
 	}
 }
