@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class Function implements IA2LWriteable {
+public class Function extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 

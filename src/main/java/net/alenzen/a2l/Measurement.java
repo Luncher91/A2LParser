@@ -7,7 +7,7 @@ import java.util.Objects;
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.DataType;
 
-public class Measurement implements IA2LWriteable {
+public class Measurement extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private DataType datatype;

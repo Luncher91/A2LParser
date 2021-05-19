@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class SiExponents implements IA2LWriteable {
+public class SiExponents extends A2LSerializer implements IA2LWriteable {
 	private long length;
 	private long mass;
 	private long time;

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class ProjectSubBlocks implements IA2LWriteable {
+public class ProjectSubBlocks extends A2LSerializer implements IA2LWriteable {
 	// optional parameters
 	private List<Module> modules;
 	

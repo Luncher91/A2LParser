@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import net.alenzen.a2l.enums.DataSize;
 
-public class Reserved implements IA2LWriteable {
+public class Reserved extends A2LSerializer implements IA2LWriteable {
 	private long position;
 	private DataSize dataSize;
 

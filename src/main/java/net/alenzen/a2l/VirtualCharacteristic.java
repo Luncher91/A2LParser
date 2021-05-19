@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class VirtualCharacteristic implements IA2LWriteable {
+public class VirtualCharacteristic extends A2LSerializer implements IA2LWriteable {
 	private String formula;
 	private IdentReferenceList characterstics;
 

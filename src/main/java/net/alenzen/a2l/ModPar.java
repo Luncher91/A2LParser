@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class ModPar implements IA2LWriteable {
+public class ModPar extends A2LSerializer implements IA2LWriteable {
 	private String comment;
 
 	// optional parameters

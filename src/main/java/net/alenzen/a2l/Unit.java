@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class Unit implements IA2LWriteable {
+public class Unit extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private String display;

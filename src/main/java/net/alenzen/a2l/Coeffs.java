@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class Coeffs implements IA2LWriteable {
+public class Coeffs extends A2LSerializer implements IA2LWriteable {
 	private double a, b, c, d, e, f;
 
 	public double getA() {

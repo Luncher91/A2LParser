@@ -6,7 +6,7 @@ import java.util.Objects;
 import net.alenzen.a2l.enums.AddrType;
 import net.alenzen.a2l.enums.DataType;
 
-public class FncValues implements IA2LWriteable {
+public class FncValues extends A2LSerializer implements IA2LWriteable {
 	private long position;
 	private DataType dataType;
 	private IndexMode indexMode;

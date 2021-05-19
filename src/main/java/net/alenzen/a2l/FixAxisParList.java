@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 
-public class FixAxisParList implements IA2LWriteable {
+public class FixAxisParList extends A2LSerializer implements IA2LWriteable {
 	private double[] axisPtsValues;
 
 	public double[] getAxisPtsValues() {

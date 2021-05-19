@@ -3,7 +3,7 @@ package net.alenzen.a2l;
 import java.util.Objects;
 
 
-public class ValuePair<T, U> {
+public class ValuePair<T, U> extends A2LSerializer {
 	private T inVal;
 	private U outVal;
 

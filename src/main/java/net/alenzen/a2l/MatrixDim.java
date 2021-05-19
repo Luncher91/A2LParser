@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class MatrixDim implements IA2LWriteable {
+public class MatrixDim extends A2LSerializer implements IA2LWriteable {
 	private long xDim;
 	private long yDim;
 	private long zDim;

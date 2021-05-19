@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class ExtendedLimits implements IA2LWriteable {
+public class ExtendedLimits extends A2LSerializer implements IA2LWriteable {
 	private double lowerLimit;
 	private double upperLimit;
 

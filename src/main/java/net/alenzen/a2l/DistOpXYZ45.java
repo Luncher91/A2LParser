@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import net.alenzen.a2l.enums.DataType;
 
-public class DistOpXYZ45 implements IA2LDimensionWriteable {
+public class DistOpXYZ45 extends A2LSerializer implements IA2LDimensionWriteable {
 	private long position;
 	private DataType dataType;
 

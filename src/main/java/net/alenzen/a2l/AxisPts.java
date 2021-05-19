@@ -10,7 +10,7 @@ import net.alenzen.a2l.enums.CalibrationAccess;
 import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.Monotony;
 
-public class AxisPts implements IA2LWriteable {
+public class AxisPts extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private long address;
