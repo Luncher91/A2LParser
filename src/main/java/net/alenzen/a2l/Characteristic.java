@@ -8,7 +8,7 @@ import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.CalibrationAccess;
 import net.alenzen.a2l.enums.CharacteristicType;
 
-public class Characteristic implements IA2LWriteable {
+public class Characteristic extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private CharacteristicType type;

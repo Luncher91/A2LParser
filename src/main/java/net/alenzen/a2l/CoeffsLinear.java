@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class CoeffsLinear implements IA2LWriteable {
+public class CoeffsLinear extends A2LSerializer implements IA2LWriteable {
 	private double a;
 	private double b;
 

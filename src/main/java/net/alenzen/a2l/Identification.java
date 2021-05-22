@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import net.alenzen.a2l.enums.DataType;
 
-public class Identification implements IA2LWriteable {
+public class Identification extends A2LSerializer implements IA2LWriteable {
 	private long position;
 	private DataType dataType;
 

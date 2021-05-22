@@ -6,7 +6,7 @@ import java.util.Objects;
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
 
-public class ModCommon implements IA2LWriteable {
+public class ModCommon extends A2LSerializer implements IA2LWriteable {
 	private String comment;
 
 	// optional parameters

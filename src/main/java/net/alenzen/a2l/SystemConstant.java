@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class SystemConstant implements IA2LWriteable {
+public class SystemConstant extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private String value;
 

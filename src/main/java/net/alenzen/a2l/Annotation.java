@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class Annotation implements IA2LWriteable {
+public class Annotation extends A2LSerializer implements IA2LWriteable {
 	private String label;
 	private String origin;
 	private AnnotationText text = new AnnotationText();

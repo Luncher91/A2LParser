@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import net.alenzen.a2l.enums.ConversionType;
 
-public class CompuVTab implements IA2LWriteable {
+public class CompuVTab extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private ConversionType conversionType;

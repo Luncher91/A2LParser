@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
-public class Asap2File {
+public class Asap2File extends A2LSerializer {
 	private A2mlVersion a2mlVersion;
 	private Asap2Version asap2Version;
 	private Project project;

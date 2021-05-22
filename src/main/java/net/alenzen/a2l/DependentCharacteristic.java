@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class DependentCharacteristic implements IA2LWriteable {
+public class DependentCharacteristic extends A2LSerializer implements IA2LWriteable {
 	private String formula;
 	private List<String> characterstics;
 

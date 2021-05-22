@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class UnitConversion implements IA2LWriteable {
+public class UnitConversion extends A2LSerializer implements IA2LWriteable {
 	private double gradient;
 	private double offset;
 

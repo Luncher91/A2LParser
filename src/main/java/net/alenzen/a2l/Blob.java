@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class Blob implements IA2LWriteable {
+public class Blob extends A2LSerializer implements IA2LWriteable {
 	private String content;
 
 	public String getContent() {
