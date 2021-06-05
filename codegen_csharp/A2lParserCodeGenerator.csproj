@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <StartupObject>A2lParserCodeGenerator.Asap2CodeGenerator</StartupObject>
+    <DefaultItemExcludes>$(DefaultItemExcludes);Sample.cs</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
