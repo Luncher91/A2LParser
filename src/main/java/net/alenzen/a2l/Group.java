@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class Group implements IA2LWriteable {
+public class Group extends A2LSerializer implements IA2LWriteable {
 	private String groupName;
 	private String longIdentifier;
 

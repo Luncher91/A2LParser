@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class VarCharacteristic implements IA2LWriteable {
+public class VarCharacteristic extends A2LSerializer implements IA2LWriteable {
 	private String name;
 
 	// optional parameters

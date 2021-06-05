@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class VarForbiddenComb implements IA2LWriteable {
+public class VarForbiddenComb extends A2LSerializer implements IA2LWriteable {
 	private List<CriterionTuple> tuples;
 
 	public List<CriterionTuple> getTuples() {

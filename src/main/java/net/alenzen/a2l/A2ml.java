@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class A2ml implements IA2LWriteable {
+public class A2ml extends A2LSerializer implements IA2LWriteable {
 	private String content;
 
 	public String getContent() {

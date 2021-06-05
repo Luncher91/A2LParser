@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class Formula implements IA2LWriteable {
+public class Formula extends A2LSerializer implements IA2LWriteable {
 	private String fx;
 
 	// optional parameters

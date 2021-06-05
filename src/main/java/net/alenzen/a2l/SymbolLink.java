@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class SymbolLink implements IA2LWriteable {
+public class SymbolLink extends A2LSerializer implements IA2LWriteable {
 	private String symbolName;
 	private long offset;
 

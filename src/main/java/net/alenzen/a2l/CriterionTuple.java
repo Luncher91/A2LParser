@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-class CriterionTuple implements IA2LWriteable {
+class CriterionTuple extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private String value;
 

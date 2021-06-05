@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class MaxRefresh implements IA2LWriteable {
+public class MaxRefresh extends A2LSerializer implements IA2LWriteable {
 	private long scalingUnit;
 	private long rate;
 

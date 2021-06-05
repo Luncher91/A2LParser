@@ -8,7 +8,7 @@ import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.Monotony;
 
-public class AxisDescr implements IA2LWriteable {
+public class AxisDescr extends A2LSerializer implements IA2LWriteable {
 	private Attribute attribute;
 	private String inputQuantity;
 	private String conversion;

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class VariantCoding implements IA2LWriteable {
+public class VariantCoding extends A2LSerializer implements IA2LWriteable {
 	private List<VarCharacteristic> varCharacteristics;
 	private List<VarCriterion> varCriterion;
 	private List<VarForbiddenComb> varForbiddenComb;

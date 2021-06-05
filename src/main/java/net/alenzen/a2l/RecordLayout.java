@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class RecordLayout implements IA2LWriteable {
+public class RecordLayout extends A2LSerializer implements IA2LWriteable {
 	private String name;
 
 	// optional parameters

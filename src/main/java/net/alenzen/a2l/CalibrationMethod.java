@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class CalibrationMethod implements IA2LWriteable {
+public class CalibrationMethod extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private long version;
 

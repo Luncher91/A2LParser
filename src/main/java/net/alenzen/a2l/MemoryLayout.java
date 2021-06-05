@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class MemoryLayout implements IA2LWriteable {
+public class MemoryLayout extends A2LSerializer implements IA2LWriteable {
 	private PrgType prgType;
 	private long address;
 	private long size;

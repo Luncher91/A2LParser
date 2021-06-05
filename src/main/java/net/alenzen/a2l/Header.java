@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class Header implements IA2LWriteable {
+public class Header extends A2LSerializer implements IA2LWriteable {
 	private String comment;
 
 	// optional parameters

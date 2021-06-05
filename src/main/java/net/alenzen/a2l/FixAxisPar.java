@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class FixAxisPar implements IA2LWriteable {
+public class FixAxisPar extends A2LSerializer implements IA2LWriteable {
 	private long offset;
 	private long shift;
 	private long numberapo;

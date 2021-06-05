@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class BitOperation implements IA2LWriteable {
+public class BitOperation extends A2LSerializer implements IA2LWriteable {
 	// optional parameters
 	private Long leftShift;
 	private Long rightShift;

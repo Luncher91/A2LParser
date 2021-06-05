@@ -3,7 +3,7 @@ package net.alenzen.a2l;
 import java.util.Objects;
 
 
-public class FixNoAxisPtsXYZ45 implements IA2LDimensionWriteable {
+public class FixNoAxisPtsXYZ45 extends A2LSerializer implements IA2LDimensionWriteable {
 	private long numberOfAxisPoints;
 
 	public long getNumberOfAxisPoints() {

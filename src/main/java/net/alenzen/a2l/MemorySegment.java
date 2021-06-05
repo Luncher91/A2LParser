@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class MemorySegment implements IA2LWriteable {
+public class MemorySegment extends A2LSerializer implements IA2LWriteable {
 	private String name;
 	private String longIdentifier;
 	private PrgType prgType;

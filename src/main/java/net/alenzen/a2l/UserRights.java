@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class UserRights implements IA2LWriteable {
+public class UserRights extends A2LSerializer implements IA2LWriteable {
 	private String userLevelId;
 
 	// optional parameters

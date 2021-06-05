@@ -3,7 +3,7 @@ package net.alenzen.a2l;
 import java.util.Objects;
 
 
-public class ValueTriple<T1, T2> {
+public class ValueTriple<T1, T2> extends A2LSerializer {
 	private T1 inValMin;
 	private T1 inValMax;
 	private T2 outVal;
