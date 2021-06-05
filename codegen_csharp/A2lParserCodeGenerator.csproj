@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <StartupObject>A2lParserCodeGenerator.Asap2CodeGenerator</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NJsonSchema" Version="10.4.4" />
+    <PackageReference Include="NJsonSchema.CodeGeneration" Version="10.4.4" />
+    <PackageReference Include="NJsonSchema.CodeGeneration.CSharp" Version="10.4.4" />
+  </ItemGroup>
+
+</Project>
