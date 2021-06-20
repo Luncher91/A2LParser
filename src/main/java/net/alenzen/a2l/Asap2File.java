@@ -4,14 +4,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
 public class Asap2File extends A2LSerializer {
@@ -46,42 +52,70 @@ public class Asap2File extends A2LSerializer {
 	public String toJson() throws JsonGenerationException, JsonMappingException, IOException {
 		return toJson(false, false);
 	}
-	
+
 	public String toMinimizedJson() throws JsonGenerationException, JsonMappingException, IOException {
 		return toJson(true, false);
 	}
-	
-	public String toJson(boolean excludeNull, boolean indent) throws JsonGenerationException, JsonMappingException, IOException {
+
+	public String toJson(boolean excludeNull, boolean indent)
+			throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
-		
-		if(excludeNull) {
+
+		if (excludeNull) {
 			objectMapper.setSerializationInclusion(Include.NON_NULL);
 		}
-		
-		if(indent) {
+
+		if (indent) {
 			objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 		}
-		
+
 		return objectMapper.writeValueAsString(this);
 	}
 
 	public static String generateJsonSchema() throws JsonProcessingException {
 		return generateJsonSchema(false, false);
 	}
-	
-	public static String generateJsonSchema(boolean excludeNull, boolean indent) throws JsonMappingException, JsonProcessingException {
+
+	public static String generateJsonSchema(boolean excludeNull, boolean indent)
+			throws JsonMappingException, JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
-		
-		if(excludeNull) {
+
+		if (excludeNull) {
 			mapper.setSerializationInclusion(Include.NON_NULL);
 		}
-		
-		if(indent) {
+
+		if (indent) {
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		}
-		
+
 		JsonSchemaGenerator schemaGen = new JsonSchemaGenerator(mapper);
-		return mapper.writeValueAsString(schemaGen.generateSchema(Asap2File.class));
+		JsonSchema schema = schemaGen.generateSchema(Asap2File.class);
+		String schemaString = mapper.writeValueAsString(schema);
+
+		JsonNode node = mapper.readTree(schemaString);
+
+		HashMap<String, String> idPathMap = new HashMap<String, String>();
+		collectPathIds(node, "#", idPathMap);
+
+		for (Entry<String, String> item : idPathMap.entrySet()) {
+			schemaString = schemaString.replaceAll("\"\\$ref\":\\s*\"" + item.getKey() + "\"",
+					"\"\\$ref\":\"" + item.getValue() + "\"");
+		}
+
+		return schemaString;
+	}
+
+	private static void collectPathIds(JsonNode schema, String currentPath, Map<String, String> map) {
+		if (schema.isObject()) {
+			for (Iterator<Entry<String, JsonNode>> iter = schema.fields(); iter.hasNext();) {
+				Map.Entry<String, JsonNode> item = iter.next();
+				if(item.getValue().isTextual() && item.getKey().equals("id")) {
+					map.put(item.getValue().asText(), currentPath);
+				} else {
+					collectPathIds(item.getValue(), currentPath + "/" + item.getKey(), map);
+				}
+			}
+		}
 	}
 
 	public static Asap2File fromJsonFile(String jsonFilename) throws IOException {
@@ -123,8 +157,8 @@ public class Asap2File extends A2LSerializer {
 		if (o == null || getClass() != o.getClass())
 			return false;
 		Asap2File asap2File = (Asap2File) o;
-		return Objects.equals(a2mlVersion, asap2File.a2mlVersion) && Objects
-				.equals(asap2Version, asap2File.asap2Version) && Objects.equals(project, asap2File.project);
+		return Objects.equals(a2mlVersion, asap2File.a2mlVersion)
+				&& Objects.equals(asap2Version, asap2File.asap2Version) && Objects.equals(project, asap2File.project);
 	}
 
 	@Override
