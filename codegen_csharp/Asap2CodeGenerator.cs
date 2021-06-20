@@ -12,35 +12,6 @@ namespace A2lParserCodeGenerator
 {
     class Asap2CodeGenerator 
     {
-        static void collectPathIds(JsonElement root, string currentPath, Dictionary<string, string> map)
-        {
-            if (root.ValueKind == JsonValueKind.Object)
-            {
-                foreach (var item in root.EnumerateObject())
-                {
-                    if (item.Value.ValueKind == JsonValueKind.String && item.Name == "id")
-                    {
-                        map.Add(item.Value.GetString(), currentPath);
-                    }
-                    else
-                    {
-                        collectPathIds(item.Value, currentPath + "/" + item.Name, map);
-                    }
-                }
-            }
-        }
-
-        static string ToJsonString(JsonDocument jdoc)
-        {
-            using (var stream = new MemoryStream())
-            {
-                Utf8JsonWriter writer = new Utf8JsonWriter(stream, new JsonWriterOptions { Indented = true });
-                jdoc.WriteTo(writer);
-                writer.Flush();
-                return Encoding.UTF8.GetString(stream.ToArray());
-            }
-        }
-
         static void Main(string[] args)
         {
             if (args.Length < 1)
@@ -76,19 +47,8 @@ namespace A2lParserCodeGenerator
                 return;
             }
 
-            Console.WriteLine("Preparing JSON schema...");
-            var doc = JsonDocument.Parse(schemaJson);
-            var idDict = new Dictionary<string, string>();
-            collectPathIds(doc.RootElement, "#", idDict);
-
-            var replacedJson = ToJsonString(doc);
-            foreach (var item in idDict)
-            {
-                replacedJson = replacedJson.Replace("\"$ref\": \"" + item.Key + "\"", "\"$ref\": \"" + item.Value + "\"");
-            }
-
             Console.WriteLine("Parsing schema...");
-            var schema = JsonSchema.FromJsonAsync(replacedJson).Result;
+            var schema = JsonSchema.FromJsonAsync(schemaJson).Result;
             schema.Title = schema.Id.Split(":").Last();
 
             Console.WriteLine("Generating code...");
