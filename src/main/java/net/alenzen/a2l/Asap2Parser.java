@@ -287,8 +287,8 @@ public class Asap2Parser {
 			return;
 		}
 
-		try (PrintStream outputStream = getPrintStream(cmd.getOptionValue("o"), cmd.getOptionValue("c"))) {
-			if (cmd.hasOption("h")) {
+		try (PrintStream outputStream = getPrintStream(cmd.getOptionValue(outputOption.getOpt()), cmd.getOptionValue(encodingOption.getOpt()))) {
+			if (cmd.hasOption(helpOption.getOpt())) {
 				PrintStream stdOut = System.out;
 				System.setOut(outputStream);
 
@@ -301,7 +301,7 @@ public class Asap2Parser {
 				return;
 			}
 
-			if (cmd.hasOption("jsc")) {
+			if (cmd.hasOption(schemaOption.getOpt())) {
 				outputStream.print(Asap2File.generateJsonSchema(
 						cmd.hasOption(minimizeOption.getOpt()), // exclude null fields 
 						cmd.hasOption(indentOption.getOpt()) // indent
