@@ -5,7 +5,7 @@ using ALenzen.A2l;
 
 namespace A2LParserCsharpSample
 {
-    class Program
+    class Sample
     {
         static Asap2File parseA2lFile(string jarPath, string a2lPath)
         {
