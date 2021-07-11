@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
@@ -96,13 +97,60 @@ public class Asap2File extends A2LSerializer {
 
 		HashMap<String, String> idPathMap = new HashMap<String, String>();
 		collectPathIds(node, "#", idPathMap);
+		
+		replaceReferences(node, idPathMap);
+		removeNamespaces(node);
 
-		for (Entry<String, String> item : idPathMap.entrySet()) {
-			schemaString = schemaString.replaceAll("\"\\$ref\":\\s*\"" + item.getKey() + "\"",
-					"\"\\$ref\":\"" + item.getValue() + "\"");
+		return mapper.writeValueAsString(node);
+	}
+
+	private static void replaceReferences(JsonNode node, HashMap<String, String> idPathMap) {
+		if (node.isObject()) {
+			for (Iterator<Entry<String, JsonNode>> iter = node.fields(); iter.hasNext();) {
+				Map.Entry<String, JsonNode> item = iter.next();
+				if(item.getValue().isTextual() && item.getKey().equals("$ref")) {
+					String newRef = idPathMap.get(item.getValue().asText());
+					ObjectNode nodeAsObject = (ObjectNode) node;
+					nodeAsObject.put("$ref", newRef);
+				} else {
+					replaceReferences(item.getValue(), idPathMap);
+				}
+			}
+		} else if(node.isArray()) {
+			for (Iterator<JsonNode> iter = node.iterator(); iter.hasNext();) {
+				JsonNode item = iter.next();
+				replaceReferences(item,idPathMap);
+			}
 		}
+	}
 
-		return schemaString;
+	private static void removeNamespaces(JsonNode node) {
+		if (node.isObject()) {
+			for (Iterator<Entry<String, JsonNode>> iter = node.fields(); iter.hasNext();) {
+				Map.Entry<String, JsonNode> item = iter.next();
+				if(item.getValue().isTextual() && item.getKey().equals("id")) {
+					String newId = removeNamespace(item.getValue().asText());
+					ObjectNode nodeAsObject = (ObjectNode) node;
+					nodeAsObject.put("id", newId);
+				} else {
+					removeNamespaces(item.getValue());
+				}
+			}
+		} else if(node.isArray()) {
+			for (Iterator<JsonNode> iter = node.iterator(); iter.hasNext();) {
+				JsonNode item = iter.next();
+				removeNamespaces(item);
+			}
+		}
+	}
+
+	private static String removeNamespace(String asText) {
+		String[] namespacePath = asText.split(":");
+		if(namespacePath.length > 0) {
+			return namespacePath[namespacePath.length - 1];
+		} else {
+			return asText;
+		}
 	}
 
 	private static void collectPathIds(JsonNode schema, String currentPath, Map<String, String> map) {
