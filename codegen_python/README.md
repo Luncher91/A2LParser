@@ -1,14 +1,16 @@
 # Python sample code
 
+I got it only to work with Python 3.7 because of the datamodel-codegen dependency and how it generates the code using the `future` feature.
+
 Install dependencies:
 
-`pip install -r requirements.txt`
+`pip3 install -r requirements.txt`
 
 Generate code:
 
-`python generatePythonCode.py ../target/A2LParser-2.3.0-jar-with-dependencies.jar`
+`python3 generatePythonCode.py ../target/A2LParser-2.3.0-jar-with-dependencies.jar`
 
 Run sample code:
 
-`python sample.py ../target/A2LParser-2.3.0-jar-with-dependencies.jar ../src/test/resources/freeTest.a2l`
+`python3 sample.py ../target/A2LParser-2.3.0-jar-with-dependencies.jar ../src/test/resources/freeTest.a2l`
 
