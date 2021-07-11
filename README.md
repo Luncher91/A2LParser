@@ -4,6 +4,12 @@
 
 This library parses an A2L file according the 1.6.1 standards and provides a Java Object structure with all the data.
 
+It also provides an easy to use command line interface which can be used to remote control the parser by other tools and languages. Samples including the code generation for the data structure are available for:
+
+* C#
+* Typescript
+* Python
+
 ## Features
 
 * parse A2L to Java object structure
