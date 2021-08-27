@@ -112,6 +112,9 @@ A2ML_VERSION 1 31
 		/begin CHARACTERISTIC char_c "description here" CUBE_5 0x123 char_deposit 1.1 char_conv .1E-2 1.E2
 		/end CHARACTERISTIC
 		
+		/begin CHARACTERISTIC veRy_ComPlex[identifier_123].and.I.am.lo__n_g "" CUBE_5 0x123 char_deposit 1.1 char_conv .1 1.
+		/end CHARACTERISTIC
+		
 		/begin MOD_COMMON ""
 			DEPOSIT DIFFERENCE
 			BYTE_ORDER MSB_FIRST
