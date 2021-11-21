@@ -31,4 +31,11 @@ src/main/resources/ASAP2_Demo_V171.a2l
 # https://github.com/christoph2/pyA2L/blob/master/examples/example-a2l-file.a2l
 src/main/resources/example-a2l-file.a2l
 
+# macos files
 **/.DS_Store
+
+# ignore eclipse files
+.project
+.classpath
+.settings
+.metadata
