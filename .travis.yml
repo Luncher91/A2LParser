@@ -3,3 +3,7 @@ jdk:
   - openjdk8
   - openjdk11
   - openjdk17
+os:
+  - linux
+  - windows
+  - osx
