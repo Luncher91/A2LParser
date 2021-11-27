@@ -5,5 +5,11 @@ jdk:
   - openjdk17
 os:
   - linux
-  - windows
   - osx
+
+matrix:
+  exclude:
+    - os: osx
+      jdk: openjdk8
+    - os: osx
+      jdk: openjdk17
