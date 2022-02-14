@@ -1,8 +1,8 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
-
 
 public class Formula extends A2LSerializer implements IA2LWriteable {
 	private String fx;
@@ -30,7 +30,7 @@ public class Formula extends A2LSerializer implements IA2LWriteable {
 	public void writeTo(A2LWriter writer) throws IOException {
 		writer.writelnBeginSpaced("FORMULA", A2LWriter.toA2LString(fx));
 		writer.indent();
-		if(gx != null) {
+		if (gx != null) {
 			writer.writelnSpaced("FORMULA_INV", A2LWriter.toA2LString(gx));
 		}
 		writer.dedent();
@@ -50,5 +50,17 @@ public class Formula extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(fx, gx);
+	}
+
+	public List<FormulaSyntaxError> validateFx() {
+		return new FormulaValidator(fx).validate();
+	}
+
+	public List<FormulaSyntaxError> validateGx() {
+		if (gx == null) {
+			return null;
+		}
+
+		return new FormulaValidator(gx).validate();
 	}
 }

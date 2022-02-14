@@ -129,6 +129,12 @@
 			<artifactId>jackson-module-jsonSchema</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.objecthunter/exp4j -->
+		<dependency>
+			<groupId>net.objecthunter</groupId>
+			<artifactId>exp4j</artifactId>
+			<version>0.4.8</version>
+		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>

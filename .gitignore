@@ -39,3 +39,6 @@ src/main/resources/example-a2l-file.a2l
 .classpath
 .settings
 .metadata
+
+# ignore antlr debugging in vscode generated files
+.antlr

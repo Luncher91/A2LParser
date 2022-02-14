@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "name": "Debug ANTLR4 grammar",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "input.txt",
+            "grammar": "src/main/antlr4/formulaParser.g4",
+            "startRule": "expression",
+            "printParseTree": true,
+            "visualParseTree": true
+        }
+    ]
+}
