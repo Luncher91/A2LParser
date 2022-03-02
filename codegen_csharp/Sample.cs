@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using ALenzen.A2l;
 
@@ -26,7 +27,16 @@ namespace A2LParserCsharpSample
 
         static void Main(string[] args)
         {
-            Asap2File a2l = parseA2lFile(args[0], args[1]);
+            Asap2File a2l = null;
+            if( args.Length > 1 && args[0].EndsWith(".jar") && args[1].EndsWith(".a2l")) {
+                a2l = parseA2lFile(args[0], args[1]);
+            } else if(args.Length >= 1 && args[0].EndsWith(".json")) {
+                a2l = Asap2File.FromJson(File.ReadAllText(args[0]));
+            } else {
+                Console.WriteLine("Invalid arguments!");
+                Environment.Exit(1);
+            }
+
             foreach (var item in a2l.Project.Modules.First().Characteristics)
             {
                 Console.WriteLine(item.Name);
