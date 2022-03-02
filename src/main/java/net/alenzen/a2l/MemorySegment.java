@@ -19,15 +19,15 @@ public class MemorySegment extends A2LSerializer implements IA2LWriteable {
 	// optional parameters
 	private List<IfData> ifDatas;
 
-	enum PrgType {
+	public enum PrgType {
 		CALIBRATION_VARIABLES, CODE, DATA, EXCLUDE_FROM_FLASH, OFFLINE_DATA, RESERVED, SERAM, VARIABLES
 	}
 
-	enum MemoryType {
+	public enum MemoryType {
 		EEPROM, EPROM, FLASH, RAM, ROM, REGISTER, NOT_IN_ECU
 	}
 
-	enum Attribute {
+	public enum Attribute {
 		INTERN, EXTERN
 	}
 
