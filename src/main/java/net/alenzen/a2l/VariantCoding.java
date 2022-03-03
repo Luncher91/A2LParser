@@ -12,7 +12,7 @@ public class VariantCoding extends A2LSerializer implements IA2LWriteable {
 	private VarNaming varNaming;
 	private String varSeparator;
 
-	enum VarNaming implements IA2LWriteable {
+	public enum VarNaming implements IA2LWriteable {
 		NUMERIC;
 
 		@Override

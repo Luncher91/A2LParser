@@ -33,7 +33,7 @@ public class AxisDescr extends A2LSerializer implements IA2LWriteable {
 	private boolean readOnly;
 	private Double stepSize;
 
-	enum Attribute {
+	public enum Attribute {
 		CURVE_AXIS, COM_AXIS, FIX_AXIS, RES_AXIS, STD_AXIS
 	}
 

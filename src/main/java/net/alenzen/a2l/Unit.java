@@ -15,7 +15,7 @@ public class Unit extends A2LSerializer implements IA2LWriteable {
 	private SiExponents siExponents;
 	private UnitConversion unitConversion;
 
-	enum Type {
+	public enum Type {
 		DERIVED, EXTENDED_SI
 	}
 

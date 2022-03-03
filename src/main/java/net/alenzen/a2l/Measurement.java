@@ -40,7 +40,7 @@ public class Measurement extends A2LSerializer implements IA2LWriteable {
 	private SymbolLink symbolLink;
 	private Virtual virtual;
 
-	enum LayoutIndexMode implements IA2LWriteable {
+	public enum LayoutIndexMode implements IA2LWriteable {
 		ROW_DIR, COLUMN_DIR;
 
 		@Override

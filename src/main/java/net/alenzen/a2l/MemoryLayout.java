@@ -15,7 +15,7 @@ public class MemoryLayout extends A2LSerializer implements IA2LWriteable {
 	// optional parameters
 	private List<IfData> ifDatas;
 
-	enum PrgType {
+	public enum PrgType {
 		PRG_CODE, PRG_DATA, PRG_RESERVED
 	}
 
