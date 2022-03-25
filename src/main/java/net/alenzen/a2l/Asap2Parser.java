@@ -314,7 +314,7 @@ public class Asap2Parser {
 				Asap2Parser parser;
 
 				if (a2lFile == null) {
-					parser = new Asap2Parser(new CloseShieldInputStream(System.in));
+					parser = new Asap2Parser(CloseShieldInputStream.wrap(System.in));
 				} else {
 					parser = new Asap2Parser(a2lFile);
 				}
@@ -331,7 +331,7 @@ public class Asap2Parser {
 
 				Asap2File a2l;
 				if (jsonFile == null) {
-					a2l = Asap2File.fromJsonStream(new CloseShieldInputStream(System.in));
+					a2l = Asap2File.fromJsonStream(CloseShieldInputStream.wrap(System.in));
 				} else {
 					a2l = Asap2File.fromJsonFile(jsonFile);
 				}
