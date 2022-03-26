@@ -3,7 +3,7 @@ package net.alenzen.a2l;
 import java.util.Objects;
 
 
-public abstract class Version extends A2LSerializer implements IA2LWriteable {
+public abstract class Version extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private long versionNo;
 	private long upgradeNo;
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-public class Formula extends A2LSerializer implements IA2LWriteable {
+public class Formula extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String fx;
 
 	// optional parameters
@@ -62,5 +62,10 @@ public class Formula extends A2LSerializer implements IA2LWriteable {
 		}
 
 		return new FormulaValidator(gx).validate();
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

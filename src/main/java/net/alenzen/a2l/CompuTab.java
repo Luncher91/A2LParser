@@ -1,12 +1,13 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import net.alenzen.a2l.enums.ConversionType;
 
-public class CompuTab extends A2LSerializer implements IA2LWriteable {
+public class CompuTab extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 	private String longIdentifier;
 	private ConversionType conversionType;
@@ -121,5 +122,12 @@ public class CompuTab extends A2LSerializer implements IA2LWriteable {
 	public int hashCode() {
 		return Objects.hash(name, longIdentifier, conversionType, numberOfValuePairs, valuePairs, defaultValue,
 				defaultValueNumeric);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.valuePairs);
+		return subNodes;
 	}
 }

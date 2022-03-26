@@ -1,11 +1,12 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public class ModPar extends A2LSerializer implements IA2LWriteable {
+public class ModPar extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String comment;
 
 	// optional parameters
@@ -258,5 +259,15 @@ public class ModPar extends A2LSerializer implements IA2LWriteable {
 				.hash(comment, addresses, calibrationMethods, cpuType, customer, customerNo, ecu, ecuCalibrationOffset,
 						epk, memoryLayouts, memorySegments, numberOfInterfaces, phoneNumber, supplier, systemConstants,
 						user, version);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.calibrationMethods);
+		Asap2FileIterator.addIfNotNull(subNodes, this.memoryLayouts);
+		Asap2FileIterator.addIfNotNull(subNodes, this.memorySegments);
+		Asap2FileIterator.addIfNotNull(subNodes, this.systemConstants);
+		return subNodes;
 	}
 }

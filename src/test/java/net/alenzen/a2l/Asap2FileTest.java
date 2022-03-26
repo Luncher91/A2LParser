@@ -128,4 +128,17 @@ public class Asap2FileTest {
 	public void equalsContract() {
 		EqualsVerifierConfigured.getEqualsVerifier().forClass(Asap2File.class).verify();
 	}
+
+	@Test
+	public void testIteratorNotNull() throws IOException {
+		Asap2File fromA2l = getTestFile(TestFile.A);
+		int elementCount = 0;
+		for (IAsap2TreeElement e : fromA2l) {
+			if(e == null) {
+				fail("Iterator elements shall never be null!");
+			}
+			elementCount++;
+		}
+		assertEquals(149, elementCount);
+	}
 }

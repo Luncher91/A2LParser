@@ -1,10 +1,12 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
-public class Annotation extends A2LSerializer implements IA2LWriteable {
+public class Annotation extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String label;
 	private String origin;
 	private AnnotationText text = new AnnotationText();
@@ -66,5 +68,12 @@ public class Annotation extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(label, origin, text);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		ArrayList<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.text);
+		return subNodes;
 	}
 }

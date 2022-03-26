@@ -1,6 +1,7 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.Monotony;
 
-public class AxisDescr extends A2LSerializer implements IA2LWriteable {
+public class AxisDescr extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private Attribute attribute;
 	private String inputQuantity;
 	private String conversion;
@@ -280,5 +281,16 @@ public class AxisDescr extends A2LSerializer implements IA2LWriteable {
 		return Objects.hash(attribute, inputQuantity, conversion, maxAxisPoints, lowerLimit, upperLimit, annotations,
 				axisPoints_ref, byteorder, curveAxis_ref, deposit, extendedLimits, fixAxisPar, fixAxisParDist,
 				fixAxisParList, format, maxGrad, monotony, physUnit, readOnly, stepSize);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.annotations);
+		Asap2FileIterator.addIfNotNull(subNodes, this.extendedLimits);
+		Asap2FileIterator.addIfNotNull(subNodes, this.fixAxisPar);
+		Asap2FileIterator.addIfNotNull(subNodes, this.fixAxisParDist);
+		Asap2FileIterator.addIfNotNull(subNodes, this.fixAxisParList);
+		return subNodes;
 	}
 }

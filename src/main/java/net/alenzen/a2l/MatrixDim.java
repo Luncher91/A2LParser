@@ -1,10 +1,11 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 
-public class MatrixDim extends A2LSerializer implements IA2LWriteable {
+public class MatrixDim extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private long xDim;
 	private long yDim;
 	private long zDim;
@@ -51,5 +52,10 @@ public class MatrixDim extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(xDim, yDim, zDim);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

@@ -1,11 +1,12 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public class UserRights extends A2LSerializer implements IA2LWriteable {
+public class UserRights extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String userLevelId;
 
 	// optional parameters
@@ -71,5 +72,12 @@ public class UserRights extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(userLevelId, readOnly, groups);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.groups);
+		return subNodes;
 	}
 }

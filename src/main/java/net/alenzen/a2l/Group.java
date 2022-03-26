@@ -1,11 +1,12 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public class Group extends A2LSerializer implements IA2LWriteable {
+public class Group extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String groupName;
 	private String longIdentifier;
 
@@ -136,5 +137,17 @@ public class Group extends A2LSerializer implements IA2LWriteable {
 	public int hashCode() {
 		return Objects.hash(groupName, longIdentifier, annotations, functionList, ifDatas, refCharacteristics,
 				refMeasurements, root, subGroups);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.annotations);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ifDatas);
+		Asap2FileIterator.addIfNotNull(subNodes, this.functionList);
+		Asap2FileIterator.addIfNotNull(subNodes, this.refCharacteristics);
+		Asap2FileIterator.addIfNotNull(subNodes, this.refMeasurements);
+		Asap2FileIterator.addIfNotNull(subNodes, this.subGroups);
+		return subNodes;
 	}
 }

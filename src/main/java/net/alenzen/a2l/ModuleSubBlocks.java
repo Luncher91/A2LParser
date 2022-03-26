@@ -1,11 +1,12 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable {
+public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	// optional parameters
 	private List<A2ml> a2ml;
 	private List<AxisPts> axisPts;
@@ -237,5 +238,31 @@ public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable {
 		return Objects.hash(a2ml, axisPts, characteristics, compuMethods, compuTabs, compuVTabs, compuVTabRanges, frame,
 				functions, groups, ifDatas, measurements, modCommon, modPar, recordLayouts, units, userRights,
 				variantCoding, blobs, included);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.a2ml);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisPts);
+		Asap2FileIterator.addIfNotNull(subNodes, this.characteristics);
+		Asap2FileIterator.addIfNotNull(subNodes, this.compuMethods);
+		Asap2FileIterator.addIfNotNull(subNodes, this.compuTabs);
+		Asap2FileIterator.addIfNotNull(subNodes, this.compuVTabs);
+		Asap2FileIterator.addIfNotNull(subNodes, this.compuVTabRanges);
+		Asap2FileIterator.addIfNotNull(subNodes, this.frame);
+		Asap2FileIterator.addIfNotNull(subNodes, this.functions);
+		Asap2FileIterator.addIfNotNull(subNodes, this.groups);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ifDatas);
+		Asap2FileIterator.addIfNotNull(subNodes, this.measurements);
+		Asap2FileIterator.addIfNotNull(subNodes, this.modCommon);
+		Asap2FileIterator.addIfNotNull(subNodes, this.modPar);
+		Asap2FileIterator.addIfNotNull(subNodes, this.recordLayouts);
+		Asap2FileIterator.addIfNotNull(subNodes, this.units);
+		Asap2FileIterator.addIfNotNull(subNodes, this.userRights);
+		Asap2FileIterator.addIfNotNull(subNodes, this.variantCoding);
+		Asap2FileIterator.addIfNotNull(subNodes, this.blobs);
+		Asap2FileIterator.addIfNotNull(subNodes, this.included);
+		return subNodes;
 	}
 }

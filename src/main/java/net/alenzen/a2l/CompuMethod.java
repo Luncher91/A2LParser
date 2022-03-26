@@ -1,11 +1,13 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import net.alenzen.a2l.enums.ConversionType;
 
-public class CompuMethod extends A2LSerializer implements IA2LWriteable {
+public class CompuMethod extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 	private String longIdentifier;
 	private ConversionType conversionType;
@@ -154,5 +156,14 @@ public class CompuMethod extends A2LSerializer implements IA2LWriteable {
 		return Objects
 				.hash(name, longIdentifier, conversionType, format, unit, coeffs, coeffsLinear, compuTab_ref, formula,
 						unit_ref, conversionTable_ref);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.coeffs);
+		Asap2FileIterator.addIfNotNull(subNodes, this.coeffsLinear);
+		Asap2FileIterator.addIfNotNull(subNodes, this.formula);
+		return subNodes;
 	}
 }

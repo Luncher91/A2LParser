@@ -1,11 +1,12 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import net.alenzen.a2l.enums.DataSize;
 
-public class Reserved extends A2LSerializer implements IA2LWriteable {
+public class Reserved extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private long position;
 	private DataSize dataSize;
 
@@ -43,5 +44,10 @@ public class Reserved extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(position, dataSize);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

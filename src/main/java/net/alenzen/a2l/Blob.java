@@ -1,10 +1,11 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 
-public class Blob extends A2LSerializer implements IA2LWriteable {
+public class Blob extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String content;
 
 	public String getContent() {
@@ -33,5 +34,10 @@ public class Blob extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(content);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

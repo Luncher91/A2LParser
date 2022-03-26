@@ -1,9 +1,10 @@
 package net.alenzen.a2l;
 
+import java.util.List;
 import java.util.Objects;
 
 
-public class ValuePair<T, U> extends A2LSerializer {
+public class ValuePair<T, U> extends A2LSerializer implements IAsap2TreeElement {
 	private T inVal;
 	private U outVal;
 
@@ -36,5 +37,10 @@ public class ValuePair<T, U> extends A2LSerializer {
 	@Override
 	public int hashCode() {
 		return Objects.hash(inVal, outVal);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

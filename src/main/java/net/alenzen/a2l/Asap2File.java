@@ -4,8 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -21,7 +23,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
-public class Asap2File extends A2LSerializer {
+public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeElement>, IAsap2TreeElement {
 	private A2mlVersion a2mlVersion;
 	private Asap2Version asap2Version;
 	private Project project;
@@ -212,5 +214,19 @@ public class Asap2File extends A2LSerializer {
 	@Override
 	public int hashCode() {
 		return Objects.hash(a2mlVersion, asap2Version, project);
+	}
+
+	@Override
+	public Asap2FileIterator iterator() {
+		return new Asap2FileIterator(this);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		ArrayList<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.a2mlVersion);
+		Asap2FileIterator.addIfNotNull(subNodes, this.asap2Version);
+		Asap2FileIterator.addIfNotNull(subNodes, this.project);
+		return subNodes;
 	}
 }

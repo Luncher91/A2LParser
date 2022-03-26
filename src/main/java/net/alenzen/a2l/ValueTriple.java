@@ -1,9 +1,10 @@
 package net.alenzen.a2l;
 
+import java.util.List;
 import java.util.Objects;
 
 
-public class ValueTriple<T1, T2> extends A2LSerializer {
+public class ValueTriple<T1, T2> extends A2LSerializer implements IAsap2TreeElement {
 	private T1 inValMin;
 	private T1 inValMax;
 	private T2 outVal;
@@ -46,5 +47,10 @@ public class ValueTriple<T1, T2> extends A2LSerializer {
 	@Override
 	public int hashCode() {
 		return Objects.hash(inValMin, inValMax, outVal);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

@@ -1,12 +1,13 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
 
-public class ModCommon extends A2LSerializer implements IA2LWriteable {
+public class ModCommon extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String comment;
 
 	// optional parameters
@@ -160,5 +161,10 @@ public class ModCommon extends A2LSerializer implements IA2LWriteable {
 		return Objects
 				.hash(comment, alignmentByte, alignmentFloat32IEEE, alignmentFloat64IEEE, alignmentInt64, alignmentLong,
 						alignmentWord, byteorder, dataSize, deposit, standardRecordLayout);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

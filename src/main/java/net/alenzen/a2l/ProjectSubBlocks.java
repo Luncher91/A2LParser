@@ -1,11 +1,12 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public class ProjectSubBlocks extends A2LSerializer implements IA2LWriteable {
+public class ProjectSubBlocks extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	// optional parameters
 	private List<Module> modules;
 	
@@ -46,5 +47,13 @@ public class ProjectSubBlocks extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(modules, included);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		subNodes.addAll(modules);
+		subNodes.addAll(included);
+		return subNodes;
 	}
 }

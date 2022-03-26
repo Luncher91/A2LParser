@@ -1,11 +1,12 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public class RecordLayout extends A2LSerializer implements IA2LWriteable {
+public class RecordLayout extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 
 	// optional parameters
@@ -727,5 +728,65 @@ public class RecordLayout extends A2LSerializer implements IA2LWriteable {
 						reserved, ripAddressW, ripAddressX, ripAddressY, ripAddressZ, ripAddress4, ripAddress5,
 						srcAddressX, srcAddressY, srcAddressZ, srcAddress4, srcAddress5, shiftOpX, shiftOpY, shiftOpZ,
 						shiftOp4, shiftOp5, staticRecordLayout);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisPtsX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisPtsY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisPtsZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisPts4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisPts5);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisRescaleX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisRescaleY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisRescaleZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisRescale4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisRescale5);
+		Asap2FileIterator.addIfNotNull(subNodes, this.distOpX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.distOpY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.distOpZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.distOp4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.distOp5);
+		Asap2FileIterator.addIfNotNull(subNodes, this.fixNoAxisPtsX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.fixNoAxisPtsY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.fixNoAxisPtsZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.fixNoAxisPts4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.fixNoAxisPts5);
+		Asap2FileIterator.addIfNotNull(subNodes, this.functionValues);
+		Asap2FileIterator.addIfNotNull(subNodes, this.identification);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noAxisPtsX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noAxisPtsY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noAxisPtsZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noAxisPts4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noAxisPts5);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noRescaleX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noRescaleY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noRescaleZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noRescale4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.noRescale5);
+		Asap2FileIterator.addIfNotNull(subNodes, this.offsetX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.offsetY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.offsetZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.offset4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.offset5);
+		Asap2FileIterator.addIfNotNull(subNodes, this.reserved);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ripAddressW);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ripAddressX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ripAddressY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ripAddressZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ripAddress4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ripAddress5);
+		Asap2FileIterator.addIfNotNull(subNodes, this.srcAddressX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.srcAddressY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.srcAddressZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.srcAddress4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.srcAddress5);
+		Asap2FileIterator.addIfNotNull(subNodes, this.shiftOpX);
+		Asap2FileIterator.addIfNotNull(subNodes, this.shiftOpY);
+		Asap2FileIterator.addIfNotNull(subNodes, this.shiftOpZ);
+		Asap2FileIterator.addIfNotNull(subNodes, this.shiftOp4);
+		Asap2FileIterator.addIfNotNull(subNodes, this.shiftOp5);
+		return subNodes;
 	}
 }

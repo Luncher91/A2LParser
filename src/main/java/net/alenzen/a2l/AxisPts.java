@@ -10,7 +10,7 @@ import net.alenzen.a2l.enums.CalibrationAccess;
 import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.Monotony;
 
-public class AxisPts extends A2LSerializer implements IA2LWriteable {
+public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 	private String longIdentifier;
 	private long address;
@@ -355,5 +355,16 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable {
 				lowerLimit, upperLimit, notes, byteorder, access, axisPointDeposit, displayIdentifier,
 				ecuAddressExtension, extendedLimits, format, functions, guardRails, ifData, monotony, physUnit,
 				readOnly, memorySegment, stepSize, symbolLink);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		ArrayList<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.notes);
+		Asap2FileIterator.addIfNotNull(subNodes, this.extendedLimits);
+		Asap2FileIterator.addIfNotNull(subNodes, this.functions);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ifData);
+		Asap2FileIterator.addIfNotNull(subNodes, this.symbolLink);
+		return subNodes;
 	}
 }

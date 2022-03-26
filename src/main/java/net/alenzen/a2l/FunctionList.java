@@ -2,8 +2,9 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class FunctionList extends ArrayList<String> implements IA2LWriteable {
+public class FunctionList extends ArrayList<String> implements IA2LWriteable, IAsap2TreeElement {
 
 	/**
 	 * 
@@ -19,6 +20,11 @@ public class FunctionList extends ArrayList<String> implements IA2LWriteable {
 		}
 		writer.dedent();
 		writer.writelnEnd("FUNCTION_LIST");
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 
 }

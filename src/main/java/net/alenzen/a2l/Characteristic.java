@@ -1,6 +1,7 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.CalibrationAccess;
 import net.alenzen.a2l.enums.CharacteristicType;
 
-public class Characteristic extends A2LSerializer implements IA2LWriteable {
+public class Characteristic extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 	private String longIdentifier;
 	private CharacteristicType type;
@@ -435,5 +436,22 @@ public class Characteristic extends A2LSerializer implements IA2LWriteable {
 						dependetCharacteristic, discrete, displayIdentifier, ecuAddressExtension, extendedLimits,
 						format, functions, guardRails, ifData, mapList, matrixDim, maxRefresh, number, physUnit,
 						readOnly, memorySegment, stepSize, symbolLink, virtualCharacteristic);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.extendedLimits);
+		Asap2FileIterator.addIfNotNull(subNodes, this.axisDescriptions);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ifData);
+		Asap2FileIterator.addIfNotNull(subNodes, this.notes);
+		Asap2FileIterator.addIfNotNull(subNodes, this.functions);
+		Asap2FileIterator.addIfNotNull(subNodes, this.mapList);
+		Asap2FileIterator.addIfNotNull(subNodes, this.dependetCharacteristic);
+		Asap2FileIterator.addIfNotNull(subNodes, this.matrixDim);
+		Asap2FileIterator.addIfNotNull(subNodes, this.maxRefresh);
+		Asap2FileIterator.addIfNotNull(subNodes, this.symbolLink);
+		Asap2FileIterator.addIfNotNull(subNodes, this.virtualCharacteristic);
+		return subNodes;
 	}
 }

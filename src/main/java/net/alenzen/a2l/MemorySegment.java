@@ -1,12 +1,13 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 
-public class MemorySegment extends A2LSerializer implements IA2LWriteable {
+public class MemorySegment extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 	private String longIdentifier;
 	private PrgType prgType;
@@ -136,5 +137,12 @@ public class MemorySegment extends A2LSerializer implements IA2LWriteable {
 		int result = Objects.hash(name, longIdentifier, prgType, memoryType, attribute, address, size, ifDatas);
 		result = 31 * result + Arrays.hashCode(offset);
 		return result;
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.ifDatas);
+		return subNodes;
 	}
 }

@@ -1,10 +1,11 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 
-public class CoeffsLinear extends A2LSerializer implements IA2LWriteable {
+public class CoeffsLinear extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private double a;
 	private double b;
 
@@ -42,5 +43,10 @@ public class CoeffsLinear extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(a, b);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

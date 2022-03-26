@@ -2,8 +2,9 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class IdentReferenceList extends ArrayList<String> {
+public class IdentReferenceList extends ArrayList<String> implements IAsap2TreeElement {
 
 	/**
 	 * 
@@ -25,6 +26,11 @@ public class IdentReferenceList extends ArrayList<String> {
 		}
 		writer.dedent();
 		writer.writelnEnd(name);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 
 }

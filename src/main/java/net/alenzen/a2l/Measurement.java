@@ -1,13 +1,14 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.DataType;
 
-public class Measurement extends A2LSerializer implements IA2LWriteable {
+public class Measurement extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 	private String longIdentifier;
 	private DataType datatype;
@@ -380,5 +381,19 @@ public class Measurement extends A2LSerializer implements IA2LWriteable {
 				annotations, arraySize, bitMask, bitOperation, byteorder, discrete, displayIdentifier, ecuAddress,
 				ecuAddressExtension, errorMask, format, functionList, ifDatas, layout, matrixDim, maxRefresh, physUnit,
 				readWrite, memorySegment, symbolLink, virtual);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.annotations);
+		Asap2FileIterator.addIfNotNull(subNodes, this.bitOperation);
+		Asap2FileIterator.addIfNotNull(subNodes, this.functionList);
+		Asap2FileIterator.addIfNotNull(subNodes, this.ifDatas);
+		Asap2FileIterator.addIfNotNull(subNodes, this.matrixDim);
+		Asap2FileIterator.addIfNotNull(subNodes, this.maxRefresh);
+		Asap2FileIterator.addIfNotNull(subNodes, this.symbolLink);
+		Asap2FileIterator.addIfNotNull(subNodes, this.virtual);
+		return subNodes;
 	}
 }

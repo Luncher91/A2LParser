@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class DependentCharacteristic extends A2LSerializer implements IA2LWriteable {
+public class DependentCharacteristic extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String formula;
 	private List<String> characterstics;
 
@@ -55,5 +55,10 @@ public class DependentCharacteristic extends A2LSerializer implements IA2LWritea
 	@Override
 	public int hashCode() {
 		return Objects.hash(formula, characterstics);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class VarCriterion extends A2LSerializer implements IA2LWriteable {
+public class VarCriterion extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 	private String longIdentifier;
 
@@ -94,5 +94,10 @@ public class VarCriterion extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, longIdentifier, values, measurement, selectionCharacteristic);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

@@ -1,11 +1,12 @@
 package net.alenzen.a2l;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public class CalibrationMethod extends A2LSerializer implements IA2LWriteable {
+public class CalibrationMethod extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 	private long version;
 
@@ -61,5 +62,12 @@ public class CalibrationMethod extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, version, calibrationHandle);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		List<IAsap2TreeElement> subNodes = new ArrayList<IAsap2TreeElement>();
+		Asap2FileIterator.addIfNotNull(subNodes, this.calibrationHandle);
+		return subNodes;
 	}
 }

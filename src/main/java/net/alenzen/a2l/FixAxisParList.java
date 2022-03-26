@@ -2,9 +2,10 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 
-public class FixAxisParList extends A2LSerializer implements IA2LWriteable {
+public class FixAxisParList extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private double[] axisPtsValues;
 
 	public double[] getAxisPtsValues() {
@@ -41,5 +42,10 @@ public class FixAxisParList extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Arrays.hashCode(axisPtsValues);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

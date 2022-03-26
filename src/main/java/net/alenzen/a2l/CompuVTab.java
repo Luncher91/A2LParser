@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import net.alenzen.a2l.enums.ConversionType;
 
-public class CompuVTab extends A2LSerializer implements IA2LWriteable {
+public class CompuVTab extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
 	private String longIdentifier;
 	private ConversionType conversionType;
@@ -107,5 +107,10 @@ public class CompuVTab extends A2LSerializer implements IA2LWriteable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, longIdentifier, conversionType, numberOfValuePairs, valuePairs, defaultValue);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

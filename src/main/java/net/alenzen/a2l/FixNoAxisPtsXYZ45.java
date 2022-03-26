@@ -1,9 +1,10 @@
 package net.alenzen.a2l;
 
+import java.util.List;
 import java.util.Objects;
 
 
-public class FixNoAxisPtsXYZ45 extends A2LSerializer implements IA2LDimensionWriteable {
+public class FixNoAxisPtsXYZ45 extends A2LSerializer implements IA2LDimensionWriteable, IAsap2TreeElement {
 	private long numberOfAxisPoints;
 
 	public long getNumberOfAxisPoints() {
@@ -34,5 +35,10 @@ public class FixNoAxisPtsXYZ45 extends A2LSerializer implements IA2LDimensionWri
 	@Override
 	public int hashCode() {
 		return Objects.hash(numberOfAxisPoints);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }

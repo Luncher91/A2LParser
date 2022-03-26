@@ -1,12 +1,13 @@
 package net.alenzen.a2l;
 
+import java.util.List;
 import java.util.Objects;
 
 import net.alenzen.a2l.enums.AddrType;
 import net.alenzen.a2l.enums.DataType;
 import net.alenzen.a2l.enums.IndexOrder;
 
-public class AxisPtsXYZ45 extends A2LSerializer implements IA2LDimensionWriteable {
+public class AxisPtsXYZ45 extends A2LSerializer implements IA2LDimensionWriteable, IAsap2TreeElement {
 	private long position;
 	private DataType datatype;
 	private IndexOrder indexorder;
@@ -66,5 +67,10 @@ public class AxisPtsXYZ45 extends A2LSerializer implements IA2LDimensionWriteabl
 	@Override
 	public int hashCode() {
 		return Objects.hash(position, datatype, indexorder, addressing);
+	}
+
+	@Override
+	public List<IAsap2TreeElement> collectSubNodes() {
+		return null;
 	}
 }
