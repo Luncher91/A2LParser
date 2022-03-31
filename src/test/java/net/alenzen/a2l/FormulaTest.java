@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,11 +40,11 @@ public class FormulaTest {
 
 	@Test
 	void testValidate() {
-		 Formula f = createFormula();
-		
+		Formula f = createFormula();
+
 		List<FormulaSyntaxError> errorsFx = f.validateFx();
 		assertTrue(errorsFx.isEmpty());
-		
+
 		List<FormulaSyntaxError> errorsGx = f.validateGx();
 		assertTrue(errorsGx.isEmpty());
 	}
@@ -53,19 +55,45 @@ public class FormulaTest {
 		f.setGx("X1-(1+2+3+4)");
 		return f;
 	}
-	
+
 	@Test
 	void testValidateError() {
 		Formula f = new Formula();
 		f.setFx("1+2#+3+4+X1");
-		
+
 		List<FormulaSyntaxError> errorsFx = f.validateFx();
 		assertEquals(1, errorsFx.size());
-		
+
 		FormulaSyntaxError error = errorsFx.get(0);
 		assertEquals(1, error.getLine());
 		assertEquals(3, error.getCharPosition());
 		assertFalse(error.getMessage().isEmpty());
+	}
+	
+	@Test
+	void testCalculateFx() {
+		Formula f = new Formula();
+		f.setFx("3*X1+$(G_OFFSET)");
+		
+		Map<String, Double> variables = new HashMap<String, Double>();
+		variables.put("X1", 8.1);
+		variables.put("G_OFFSET", 10.0);
+		
+		double result = f.calculateFx(variables);
+		assertEquals(3*8.1+10.0, result);
+	}
+	
+	@Test
+	void testCalculateGx() {
+		Formula f = new Formula();
+		f.setGx("3/X1-$(G_OFFSET)");
+		
+		Map<String, Double> variables = new HashMap<String, Double>();
+		variables.put("X1", 8.1);
+		variables.put("G_OFFSET", 10.0);
+		
+		double result = f.calculateGx(variables);
+		assertEquals(3.0/8.1-10.0, result);
 	}
 
 	@Test

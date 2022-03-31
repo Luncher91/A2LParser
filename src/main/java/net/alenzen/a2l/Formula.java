@@ -2,6 +2,7 @@ package net.alenzen.a2l;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Formula extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
@@ -67,5 +68,27 @@ public class Formula extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 	@Override
 	public List<IAsap2TreeElement> collectSubNodes() {
 		return null;
+	}
+	
+	private static double calulcateFormula(String f, Map<String, Double> variables) {
+		FormulaParser fp = FormulaParser.createFromFormula(f);
+		fp.setVariables(variables);
+		return fp.calculate();
+	}
+	
+	public FormulaParser createFormulaFx() {
+		return FormulaParser.createFromFormula(fx);
+	}
+	
+	public FormulaParser createFormulaGx() {
+		return FormulaParser.createFromFormula(fx);
+	}
+	
+	public double calculateFx(Map<String, Double> variables) {
+		return calulcateFormula(fx, variables);
+	}
+
+	public double calculateGx(Map<String, Double> variables) {
+		return calulcateFormula(gx, variables);
 	}
 }

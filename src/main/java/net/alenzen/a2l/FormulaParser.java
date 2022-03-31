@@ -195,6 +195,10 @@ public class FormulaParser {
 		this.variables.put(variableName, value);
 	}
 
+	public void setVariables(Map<String, Double> vars) {
+		this.variables.putAll(vars);
+	}
+
 	public String getFormula() {
 		return formula;
 	}
