@@ -16,7 +16,7 @@ public class A2LWriter {
 	private static final String DEFAULT_LINE_BREAK_STRING = "\r\n";
 	private static final String DEFAULT_INDENTATION_STRING = "    ";
 
-	private byte[] LINE_BREAK;
+	private byte[] lineBreak;
 	private byte[] indentation;
 
 	private Charset charset = StandardCharsets.UTF_8;
@@ -27,14 +27,23 @@ public class A2LWriter {
 
 	public A2LWriter(OutputStream os) {
 		this.os = os;
-		LINE_BREAK = DEFAULT_LINE_BREAK_STRING.getBytes(this.charset);
+		lineBreak = DEFAULT_LINE_BREAK_STRING.getBytes(this.charset);
 		indentation = DEFAULT_INDENTATION_STRING.getBytes(this.charset);
 	}
 
+	/**
+	 * Creates a writer to write A2L structures to a stream.
+	 * 
+	 * This class can be configured to use different linebreaks, identation and identation depth.
+	 * When using an unicode charset it is recommended to call @see #writeBOM() 
+	 * 
+	 * @param os stream to which A2L is written.
+	 * @param charset The charset the a2l is written to the stream.
+	 */
 	public A2LWriter(OutputStream os, Charset charset) {
 		this.os = os;
 		this.charset = charset;
-		LINE_BREAK = DEFAULT_LINE_BREAK_STRING.getBytes(this.charset);
+		lineBreak = DEFAULT_LINE_BREAK_STRING.getBytes(this.charset);
 		indentation = DEFAULT_INDENTATION_STRING.getBytes(this.charset);
 	}
 
@@ -66,6 +75,19 @@ public class A2LWriter {
 		return new byte[0];
 	}
 
+	/**
+	 * Writes the unicode BOM depending on the given charset to the stream.
+	 * 
+	 * The following charsets are supported:
+	 * - UTF-8
+	 * - UTF-16LE
+	 * - UTF-16BE
+	 * - UTF-32LE
+	 * - UTF-32BE
+	 * 
+	 * For unsupported charsets there is not BOM written.
+	 * @throws IOException
+	 */
 	public void writeBOM() throws IOException {
 		os.write(getBOMBytes());
 	}
@@ -79,7 +101,7 @@ public class A2LWriter {
 	}
 
 	public void writeln() throws IOException {
-		os.write(LINE_BREAK);
+		os.write(lineBreak);
 	}
 	
 	public void write(String s) throws IOException {
@@ -168,6 +190,14 @@ public class A2LWriter {
 
 	public void setIndentationDepth(int indentation) {
 		this.indentationDepth = indentation;
+	}
+
+	public byte[] getLineBreak() {
+		return lineBreak;
+	}
+
+	public void setLineBreak(byte[] lineBreak) {
+		this.lineBreak = lineBreak;
 	}
 
 	public Charset getCharset() {

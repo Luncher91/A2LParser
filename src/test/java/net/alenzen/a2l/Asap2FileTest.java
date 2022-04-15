@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -134,11 +136,38 @@ public class Asap2FileTest {
 		Asap2File fromA2l = getTestFile(TestFile.A);
 		int elementCount = 0;
 		for (IAsap2TreeElement e : fromA2l) {
-			if(e == null) {
+			if (e == null) {
 				fail("Iterator elements shall never be null!");
 			}
 			elementCount++;
 		}
 		assertEquals(149, elementCount);
+	}
+
+	@Test
+	public void testA2lFileEdit() throws IOException {
+		final String newProjectName = "New_Project_Name_testA2lEdit";
+		Asap2File a2l = Asap2FileTest.getTestFile(TestFile.A);
+
+		a2l.getProject().setName(newProjectName);
+
+		File temporaryFile = File.createTempFile("output", ".a2l");
+		try {
+			try (FileOutputStream os = new FileOutputStream(temporaryFile)) {
+				A2LWriter writer = new A2LWriter(os, StandardCharsets.UTF_16LE);
+				writer.writeBOM();
+				a2l.toA2L(writer);
+			}
+
+			Asap2Parser parser = new Asap2Parser(temporaryFile);
+			parser.setEventHandler((line, position, message) -> {
+				fail("Line " + line + "@" + position + ": " + message);
+			});
+			a2l = parser.parse();
+
+			assertEquals(newProjectName, a2l.getProject().getName());
+		} finally {
+			temporaryFile.delete();
+		}
 	}
 }

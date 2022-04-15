@@ -194,7 +194,7 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 		return new String(bos.toByteArray(), writer.getCharset());
 	}
 
-	protected void toA2L(A2LWriter writer) throws IOException {
+	public void toA2L(A2LWriter writer) throws IOException {
 		writer.write(asap2Version);
 		writer.write(a2mlVersion);
 		writer.write(project);
