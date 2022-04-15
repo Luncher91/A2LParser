@@ -31,6 +31,25 @@ Asap2File a2l = parser.parse();
 System.out.println("Project: " + a2l.getProject().getName());
 ```
 
+### Modify A2L
+
+```java
+Asap2Parser parser = new Asap2Parser("freeTest.a2l");
+		
+// optional
+parser.setEventHandler((line, position, message) -> { System.err.println("Line " + line + "@" + position + ": " + message); });
+
+Asap2File a2l = parser.parse();
+
+a2l.getProject().setName("fancy_new_project_name");
+
+try (FileOutputStream os = new FileOutputStream("changed_freeTest.a2l")) {
+	A2LWriter writer = new A2LWriter(os, StandardCharsets.UTF_16LE);
+	writer.writeBOM();
+	a2l.toA2L(writer);
+}
+```
+
 ### A2L to JSON
 
 ```java
