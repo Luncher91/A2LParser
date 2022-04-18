@@ -1,6 +1,6 @@
 package net.alenzen.a2l.validation;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -41,7 +41,7 @@ public class ProjectValidationTest {
 				"The given A2L file already has some issues. For the test we need a valid A2L file.");
 		project.setName("hello world");
 		errors = sv.validate();
-		assertFalse(errors.isEmpty());
+		assertEquals(1, errors.size(), "Exactly one error should be logged.");
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class ProjectValidationTest {
 				"The given A2L file already has some issues. For the test we need a valid A2L file.");
 		project.setName(IDENT_1025_CHARACTERS);
 		errors = sv.validate();
-		assertFalse(errors.isEmpty());
+		assertEquals(1, errors.size(), "Exactly one error should be logged.");
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class ProjectValidationTest {
 				"The given A2L file already has some issues. For the test we need a valid A2L file.");
 		project.setName(IDENT_129_CHARACTERS_PARTIAL);
 		errors = sv.validate();
-		assertFalse(errors.isEmpty());
+		assertEquals(1, errors.size(), "Exactly one error should be logged.");
 	}
 
 	@Test
@@ -77,7 +77,19 @@ public class ProjectValidationTest {
 				"The given A2L file already has some issues. For the test we need a valid A2L file.");
 		project.setName("hello_wold");
 		errors = sv.validate();
-		assertTrue(errors.isEmpty());
+		assertTrue(errors.isEmpty(), "No error should be logged");
+	}
+
+	@Test
+	void testName_invalid_null() {
+		Asap2Validation sv = new Asap2Validation(file);
+		sv.getValidators().add(new Asap2IdentValidator());
+		List<Asap2ValidationError> errors = sv.validate();
+		assumeTrue(errors.isEmpty(),
+				"The given A2L file already has some issues. For the test we need a valid A2L file.");
+		project.setName(null);
+		errors = sv.validate();
+		assertEquals(1, errors.size(), "Exactly one error should be logged.");
 	}
 
 	@Test
@@ -89,7 +101,7 @@ public class ProjectValidationTest {
 				"The given A2L file already has some issues. For the test we need a valid A2L file.");
 		project.setLongIdentifier("I am not very long");
 		errors = sv.validate();
-		assertTrue(errors.isEmpty());
+		assertTrue(errors.isEmpty(), "No error should be logged");
 	}
 
 	@Test
@@ -104,6 +116,18 @@ public class ProjectValidationTest {
 				"The final written String is encapsuled by doubled quotation marks and the double quotation marks are escaped.");
 		project.setLongIdentifier(STRING_256_CHARACTERS);
 		errors = sv.validate();
-		assertTrue(errors.isEmpty());
+		assertEquals(1, errors.size(), "Exactly one error should be logged.");
+	}
+
+	@Test
+	void testLongIdentifier_invalid_null() {
+		Asap2Validation sv = new Asap2Validation(file);
+		sv.getValidators().add(new Asap2StringValidator());
+		List<Asap2ValidationError> errors = sv.validate();
+		assumeTrue(errors.isEmpty(),
+				"The given A2L file already has some issues. For the test we need a valid A2L file.");
+		project.setLongIdentifier(null);
+		errors = sv.validate();
+		assertEquals(1, errors.size(), "Exactly one error should be logged.");
 	}
 }

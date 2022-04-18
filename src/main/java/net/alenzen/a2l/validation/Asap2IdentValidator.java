@@ -57,6 +57,9 @@ public class Asap2IdentValidator implements Asap2Validator {
 				if (!IDENT_PATTERN.matcher(s).matches()) {
 					throw new IdentValidationError(f, s, target, "Invalid format");
 				}
+			} else if(!f.getAnnotation(Asap2Ident.class).nullable()) {
+				throw new IdentValidationError(f, null, target,
+						"ident is not nullable");
 			}
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			throw new IdentValidationError(f, null, target, e);

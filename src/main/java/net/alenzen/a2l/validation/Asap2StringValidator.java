@@ -48,6 +48,9 @@ public class Asap2StringValidator implements Asap2Validator {
 					throw new StringValidationError(f, escapedString, target,
 							"Exceeding MAX_STRING(" + MAX_STRING + ")");
 				}
+			} else if(!f.getAnnotation(Asap2String.class).nullable()) {
+				throw new StringValidationError(f, null, target,
+						"String is not nullable");
 			}
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			throw new StringValidationError(f, null, target, e);
