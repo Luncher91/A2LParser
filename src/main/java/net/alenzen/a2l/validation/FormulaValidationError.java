@@ -5,7 +5,11 @@ import java.util.List;
 import net.alenzen.a2l.Formula;
 import net.alenzen.a2l.FormulaSyntaxError;
 
-public class FormulaValidationError {
+public class FormulaValidationError extends Asap2ValidationError {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1168751267122570649L;
 	private Formula formula;
 	private List<FormulaSyntaxError> fxErrors;
 	private List<FormulaSyntaxError> gxErrors;

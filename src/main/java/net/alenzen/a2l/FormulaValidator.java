@@ -54,7 +54,7 @@ public class FormulaValidator {
 					BitSet ambigAlts, ATNConfigSet configs) {
 			}
 		};
-		
+
 		formulaLexer lexer = new formulaLexer(CharStreams.fromString(formula));
 		lexer.removeErrorListeners();
 		lexer.addErrorListener(errorListener);
@@ -64,8 +64,6 @@ public class FormulaValidator {
 		parser.addErrorListener(errorListener);
 
 		ExpressionContext tree = parser.expression();
-
-		
 
 		this.variables.clear();
 		formulaParserBaseVisitor<Object> visitor = new formulaParserBaseVisitor<Object>() {

@@ -21,13 +21,15 @@ public class FormulaValidatorTest {
 	void testValidate() throws IOException {
 		Asap2File f = Asap2FileTest.getTestFile(TestFile.A);
 
-		FormulaValidator validator = new FormulaValidator(f);
-		List<FormulaValidationError> valResult = validator.validate();
+		Asap2Validation validator = new Asap2Validation(f);
+		validator.getValidators().add(new FormulaValidator());
+		List<Asap2ValidationError> valResult = validator.validate();
 		assertEquals(1, valResult.size());
-		for (FormulaValidationError err : valResult) {
-			assertNotNull(err.getFormula());
-			assertTrue(err.getFxErrors().isEmpty());
-			assertTrue(err.getGxErrors().isEmpty());
+		for (Asap2ValidationError err : valResult) {
+			FormulaValidationError formErr = (FormulaValidationError) err;
+			assertNotNull(formErr.getFormula());
+			assertTrue(formErr.getFxErrors().isEmpty());
+			assertTrue(formErr.getGxErrors().isEmpty());
 		}
 	}
 
@@ -41,13 +43,15 @@ public class FormulaValidatorTest {
 			}
 		}
 
-		FormulaValidator validator = new FormulaValidator(f);
-		List<FormulaValidationError> valResult = validator.validate();
+		Asap2Validation validator = new Asap2Validation(f);
+		validator.getValidators().add(new FormulaValidator());
+		List<Asap2ValidationError> valResult = validator.validate();
 		assertEquals(1, valResult.size());
-		for (FormulaValidationError err : valResult) {
-			assertNotNull(err.getFormula());
-			assertFalse(err.getFxErrors().isEmpty());
-			assertTrue(err.getGxErrors().isEmpty());
+		for (Asap2ValidationError err : valResult) {
+			FormulaValidationError formErr = (FormulaValidationError) err;
+			assertNotNull(formErr.getFormula());
+			assertFalse(formErr.getFxErrors().isEmpty());
+			assertTrue(formErr.getGxErrors().isEmpty());
 		}
 	}
 }

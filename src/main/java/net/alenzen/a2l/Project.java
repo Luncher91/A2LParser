@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+import net.alenzen.a2l.validation.Asap2Ident;
+import net.alenzen.a2l.validation.Asap2String;
 
 public class Project extends ProjectSubBlocks implements IA2LWriteable, IAsap2TreeElement {
+	@Asap2Ident
 	private String name;
+
+	@Asap2String
 	private String longIdentifier;
 
 	// optional parameters
@@ -57,8 +62,8 @@ public class Project extends ProjectSubBlocks implements IA2LWriteable, IAsap2Tr
 		if (!super.equals(o))
 			return false;
 		Project project = (Project) o;
-		return Objects.equals(name, project.name) && Objects.equals(longIdentifier, project.longIdentifier) && Objects
-				.equals(header, project.header);
+		return Objects.equals(name, project.name) && Objects.equals(longIdentifier, project.longIdentifier)
+				&& Objects.equals(header, project.header);
 	}
 
 	@Override
@@ -69,11 +74,11 @@ public class Project extends ProjectSubBlocks implements IA2LWriteable, IAsap2Tr
 	@Override
 	public List<IAsap2TreeElement> collectSubNodes() {
 		List<IAsap2TreeElement> subNodes = super.collectSubNodes();
-		
-		if(header != null) {
+
+		if (header != null) {
 			subNodes.add(header);
 		}
-		
+
 		return subNodes;
 	}
 }
