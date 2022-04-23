@@ -4,12 +4,18 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+import net.alenzen.a2l.validation.Asap2Ident;
+import net.alenzen.a2l.validation.Asap2String;
 
 public class Header extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
+	@Asap2String
 	private String comment;
 
 	// optional parameters
+	@Asap2Ident(nullable = true)
 	private String projectNo;
+
+	@Asap2String(nullable = true)
 	private String version;
 
 	public String getComment() {
@@ -39,10 +45,10 @@ public class Header extends A2LSerializer implements IA2LWriteable, IAsap2TreeEl
 	public void writeTo(A2LWriter writer) throws IOException {
 		writer.writelnBeginSpaced("HEADER", A2LWriter.toA2LString(comment));
 		writer.indent();
-		
+
 		writer.writelnSpaced("PROJECT_NO", projectNo);
-		writer.writelnSpaced("VERSION", A2LWriter.toA2LString(version));	
-		
+		writer.writelnSpaced("VERSION", A2LWriter.toA2LString(version));
+
 		writer.dedent();
 		writer.writelnEnd("HEADER");
 	}
@@ -54,8 +60,8 @@ public class Header extends A2LSerializer implements IA2LWriteable, IAsap2TreeEl
 		if (o == null || getClass() != o.getClass())
 			return false;
 		Header header = (Header) o;
-		return Objects.equals(comment, header.comment) && Objects.equals(projectNo, header.projectNo) && Objects
-				.equals(version, header.version);
+		return Objects.equals(comment, header.comment) && Objects.equals(projectNo, header.projectNo)
+				&& Objects.equals(version, header.version);
 	}
 
 	@Override
