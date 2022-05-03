@@ -2,6 +2,7 @@ package net.alenzen.a2l;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,7 +68,11 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 	@Override
 	public Object visitInt_value(a2lParser.Int_valueContext ctx) {
-		return Long.decode(ctx.getText());
+		String valueString = ctx.getText();
+		boolean isHexString = valueString.startsWith("0x");
+        int radix = isHexString ? 16 : 10;
+        valueString = isHexString ? valueString.substring(2) : valueString;
+        return new BigInteger(valueString, radix).longValue();
 	}
 
 	@Override

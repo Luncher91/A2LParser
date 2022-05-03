@@ -31,10 +31,10 @@ class MatrixDimTest {
 	
 	@Test
 	void testOnlyX() {
-		matrixDim = file.getProject().getModules().get(0).getCharacteristics().get(0).getMatrixDim();
-		assertEquals(3L, matrixDim.getxDim());
-		assertEquals(1L, matrixDim.getyDim());
-		assertEquals(1L, matrixDim.getzDim());
+		MatrixDim md = file.getProject().getModules().get(0).getCharacteristics().get(0).getMatrixDim();
+		assertEquals(3L, md.getxDim());
+		assertEquals(1L, md.getyDim());
+		assertEquals(1L, md.getzDim());
 	}
 
 	@Test

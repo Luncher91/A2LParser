@@ -71,8 +71,8 @@ public class CharacteristicTest {
 	}
 
 	@Test
-	void testBitMask() {
-		assertEquals(0xFFFFFF, characteristic.getBitmask());
+	void testBitMaskOverflow() {
+		assertEquals(0xFFFFFFFFFFFFFFFFL, characteristic.getBitmask());
 	}
 
 	@Test
