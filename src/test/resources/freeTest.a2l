@@ -96,7 +96,7 @@ A2ML_VERSION 1 31
 			STEP_SIZE 99.9
 			SYMBOL_LINK "symbol name char" 7
 			MAX_REFRESH 6 10
-			MATRIX_DIM 3 4 5
+			MATRIX_DIM 3
 			/begin IF_DATA i am not parsed yet /end IF_DATA
 			/begin FUNCTION_LIST
 				f1 f2 f3

@@ -176,8 +176,8 @@ public class CharacteristicTest {
 	@Test
 	void testMatrixDim() {
 		assertEquals(3, characteristic.getMatrixDim().getxDim());
-		assertEquals(4, characteristic.getMatrixDim().getyDim());
-		assertEquals(5, characteristic.getMatrixDim().getzDim());
+		assertEquals(1, characteristic.getMatrixDim().getyDim());
+		assertEquals(1, characteristic.getMatrixDim().getzDim());
 	}
 
 	@Test

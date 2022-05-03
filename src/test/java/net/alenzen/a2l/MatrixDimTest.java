@@ -28,6 +28,14 @@ class MatrixDimTest {
 		assertEquals(8L, matrixDim.getyDim());
 		assertEquals(10L, matrixDim.getzDim());
 	}
+	
+	@Test
+	void testOnlyX() {
+		matrixDim = file.getProject().getModules().get(0).getCharacteristics().get(0).getMatrixDim();
+		assertEquals(3L, matrixDim.getxDim());
+		assertEquals(1L, matrixDim.getyDim());
+		assertEquals(1L, matrixDim.getzDim());
+	}
 
 	@Test
 	public void equalsContract() {

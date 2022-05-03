@@ -44,10 +44,10 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 	}
 
 	public A2LVisitor(IParserEventHandler logger, IIncludedFileMapper includeFileMap) {
-		if(includeFileMap != null) {
+		if (includeFileMap != null) {
 			this.includeFileMap = includeFileMap;
 		}
-		
+
 		log = logger;
 
 		if (log == null) {
@@ -121,7 +121,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		}
 		return projects;
 	}
-	
+
 	private List<ModuleSubBlocks> visitModuleInclude(List<Include_expContext> include_exp) {
 		List<ModuleSubBlocks> modules = new ArrayList<ModuleSubBlocks>();
 		for (Include_expContext incl : include_exp) {
@@ -145,7 +145,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 		return null;
 	}
-	
+
 	private ModuleSubBlocks parseModuleInclude(String extractedFilepath) {
 		try {
 			Asap2Parser parser = new Asap2Parser(includeFileMap.includeMao(extractedFilepath));
@@ -1024,10 +1024,15 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		MatrixDim m = new MatrixDim();
 
 		m.setxDim((Long) visitOpt(ctx.xDim));
-		m.setyDim((Long) visitOpt(ctx.yDim));
-		m.setzDim((Long) visitOpt(ctx.zDim));
+		m.setyDim(visitOptLongDimension(ctx.yDim));
+		m.setzDim(visitOptLongDimension(ctx.zDim));
 
 		return m;
+	}
+
+	private long visitOptLongDimension(Int_valueContext yDim) {
+		Object o = visitOpt(yDim);
+		return o == null ? 1L : (Long) o;
 	}
 
 	@Override
