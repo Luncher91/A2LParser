@@ -102,7 +102,7 @@ usage: A2LParser [-a2l <arg>] [-c <arg>] [-h] [-ij] [-j <arg>] [-jsc]
 It is possible to either give the parser a file path or stream the content to it through standard input while omitting the file path.
 
 ```console
-java -jar A2LParser.jar --json src/test/resources/freeTest.a2l
+java -jar A2LParser.jar --asap2 src/test/resources/freeTest.a2l
 ```
 
 Output:
@@ -118,7 +118,7 @@ Output:
 It is possible to either give the parser a file path or stream the content to it through standard input while omitting the file path.
 
 ```console
-java -jar A2LParser.jar --asap2 src/test/resources/freeTest.json
+java -jar A2LParser.jar --json src/test/resources/freeTest.json
 ```
 
 Output:
