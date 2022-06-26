@@ -410,32 +410,32 @@ public class Characteristic extends A2LSerializer implements IA2LWriteable, IAsa
 		Characteristic that = (Characteristic) o;
 		return address == that.address && Double.compare(that.maxDiff, maxDiff) == 0
 				&& Double.compare(that.lowerLimit, lowerLimit) == 0 && Double.compare(that.upperLimit, upperLimit) == 0
-				&& discrete == that.discrete && guardRails == that.guardRails && readOnly == that.readOnly && Objects
-				.equals(name, that.name) && Objects.equals(longIdentifier, that.longIdentifier) && type == that.type
-				&& Objects.equals(deposit, that.deposit) && Objects.equals(conversion, that.conversion) && Objects
-				.equals(notes, that.notes) && Objects.equals(axisDescriptions, that.axisDescriptions) && Objects
-				.equals(bitmask, that.bitmask) && byteorder == that.byteorder && access == that.access && Objects
-				.equals(comparisonQuantityMeasurment, that.comparisonQuantityMeasurment) && Objects
-				.equals(dependetCharacteristic, that.dependetCharacteristic) && Objects
-				.equals(displayIdentifier, that.displayIdentifier) && Objects
-				.equals(ecuAddressExtension, that.ecuAddressExtension) && Objects
-				.equals(extendedLimits, that.extendedLimits) && Objects.equals(format, that.format) && Objects
-				.equals(functions, that.functions) && Objects.equals(ifData, that.ifData) && Objects
-				.equals(mapList, that.mapList) && Objects.equals(matrixDim, that.matrixDim) && Objects
-				.equals(maxRefresh, that.maxRefresh) && Objects.equals(number, that.number) && Objects
-				.equals(physUnit, that.physUnit) && Objects.equals(memorySegment, that.memorySegment) && Objects
-				.equals(stepSize, that.stepSize) && Objects.equals(symbolLink, that.symbolLink) && Objects
-				.equals(virtualCharacteristic, that.virtualCharacteristic);
+				&& discrete == that.discrete && guardRails == that.guardRails && readOnly == that.readOnly
+				&& Objects.equals(name, that.name) && Objects.equals(longIdentifier, that.longIdentifier)
+				&& type == that.type && Objects.equals(deposit, that.deposit)
+				&& Objects.equals(conversion, that.conversion) && Objects.equals(notes, that.notes)
+				&& Objects.equals(axisDescriptions, that.axisDescriptions) && Objects.equals(bitmask, that.bitmask)
+				&& byteorder == that.byteorder && access == that.access
+				&& Objects.equals(comparisonQuantityMeasurment, that.comparisonQuantityMeasurment)
+				&& Objects.equals(dependetCharacteristic, that.dependetCharacteristic)
+				&& Objects.equals(displayIdentifier, that.displayIdentifier)
+				&& Objects.equals(ecuAddressExtension, that.ecuAddressExtension)
+				&& Objects.equals(extendedLimits, that.extendedLimits) && Objects.equals(format, that.format)
+				&& Objects.equals(functions, that.functions) && Objects.equals(ifData, that.ifData)
+				&& Objects.equals(mapList, that.mapList) && Objects.equals(matrixDim, that.matrixDim)
+				&& Objects.equals(maxRefresh, that.maxRefresh) && Objects.equals(number, that.number)
+				&& Objects.equals(physUnit, that.physUnit) && Objects.equals(memorySegment, that.memorySegment)
+				&& Objects.equals(stepSize, that.stepSize) && Objects.equals(symbolLink, that.symbolLink)
+				&& Objects.equals(virtualCharacteristic, that.virtualCharacteristic);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects
-				.hash(name, longIdentifier, type, address, deposit, maxDiff, conversion, lowerLimit, upperLimit, notes,
-						axisDescriptions, bitmask, byteorder, access, comparisonQuantityMeasurment,
-						dependetCharacteristic, discrete, displayIdentifier, ecuAddressExtension, extendedLimits,
-						format, functions, guardRails, ifData, mapList, matrixDim, maxRefresh, number, physUnit,
-						readOnly, memorySegment, stepSize, symbolLink, virtualCharacteristic);
+		return Objects.hash(name, longIdentifier, type, address, deposit, maxDiff, conversion, lowerLimit, upperLimit,
+				notes, axisDescriptions, bitmask, byteorder, access, comparisonQuantityMeasurment,
+				dependetCharacteristic, discrete, displayIdentifier, ecuAddressExtension, extendedLimits, format,
+				functions, guardRails, ifData, mapList, matrixDim, maxRefresh, number, physUnit, readOnly,
+				memorySegment, stepSize, symbolLink, virtualCharacteristic);
 	}
 
 	@Override

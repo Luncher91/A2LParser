@@ -258,68 +258,60 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
-		writer.writelnBeginSpaced("AXIS_PTS", 
-				name, 
-				A2LWriter.toA2LString(longIdentifier), 
-				Long.toString(address),
-				inputQuantitiy,
-				deposit,
-				Double.toString(maxDiff),
-				conversion,
-				Long.toString(maxAxisPoints),
-				Double.toString(lowerLimit),
-				Double.toString(upperLimit));
+		writer.writelnBeginSpaced("AXIS_PTS", name, A2LWriter.toA2LString(longIdentifier),
+				"0x" + Long.toHexString(address), inputQuantitiy, deposit, Double.toString(maxDiff), conversion,
+				Long.toString(maxAxisPoints), Double.toString(lowerLimit), Double.toString(upperLimit));
 		writer.indent();
-		
+
 		writer.write(notes);
 		writer.write(byteorder);
 		writer.write(access);
-		
-		if(axisPointDeposit != null) {
+
+		if (axisPointDeposit != null) {
 			writer.write(axisPointDeposit);
 		}
-		
-		if(displayIdentifier != null) {
+
+		if (displayIdentifier != null) {
 			writer.writelnSpaced("DISPLAY_IDENTIFIER", displayIdentifier);
 		}
-		
-		if(ecuAddressExtension != null) {
+
+		if (ecuAddressExtension != null) {
 			writer.writelnSpaced("ECU_ADDRESS_EXTENSION", ecuAddressExtension.toString());
 		}
-		
+
 		writer.write(extendedLimits);
-		
-		if(format != null ) {
+
+		if (format != null) {
 			writer.writelnSpaced("FORMAT", A2LWriter.toA2LString(format));
 		}
-		
+
 		writer.write(functions);
-		
-		if(guardRails) {
+
+		if (guardRails) {
 			writer.write("GUARD_RAILS");
 		}
-		
+
 		writer.write(ifData);
 		writer.write(monotony);
-		
-		if(physUnit != null) {
+
+		if (physUnit != null) {
 			writer.writelnSpaced("PHYS_UNIT", A2LWriter.toA2LString(physUnit));
 		}
-		
-		if(readOnly) {
+
+		if (readOnly) {
 			writer.write("READ_ONLY");
 		}
-		
-		if(memorySegment != null) {
+
+		if (memorySegment != null) {
 			writer.writelnSpaced("REF_MEMORY_SEGMENT", memorySegment);
 		}
-		
-		if(stepSize != null) {
+
+		if (stepSize != null) {
 			writer.writelnSpaced("STEP_SIZE", stepSize.toString());
 		}
 
 		writer.write(symbolLink);
-		
+
 		writer.dedent();
 		writer.writelnEnd("AXIS_PTS");
 	}
@@ -334,19 +326,19 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 		return address == axisPts.address && Double.compare(axisPts.maxDiff, maxDiff) == 0
 				&& maxAxisPoints == axisPts.maxAxisPoints && Double.compare(axisPts.lowerLimit, lowerLimit) == 0
 				&& Double.compare(axisPts.upperLimit, upperLimit) == 0 && guardRails == axisPts.guardRails
-				&& readOnly == axisPts.readOnly && Objects.equals(name, axisPts.name) && Objects
-				.equals(longIdentifier, axisPts.longIdentifier) && Objects
-				.equals(inputQuantitiy, axisPts.inputQuantitiy) && Objects.equals(deposit, axisPts.deposit) && Objects
-				.equals(conversion, axisPts.conversion) && Objects.equals(notes, axisPts.notes)
+				&& readOnly == axisPts.readOnly && Objects.equals(name, axisPts.name)
+				&& Objects.equals(longIdentifier, axisPts.longIdentifier)
+				&& Objects.equals(inputQuantitiy, axisPts.inputQuantitiy) && Objects.equals(deposit, axisPts.deposit)
+				&& Objects.equals(conversion, axisPts.conversion) && Objects.equals(notes, axisPts.notes)
 				&& byteorder == axisPts.byteorder && access == axisPts.access
-				&& axisPointDeposit == axisPts.axisPointDeposit && Objects
-				.equals(displayIdentifier, axisPts.displayIdentifier) && Objects
-				.equals(ecuAddressExtension, axisPts.ecuAddressExtension) && Objects
-				.equals(extendedLimits, axisPts.extendedLimits) && Objects.equals(format, axisPts.format) && Objects
-				.equals(functions, axisPts.functions) && Objects.equals(ifData, axisPts.ifData)
-				&& monotony == axisPts.monotony && Objects.equals(physUnit, axisPts.physUnit) && Objects
-				.equals(memorySegment, axisPts.memorySegment) && Objects.equals(stepSize, axisPts.stepSize) && Objects
-				.equals(symbolLink, axisPts.symbolLink);
+				&& axisPointDeposit == axisPts.axisPointDeposit
+				&& Objects.equals(displayIdentifier, axisPts.displayIdentifier)
+				&& Objects.equals(ecuAddressExtension, axisPts.ecuAddressExtension)
+				&& Objects.equals(extendedLimits, axisPts.extendedLimits) && Objects.equals(format, axisPts.format)
+				&& Objects.equals(functions, axisPts.functions) && Objects.equals(ifData, axisPts.ifData)
+				&& monotony == axisPts.monotony && Objects.equals(physUnit, axisPts.physUnit)
+				&& Objects.equals(memorySegment, axisPts.memorySegment) && Objects.equals(stepSize, axisPts.stepSize)
+				&& Objects.equals(symbolLink, axisPts.symbolLink);
 	}
 
 	@Override

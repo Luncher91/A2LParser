@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-
 public class MemoryLayout extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private PrgType prgType;
 	private long address;
@@ -83,8 +82,8 @@ public class MemoryLayout extends A2LSerializer implements IA2LWriteable, IAsap2
 		if (o == null || getClass() != o.getClass())
 			return false;
 		MemoryLayout that = (MemoryLayout) o;
-		return address == that.address && size == that.size && prgType == that.prgType && Arrays
-				.equals(offset, that.offset) && Objects.equals(ifDatas, that.ifDatas);
+		return address == that.address && size == that.size && prgType == that.prgType
+				&& Arrays.equals(offset, that.offset) && Objects.equals(ifDatas, that.ifDatas);
 	}
 
 	@Override
