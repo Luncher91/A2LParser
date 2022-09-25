@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.CalibrationAccess;
 import net.alenzen.a2l.enums.CharacteristicType;
+import net.alenzen.a2l.indexes.ReferenceResolve;
 
 public class Characteristic extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
@@ -45,6 +48,14 @@ public class Characteristic extends A2LSerializer implements IA2LWriteable, IAsa
 	private Double stepSize;
 	private SymbolLink symbolLink;
 	private VirtualCharacteristic virtualCharacteristic;
+
+	@JsonIgnore
+	@ReferenceResolve(ref="conversion", index="compuMethods")
+	private CompuMethod conversionCompuMethod;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref="deposit", index="recordLayouts")
+	private RecordLayout depositRecordLayout;
 
 	public String getName() {
 		return name;
@@ -316,6 +327,22 @@ public class Characteristic extends A2LSerializer implements IA2LWriteable, IAsa
 
 	public void setVirtualCharacteristic(VirtualCharacteristic virtualCharacteristic) {
 		this.virtualCharacteristic = virtualCharacteristic;
+	}
+
+	public CompuMethod getConversionCompuMethod() {
+		return conversionCompuMethod;
+	}
+
+	public void setConversionCompuMethod(CompuMethod conversionCompuMethod) {
+		this.conversionCompuMethod = conversionCompuMethod;
+	}
+
+	public RecordLayout getDepositRecordLayout() {
+		return depositRecordLayout;
+	}
+
+	public void setDepositRecordLayout(RecordLayout depositRecordLayout) {
+		this.depositRecordLayout = depositRecordLayout;
 	}
 
 	@Override

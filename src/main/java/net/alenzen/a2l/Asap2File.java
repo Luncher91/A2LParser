@@ -23,6 +23,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
+import net.alenzen.a2l.indexes.ReferenceResolver;
+
 public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeElement>, IAsap2TreeElement {
 	private A2mlVersion a2mlVersion;
 	private Asap2Version asap2Version;
@@ -50,6 +52,11 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 
 	public void setA2mlVersion(A2mlVersion a2mlVersion) {
 		this.a2mlVersion = a2mlVersion;
+	}
+	
+	public void updateReferences() {
+		ReferenceResolver rr = new ReferenceResolver(this);
+		rr.updateReferences();
 	}
 
 	public String toJson() throws JsonGenerationException, JsonMappingException, IOException {

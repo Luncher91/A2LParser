@@ -198,7 +198,22 @@ public class CharacteristicTest {
 	}
 
 	@Test
+	void testConversionCompuMethodReference() {
+		file.updateReferences();
+		assertNotNull(characteristic.getConversionCompuMethod());
+		assertEquals(characteristic.getConversion(), characteristic.getConversionCompuMethod().getName());
+	}
+
+	@Test
+	void testConversionRecordLayoutReference() {
+		file.updateReferences();
+		assertNotNull(characteristic.getDepositRecordLayout());
+		assertEquals(characteristic.getDeposit(), characteristic.getDepositRecordLayout().getName());
+	}
+
+	@Test
 	public void equalsContract() {
-		EqualsVerifierConfigured.getEqualsVerifier().forClass(Characteristic.class).verify();
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(Characteristic.class)
+				.withIgnoredFields("conversionCompuMethod", "depositRecordLayout").verify();
 	}
 }

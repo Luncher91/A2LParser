@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import net.alenzen.a2l.indexes.CreateIndex;
+
 
 public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	// optional parameters
 	private List<A2ml> a2ml;
 	private List<AxisPts> axisPts;
 	private List<Characteristic> characteristics;
+	@CreateIndex(name="compuMethods", ref="name")
 	private List<CompuMethod> compuMethods;
 	private List<CompuTab> compuTabs;
 	private List<CompuVTab> compuVTabs;
@@ -22,6 +25,7 @@ public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAs
 	private List<Measurement> measurements;
 	private ModCommon modCommon;
 	private ModPar modPar;
+	@CreateIndex(name="recordLayouts", ref="name")
 	private List<RecordLayout> recordLayouts;
 	private List<Unit> units;
 	private List<UserRights> userRights;

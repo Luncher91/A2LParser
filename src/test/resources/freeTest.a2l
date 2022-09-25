@@ -185,6 +185,14 @@ A2ML_VERSION 1 31
 			/end FORMULA
 		/end COMPU_METHOD
 		
+		/begin COMPU_METHOD char_conv
+			"Conversion method for char"
+			RAT_FUNC
+			"%3.0"
+			"NO_PHYSICAL_QTY"
+			COEFFS 0 1 0 0 0 1
+		/end COMPU_METHOD
+		
 		/begin COMPU_TAB PERFECT_COMPU.TAB
 			"very perfect compu tab"
 			TAB_INTP
@@ -334,6 +342,10 @@ A2ML_VERSION 1 31
 			SHIFT_OP_5 46 ULONG
 			
 			STATIC_RECORD_LAYOUT
+		/end RECORD_LAYOUT
+		
+		/begin RECORD_LAYOUT char_deposit
+			FNC_VALUES 1 UBYTE ROW_DIR DIRECT
 		/end RECORD_LAYOUT
 		
 		/begin FUNCTION firstFunction "very first function"
