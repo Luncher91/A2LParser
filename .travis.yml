@@ -12,4 +12,4 @@ matrix:
     - os: osx
       jdk: openjdk8
     - os: osx
-      jdk: openjdk17
+      jdk: openjdk11
