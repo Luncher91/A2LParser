@@ -20,7 +20,8 @@ public class EqualsVerifierConfigured {
 					.withPrefabValues(ModuleSubBlocks.class, ModuleSubBlocksTest.getPrefabRed(),
 							ModuleSubBlocksTest.getPrefabBlue())
 					.withPrefabValues(ProjectSubBlocks.class, ProjectSubBlocksTest.getPrefabRed(),
-							ProjectSubBlocksTest.getPrefabBlue());
+							ProjectSubBlocksTest.getPrefabBlue())
+					.withPrefabValues(AxisDescr.class, AxisDescrTest.getPrefabRed(), AxisDescrTest.getPrefabBlue());
 		}
 
 		return INSTANCE;

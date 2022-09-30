@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.alenzen.a2l.Asap2FileTest.TestFile;
+import net.alenzen.a2l.AxisDescr.Attribute;
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.Monotony;
@@ -32,12 +33,12 @@ public class AxisDescrTest {
 
 	@Test
 	void testInputQuantity() {
-		assertEquals("in_quant_char", axisDescr.getInputQuantity());
+		assertEquals("superMeasurement", axisDescr.getInputQuantity());
 	}
 
 	@Test
 	void testConversion() {
-		assertEquals("char_axis_descr_conv", axisDescr.getConversion());
+		assertEquals("char_conv", axisDescr.getConversion());
 	}
 
 	@Test
@@ -57,7 +58,7 @@ public class AxisDescrTest {
 
 	@Test
 	void testAxisPtsRef() {
-		assertEquals("axisPtsA", axisDescr.getAxisPoints_ref());
+		assertEquals("axis_pts_1", axisDescr.getAxisPoints_ref());
 	}
 
 	@Test
@@ -67,7 +68,7 @@ public class AxisDescrTest {
 
 	@Test
 	void testCurveAxisRef() {
-		assertEquals("curveAxisA", axisDescr.getCurveAxis_ref());
+		assertEquals("char_b", axisDescr.getCurveAxis_ref());
 	}
 
 	@Test
@@ -106,7 +107,60 @@ public class AxisDescrTest {
 	}
 
 	@Test
+	void testInputQuantityMeasurementReference() {
+		file.updateReferences();
+		assertNotNull(axisDescr.getInputQuantityMeasurement());
+		assertEquals(axisDescr.getInputQuantity(), axisDescr.getInputQuantityMeasurement().getName());
+	}
+
+	@Test
+	void testConversionCompuMethodReference() {
+		file.updateReferences();
+		assertNotNull(axisDescr.getConversionCompuMethod());
+		assertEquals(axisDescr.getConversion(), axisDescr.getConversionCompuMethod().getName());
+	}
+
+	@Test
+	void testAxisPointsAxisPtsReference() {
+		file.updateReferences();
+		assertNotNull(axisDescr.getAxisPointsAxisPts());
+		assertEquals(axisDescr.getAxisPoints_ref(), axisDescr.getAxisPointsAxisPts().getName());
+	}
+
+	@Test
+	void testCurveAxisCharacteristicReference() {
+		file.updateReferences();
+		assertNotNull(axisDescr.getCurveAxisCharacteristic());
+		assertEquals(axisDescr.getCurveAxis_ref(), axisDescr.getCurveAxisCharacteristic().getName());
+	}
+
+	@Test
 	public void equalsContract() {
-		EqualsVerifierConfigured.getEqualsVerifier().forClass(AxisDescr.class).verify();
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(AxisDescr.class)
+				.withIgnoredFields("conversionCompuMethod", "inputQuantityMeasurement", "axisPointsAxisPts",
+						"curveAxisCharacteristic")
+				.verify();
+	}
+
+	public static AxisDescr getPrefabRed() {
+		AxisDescr a = new AxisDescr();
+		a.setAttribute(Attribute.COM_AXIS);
+		a.setInputQuantity("RedInputQuantity");
+		a.setConversion("RedAxisDescrConversion");
+		a.setMaxAxisPoints(42);
+		a.setLowerLimit(0.0);
+		a.setUpperLimit(1.0);
+		return a;
+	}
+
+	public static AxisDescr getPrefabBlue() {
+		AxisDescr a = new AxisDescr();
+		a.setAttribute(Attribute.CURVE_AXIS);
+		a.setInputQuantity("BlueInputQuantity");
+		a.setConversion("BlueAxisDescrConversion");
+		a.setMaxAxisPoints(43);
+		a.setLowerLimit(0.1);
+		a.setUpperLimit(1.1);
+		return a;
 	}
 }

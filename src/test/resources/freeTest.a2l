@@ -53,10 +53,10 @@ A2ML_VERSION 1 31
 		/end AXIS_PTS
 		
 		/begin CHARACTERISTIC char_a "description here" CUBE_5 0x123 char_deposit 1.1 char_conv 0.0 10.0
-			/begin AXIS_DESCR CURVE_AXIS in_quant_char char_axis_descr_conv 22 5.5 21.21
-				AXIS_PTS_REF axisPtsA
+			/begin AXIS_DESCR CURVE_AXIS superMeasurement char_conv 22 5.5 21.21
+				AXIS_PTS_REF axis_pts_1
 				BYTE_ORDER MSB_FIRST
-				CURVE_AXIS_REF curveAxisA
+				CURVE_AXIS_REF char_b
 				DEPOSIT DIFFERENCE
 				FORMAT "%3.3"
 				MAX_GRAD 30.0

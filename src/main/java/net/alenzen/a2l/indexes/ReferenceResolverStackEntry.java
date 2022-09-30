@@ -47,6 +47,11 @@ public class ReferenceResolverStackEntry {
 				CreateIndex annotation = f.getAnnotation(CreateIndex.class);
 				if (annotation != null && fieldIsCollection(f)) {
 					Map<String, Object> newIndex = generateIndex(f, annotation.ref());
+
+					if (annotation.nullReference() != null && !annotation.nullReference().isEmpty()) {
+						newIndex.put(annotation.nullReference(), null);
+					}
+
 					this.indexes.put(annotation.name(), newIndex);
 				}
 			}

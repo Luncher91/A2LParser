@@ -11,9 +11,11 @@ import net.alenzen.a2l.indexes.CreateIndex;
 public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	// optional parameters
 	private List<A2ml> a2ml;
+	@CreateIndex(name="axisPts", ref="name")
 	private List<AxisPts> axisPts;
+	@CreateIndex(name="characteristics", ref="name")
 	private List<Characteristic> characteristics;
-	@CreateIndex(name="compuMethods", ref="name")
+	@CreateIndex(name="compuMethods", ref="name", nullReference="NO_COMPU_METHOD")
 	private List<CompuMethod> compuMethods;
 	private List<CompuTab> compuTabs;
 	private List<CompuVTab> compuVTabs;
@@ -22,6 +24,7 @@ public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAs
 	private List<Function> functions;
 	private List<Group> groups;
 	private List<IfData> ifDatas;
+	@CreateIndex(name="measurements", ref="name")
 	private List<Measurement> measurements;
 	private ModCommon modCommon;
 	private ModPar modPar;

@@ -13,4 +13,6 @@ public @interface CreateIndex {
 
 	String ref();
 
+	String nullReference() default "";
+
 }

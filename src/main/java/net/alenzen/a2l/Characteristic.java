@@ -50,11 +50,11 @@ public class Characteristic extends A2LSerializer implements IA2LWriteable, IAsa
 	private VirtualCharacteristic virtualCharacteristic;
 
 	@JsonIgnore
-	@ReferenceResolve(ref="conversion", index="compuMethods")
+	@ReferenceResolve(ref = "conversion", index = "compuMethods")
 	private CompuMethod conversionCompuMethod;
-	
+
 	@JsonIgnore
-	@ReferenceResolve(ref="deposit", index="recordLayouts")
+	@ReferenceResolve(ref = "deposit", index = "recordLayouts")
 	private RecordLayout depositRecordLayout;
 
 	public String getName() {

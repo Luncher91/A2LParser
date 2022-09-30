@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.Monotony;
+import net.alenzen.a2l.indexes.ReferenceResolve;
 
 public class AxisDescr extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private Attribute attribute;
@@ -33,6 +36,22 @@ public class AxisDescr extends A2LSerializer implements IA2LWriteable, IAsap2Tre
 	private String physUnit;
 	private boolean readOnly;
 	private Double stepSize;
+
+	@JsonIgnore
+	@ReferenceResolve(ref = "inputQuantity", index = "measurements")
+	private Measurement inputQuantityMeasurement;
+
+	@JsonIgnore
+	@ReferenceResolve(ref = "conversion", index = "compuMethods")
+	private CompuMethod conversionCompuMethod;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref = "axisPoints_ref", index = "axisPts")
+	private AxisPts axisPointsAxisPts;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref = "curveAxis_ref", index = "characteristics")
+	private Characteristic curveAxisCharacteristic;
 
 	public enum Attribute {
 		CURVE_AXIS, COM_AXIS, FIX_AXIS, RES_AXIS, STD_AXIS
@@ -206,6 +225,38 @@ public class AxisDescr extends A2LSerializer implements IA2LWriteable, IAsap2Tre
 		this.stepSize = stepSize;
 	}
 
+	public CompuMethod getConversionCompuMethod() {
+		return conversionCompuMethod;
+	}
+
+	public void setConversionCompuMethod(CompuMethod conversionCompuMethod) {
+		this.conversionCompuMethod = conversionCompuMethod;
+	}
+
+	public Measurement getInputQuantityMeasurement() {
+		return inputQuantityMeasurement;
+	}
+
+	public void setInputQuantityMeasurement(Measurement inputQuantityMeasurement) {
+		this.inputQuantityMeasurement = inputQuantityMeasurement;
+	}
+
+	public AxisPts getAxisPointsAxisPts() {
+		return axisPointsAxisPts;
+	}
+
+	public void setAxisPointsAxisPts(AxisPts axisPointsAxisPts) {
+		this.axisPointsAxisPts = axisPointsAxisPts;
+	}
+
+	public Characteristic getCurveAxisCharacteristic() {
+		return curveAxisCharacteristic;
+	}
+
+	public void setCurveAxisCharacteristic(Characteristic curveAxisCharacteristic) {
+		this.curveAxisCharacteristic = curveAxisCharacteristic;
+	}
+
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
 		writer.writelnBeginSpaced("AXIS_DESCR", attribute.name(), inputQuantity, conversion,
@@ -265,15 +316,17 @@ public class AxisDescr extends A2LSerializer implements IA2LWriteable, IAsap2Tre
 		AxisDescr axisDescr = (AxisDescr) o;
 		return maxAxisPoints == axisDescr.maxAxisPoints && Double.compare(axisDescr.lowerLimit, lowerLimit) == 0
 				&& Double.compare(axisDescr.upperLimit, upperLimit) == 0 && readOnly == axisDescr.readOnly
-				&& attribute == axisDescr.attribute && Objects.equals(inputQuantity, axisDescr.inputQuantity) && Objects
-				.equals(conversion, axisDescr.conversion) && Objects.equals(annotations, axisDescr.annotations)
+				&& attribute == axisDescr.attribute && Objects.equals(inputQuantity, axisDescr.inputQuantity)
+				&& Objects.equals(conversion, axisDescr.conversion)
+				&& Objects.equals(annotations, axisDescr.annotations)
 				&& Objects.equals(axisPoints_ref, axisDescr.axisPoints_ref) && byteorder == axisDescr.byteorder
-				&& Objects.equals(curveAxis_ref, axisDescr.curveAxis_ref) && deposit == axisDescr.deposit && Objects
-				.equals(extendedLimits, axisDescr.extendedLimits) && Objects.equals(fixAxisPar, axisDescr.fixAxisPar)
-				&& Objects.equals(fixAxisParDist, axisDescr.fixAxisParDist) && Objects
-				.equals(fixAxisParList, axisDescr.fixAxisParList) && Objects.equals(format, axisDescr.format) && Objects
-				.equals(maxGrad, axisDescr.maxGrad) && monotony == axisDescr.monotony && Objects
-				.equals(physUnit, axisDescr.physUnit) && Objects.equals(stepSize, axisDescr.stepSize);
+				&& Objects.equals(curveAxis_ref, axisDescr.curveAxis_ref) && deposit == axisDescr.deposit
+				&& Objects.equals(extendedLimits, axisDescr.extendedLimits)
+				&& Objects.equals(fixAxisPar, axisDescr.fixAxisPar)
+				&& Objects.equals(fixAxisParDist, axisDescr.fixAxisParDist)
+				&& Objects.equals(fixAxisParList, axisDescr.fixAxisParList) && Objects.equals(format, axisDescr.format)
+				&& Objects.equals(maxGrad, axisDescr.maxGrad) && monotony == axisDescr.monotony
+				&& Objects.equals(physUnit, axisDescr.physUnit) && Objects.equals(stepSize, axisDescr.stepSize);
 	}
 
 	@Override
