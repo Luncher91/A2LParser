@@ -43,7 +43,7 @@ public class AxisPtsTest {
 
 	@Test
 	void testInputQuantity() {
-		assertEquals("in_quant", axisPts.getInputQuantitiy());
+		assertEquals("in_quant", axisPts.getInputQuantity());
 	}
 
 	@Test

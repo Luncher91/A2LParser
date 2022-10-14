@@ -14,7 +14,7 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 	private String name;
 	private String longIdentifier;
 	private long address;
-	private String inputQuantitiy;
+	private String inputQuantity;
 	private String deposit;
 	private double maxDiff;
 	private String conversion;
@@ -64,12 +64,12 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 		this.address = address;
 	}
 
-	public String getInputQuantitiy() {
-		return inputQuantitiy;
+	public String getInputQuantity() {
+		return inputQuantity;
 	}
 
-	public void setInputQuantitiy(String inputQuantitiy) {
-		this.inputQuantitiy = inputQuantitiy;
+	public void setInputQuantity(String inputQuantity) {
+		this.inputQuantity = inputQuantity;
 	}
 
 	public String getDeposit() {
@@ -259,7 +259,7 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 	@Override
 	public void writeTo(A2LWriter writer) throws IOException {
 		writer.writelnBeginSpaced("AXIS_PTS", name, A2LWriter.toA2LString(longIdentifier),
-				"0x" + Long.toHexString(address), inputQuantitiy, deposit, Double.toString(maxDiff), conversion,
+				"0x" + Long.toHexString(address), inputQuantity, deposit, Double.toString(maxDiff), conversion,
 				Long.toString(maxAxisPoints), Double.toString(lowerLimit), Double.toString(upperLimit));
 		writer.indent();
 
@@ -328,7 +328,7 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 				&& Double.compare(axisPts.upperLimit, upperLimit) == 0 && guardRails == axisPts.guardRails
 				&& readOnly == axisPts.readOnly && Objects.equals(name, axisPts.name)
 				&& Objects.equals(longIdentifier, axisPts.longIdentifier)
-				&& Objects.equals(inputQuantitiy, axisPts.inputQuantitiy) && Objects.equals(deposit, axisPts.deposit)
+				&& Objects.equals(inputQuantity, axisPts.inputQuantity) && Objects.equals(deposit, axisPts.deposit)
 				&& Objects.equals(conversion, axisPts.conversion) && Objects.equals(notes, axisPts.notes)
 				&& byteorder == axisPts.byteorder && access == axisPts.access
 				&& axisPointDeposit == axisPts.axisPointDeposit
@@ -343,7 +343,7 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, longIdentifier, address, inputQuantitiy, deposit, maxDiff, conversion, maxAxisPoints,
+		return Objects.hash(name, longIdentifier, address, inputQuantity, deposit, maxDiff, conversion, maxAxisPoints,
 				lowerLimit, upperLimit, notes, byteorder, access, axisPointDeposit, displayIdentifier,
 				ecuAddressExtension, extendedLimits, format, functions, guardRails, ifData, monotony, physUnit,
 				readOnly, memorySegment, stepSize, symbolLink);
