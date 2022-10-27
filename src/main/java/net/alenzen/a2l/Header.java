@@ -46,8 +46,11 @@ public class Header extends A2LSerializer implements IA2LWriteable, IAsap2TreeEl
 		writer.writelnBeginSpaced("HEADER", A2LWriter.toA2LString(comment));
 		writer.indent();
 
-		writer.writelnSpaced("PROJECT_NO", projectNo);
-		writer.writelnSpaced("VERSION", A2LWriter.toA2LString(version));
+		if(projectNo != null && !projectNo.isEmpty())
+			writer.writelnSpaced("PROJECT_NO", projectNo);
+		
+		if(version != null)
+			writer.writelnSpaced("VERSION", A2LWriter.toA2LString(version));
 
 		writer.dedent();
 		writer.writelnEnd("HEADER");
