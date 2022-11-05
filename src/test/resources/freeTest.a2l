@@ -1,4 +1,4 @@
-﻿/* This file hase been handwritten */
+﻿/* This file has been handwritten */
 ASAP2_VERSION 1 71
 A2ML_VERSION 1 31
 /begin PROJECT Free_Example "MIT licensed example file"
@@ -52,7 +52,7 @@ A2ML_VERSION 1 31
 			SYMBOL_LINK "symbol name char 99" 99
 		/end AXIS_PTS
 		
-		/begin CHARACTERISTIC char_a "description here" CUBE_5 0x123 char_deposit 1.1 char_conv 0.0 10.0
+		/begin CHARACTERISTIC char_a "any unknown es\cape\d\ \character, escaped backslash \\ and for fun \\\ and \\\\" CUBE_5 0x123 char_deposit 1.1 char_conv 0.0 10.0
 			/begin AXIS_DESCR CURVE_AXIS superMeasurement char_conv 22 5.5 21.21
 				AXIS_PTS_REF axis_pts_1
 				BYTE_ORDER MSB_FIRST
@@ -106,7 +106,8 @@ A2ML_VERSION 1 31
 			/end ANNOTATION
 		/end CHARACTERISTIC
 		
-		/begin CHARACTERISTIC char_b "description here" CUBE_5 0x123 char_deposit 1.1 char_conv .1 1.
+		/begin CHARACTERISTIC char_b "test line break in string\
+<<here" CUBE_5 0x123 char_deposit 1.1 char_conv .1 1.
 		/end CHARACTERISTIC
 		
 		/begin CHARACTERISTIC char_c "description here" CUBE_5 0x123 char_deposit 1.1 char_conv .1E-2 1.E2

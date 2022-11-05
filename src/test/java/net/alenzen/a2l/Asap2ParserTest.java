@@ -43,6 +43,12 @@ public class Asap2ParserTest {
 		String resultB = A2LVisitor.toJavaString(resultA);
 		assertEquals(TEST_ESCAPE_STRING, resultB);
 	}
+	
+	@Test 
+	void testA2LStringSingleBackslash() {
+		String result = A2LVisitor.toJavaString("\"Curve with \\end standard axis\"");
+		assertEquals("Curve with \\end standard axis", result);
+	}
 
 	@Test
 	void testUTF8BOMOutput() throws JsonGenerationException, JsonMappingException, IOException, URISyntaxException {

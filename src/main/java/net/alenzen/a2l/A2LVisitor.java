@@ -2211,6 +2211,9 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 
 		for (int i = 0; i < splittedDoubleBackslash.length; i++) {
 			String stringVal = splittedDoubleBackslash[i];
+			// replace line broken string characters
+			stringVal = stringVal.replaceAll("\\\\((\\r?\\n)|\\r)", "");
+			
 			// replace escaped "
 			stringVal = stringVal.replaceAll("\\\\\\\"|\"\"", "\"");
 

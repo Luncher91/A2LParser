@@ -32,7 +32,7 @@ public class CharacteristicTest {
 
 	@Test
 	void testLongIdentifier() {
-		assertEquals("description here", characteristic.getLongIdentifier());
+		assertEquals("any unknown es\\cape\\d\\ \\character, escaped backslash \\ and for fun \\\\ and \\\\", characteristic.getLongIdentifier());
 	}
 
 	@Test
