@@ -37,7 +37,7 @@ A2ML_VERSION 1 31
 			/end VAR_FORBIDDEN_COMB
 		/end VARIANT_CODING
 		
-		/begin AXIS_PTS axis_pts_1 "I am a long identifier of an AXIS_PTS object" 0xABCDEF in_quant axis_pts_deposit 1.1 axis_pts_conv 123 1.2 1.3
+		/begin AXIS_PTS axis_pts_1 "I am a long identifier of an AXIS_PTS object" 0xABCDEF NO_INPUT_QUANTITY axis_pts_deposit 1.1 THE.IDENTITY 123 1.2 1.3
 			BYTE_ORDER MSB_FIRST
 			CALIBRATION_ACCESS NOT_IN_MCD_SYSTEM
 			DEPOSIT DIFFERENCE

@@ -43,7 +43,7 @@ public class AxisPtsTest {
 
 	@Test
 	void testInputQuantity() {
-		assertEquals("in_quant", axisPts.getInputQuantity());
+		assertEquals("NO_INPUT_QUANTITY", axisPts.getInputQuantity());
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class AxisPtsTest {
 
 	@Test
 	void testConversion() {
-		assertEquals("axis_pts_conv", axisPts.getConversion());
+		assertEquals("THE.IDENTITY", axisPts.getConversion());
 	}
 
 	@Test
@@ -144,6 +144,7 @@ public class AxisPtsTest {
 
 	@Test
 	public void equalsContract() {
-		EqualsVerifierConfigured.getEqualsVerifier().forClass(AxisPts.class).verify();
+		EqualsVerifierConfigured.getEqualsVerifier().forClass(AxisPts.class)
+				.withIgnoredFields("conversionCompuMethod", "inputQuantityMeasurement").verify();
 	}
 }

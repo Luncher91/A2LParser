@@ -92,14 +92,19 @@ public class ReferenceResolver {
 			for (Field f : fields) {
 				ReferenceResolve annotation = f.getAnnotation(ReferenceResolve.class);
 				if (annotation != null) {
-					String referenceString = getReferenceString(node, annotation.ref());
-					Object reference = indexes.get(annotation.index()).get(referenceString);
+					if (!indexes.containsKey(annotation.index())) {
+						throw new NoSuchElementException(String.format("Cannot find index '%s'", annotation.index()));
+					}
 
-					if (reference == null) {
+					Map<String, Object> index = indexes.get(annotation.index());
+
+					String referenceString = getReferenceString(node, annotation.ref());
+					if (!index.containsKey(referenceString)) {
 						throw new NoSuchElementException(String.format("Cannot find reference '%s' in index '%s'",
 								referenceString, annotation.index()));
 					}
 
+					Object reference = index.get(referenceString);
 					f.setAccessible(true);
 					f.set(node, reference);
 				}

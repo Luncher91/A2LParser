@@ -41,8 +41,8 @@ public class ReferenceResolverStackEntry {
 			throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		this.indexes = new HashMap<String, Map<String, Object>>();
 		Class<?> currentClass = node.getClass();
-		Field[] fields = currentClass.getDeclaredFields();
 		while (true) {
+			Field[] fields = currentClass.getDeclaredFields();
 			for (Field f : fields) {
 				CreateIndex annotation = f.getAnnotation(CreateIndex.class);
 				if (annotation != null && fieldIsCollection(f)) {
@@ -60,8 +60,6 @@ public class ReferenceResolverStackEntry {
 			currentClass = currentClass.getSuperclass();
 			if (currentClass == null)
 				break;
-
-			fields = currentClass.getDeclaredFields();
 		}
 	}
 

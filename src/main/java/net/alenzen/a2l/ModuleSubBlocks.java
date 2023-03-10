@@ -7,15 +7,14 @@ import java.util.Objects;
 
 import net.alenzen.a2l.indexes.CreateIndex;
 
-
 public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	// optional parameters
 	private List<A2ml> a2ml;
-	@CreateIndex(name="axisPts", ref="name")
+	@CreateIndex(name = "axisPts", ref = "name")
 	private List<AxisPts> axisPts;
-	@CreateIndex(name="characteristics", ref="name")
+	@CreateIndex(name = "characteristics", ref = "name")
 	private List<Characteristic> characteristics;
-	@CreateIndex(name="compuMethods", ref="name", nullReference="NO_COMPU_METHOD")
+	@CreateIndex(name = "compuMethods", ref = "name", nullReference = "NO_COMPU_METHOD")
 	private List<CompuMethod> compuMethods;
 	private List<CompuTab> compuTabs;
 	private List<CompuVTab> compuVTabs;
@@ -24,17 +23,17 @@ public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAs
 	private List<Function> functions;
 	private List<Group> groups;
 	private List<IfData> ifDatas;
-	@CreateIndex(name="measurements", ref="name")
+	@CreateIndex(name = "measurements", ref = "name", nullReference = "NO_INPUT_QUANTITY")
 	private List<Measurement> measurements;
 	private ModCommon modCommon;
 	private ModPar modPar;
-	@CreateIndex(name="recordLayouts", ref="name")
+	@CreateIndex(name = "recordLayouts", ref = "name")
 	private List<RecordLayout> recordLayouts;
 	private List<Unit> units;
 	private List<UserRights> userRights;
 	private VariantCoding variantCoding;
 	private List<Blob> blobs;
-	
+
 	private List<ModuleSubBlocks> included;
 
 	public List<A2ml> getA2ml() {
@@ -188,11 +187,11 @@ public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAs
 	public void setBlobs(List<Blob> blobs) {
 		this.blobs = blobs;
 	}
-	
+
 	public List<ModuleSubBlocks> getIncluded() {
 		return included;
 	}
-	
+
 	public void setIncluded(List<ModuleSubBlocks> included) {
 		this.included = included;
 	}
@@ -217,7 +216,7 @@ public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAs
 		writer.write(userRights);
 		writer.write(variantCoding);
 		writer.write(blobs);
-		
+
 		writer.write(getIncluded());
 	}
 
@@ -228,16 +227,17 @@ public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAs
 		if (o == null || getClass() != o.getClass())
 			return false;
 		ModuleSubBlocks that = (ModuleSubBlocks) o;
-		return Objects.equals(a2ml, that.a2ml) && Objects.equals(axisPts, that.axisPts) && Objects
-				.equals(characteristics, that.characteristics) && Objects.equals(compuMethods, that.compuMethods)
-				&& Objects.equals(compuTabs, that.compuTabs) && Objects.equals(compuVTabs, that.compuVTabs) && Objects
-				.equals(compuVTabRanges, that.compuVTabRanges) && Objects.equals(frame, that.frame) && Objects
-				.equals(functions, that.functions) && Objects.equals(groups, that.groups) && Objects
-				.equals(ifDatas, that.ifDatas) && Objects.equals(measurements, that.measurements) && Objects
-				.equals(modCommon, that.modCommon) && Objects.equals(modPar, that.modPar) && Objects
-				.equals(recordLayouts, that.recordLayouts) && Objects.equals(units, that.units) && Objects
-				.equals(userRights, that.userRights) && Objects.equals(variantCoding, that.variantCoding) && Objects
-				.equals(blobs, that.blobs) && Objects.equals(included, that.included);
+		return Objects.equals(a2ml, that.a2ml) && Objects.equals(axisPts, that.axisPts)
+				&& Objects.equals(characteristics, that.characteristics)
+				&& Objects.equals(compuMethods, that.compuMethods) && Objects.equals(compuTabs, that.compuTabs)
+				&& Objects.equals(compuVTabs, that.compuVTabs) && Objects.equals(compuVTabRanges, that.compuVTabRanges)
+				&& Objects.equals(frame, that.frame) && Objects.equals(functions, that.functions)
+				&& Objects.equals(groups, that.groups) && Objects.equals(ifDatas, that.ifDatas)
+				&& Objects.equals(measurements, that.measurements) && Objects.equals(modCommon, that.modCommon)
+				&& Objects.equals(modPar, that.modPar) && Objects.equals(recordLayouts, that.recordLayouts)
+				&& Objects.equals(units, that.units) && Objects.equals(userRights, that.userRights)
+				&& Objects.equals(variantCoding, that.variantCoding) && Objects.equals(blobs, that.blobs)
+				&& Objects.equals(included, that.included);
 	}
 
 	@Override

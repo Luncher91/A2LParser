@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import net.alenzen.a2l.enums.ByteOrder;
 import net.alenzen.a2l.enums.CalibrationAccess;
 import net.alenzen.a2l.enums.Deposit;
 import net.alenzen.a2l.enums.Monotony;
+import net.alenzen.a2l.indexes.ReferenceResolve;
 
 public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
@@ -39,6 +42,14 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 	private String memorySegment;
 	private Double stepSize;
 	private SymbolLink symbolLink;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref = "inputQuantity", index = "measurements")
+	private Measurement inputQuantityMeasurement;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref = "conversion", index = "compuMethods")
+	private CompuMethod conversionCompuMethod;
 
 	public String getName() {
 		return name;
@@ -254,6 +265,22 @@ public class AxisPts extends A2LSerializer implements IA2LWriteable, IAsap2TreeE
 
 	public void setConversion(String conversion) {
 		this.conversion = conversion;
+	}
+
+	public Measurement getInputQuantityMeasurement() {
+		return inputQuantityMeasurement;
+	}
+
+	public void setInputQuantityMeasurement(Measurement inputQuantityMeasurement) {
+		this.inputQuantityMeasurement = inputQuantityMeasurement;
+	}
+
+	public CompuMethod getConversionCompuMethod() {
+		return conversionCompuMethod;
+	}
+
+	public void setConversionCompuMethod(CompuMethod conversionCompuMethod) {
+		this.conversionCompuMethod = conversionCompuMethod;
 	}
 
 	@Override
