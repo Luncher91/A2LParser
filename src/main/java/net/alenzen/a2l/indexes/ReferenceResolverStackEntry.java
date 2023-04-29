@@ -41,7 +41,7 @@ public class ReferenceResolverStackEntry {
 			throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		this.indexes = new HashMap<String, Map<String, Object>>();
 		Class<?> currentClass = node.getClass();
-		while (true) {
+		while (currentClass != null) {
 			Field[] fields = currentClass.getDeclaredFields();
 			for (Field f : fields) {
 				CreateIndex annotation = f.getAnnotation(CreateIndex.class);
@@ -56,10 +56,7 @@ public class ReferenceResolverStackEntry {
 				}
 			}
 
-			// loop exit condition
 			currentClass = currentClass.getSuperclass();
-			if (currentClass == null)
-				break;
 		}
 	}
 
@@ -73,6 +70,11 @@ public class ReferenceResolverStackEntry {
 		f.setAccessible(true);
 		@SuppressWarnings("unchecked")
 		Collection<? extends Object> c = (Collection<? extends Object>) f.get(this.node);
+
+		if (c == null) {
+			return index;
+		}
+
 		for (Object o : c) {
 			Field refField = o.getClass().getDeclaredField(ref);
 			refField.setAccessible(true);
@@ -84,6 +86,7 @@ public class ReferenceResolverStackEntry {
 						String.format("%s in class %s is not a String!", ref, o.getClass().toGenericString()));
 			}
 		}
+
 		return index;
 	}
 }

@@ -10,7 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -53,10 +55,15 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 	public void setA2mlVersion(A2mlVersion a2mlVersion) {
 		this.a2mlVersion = a2mlVersion;
 	}
-	
+
 	public void updateReferences() {
+		updateReferences(e -> {
+		});
+	}
+
+	public void updateReferences(Consumer<NoSuchElementException> referenceNotFound) {
 		ReferenceResolver rr = new ReferenceResolver(this);
-		rr.updateReferences();
+		rr.updateReferences(referenceNotFound);
 	}
 
 	public String toJson() throws JsonGenerationException, JsonMappingException, IOException {
@@ -106,7 +113,7 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 
 		HashMap<String, String> idPathMap = new HashMap<String, String>();
 		collectPathIds(node, "#", idPathMap);
-		
+
 		replaceReferences(node, idPathMap);
 		removeNamespaces(node);
 
@@ -117,7 +124,7 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 		if (node.isObject()) {
 			for (Iterator<Entry<String, JsonNode>> iter = node.fields(); iter.hasNext();) {
 				Map.Entry<String, JsonNode> item = iter.next();
-				if(item.getValue().isTextual() && item.getKey().equals("$ref")) {
+				if (item.getValue().isTextual() && item.getKey().equals("$ref")) {
 					String newRef = idPathMap.get(item.getValue().asText());
 					ObjectNode nodeAsObject = (ObjectNode) node;
 					nodeAsObject.put("$ref", newRef);
@@ -125,10 +132,10 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 					replaceReferences(item.getValue(), idPathMap);
 				}
 			}
-		} else if(node.isArray()) {
+		} else if (node.isArray()) {
 			for (Iterator<JsonNode> iter = node.iterator(); iter.hasNext();) {
 				JsonNode item = iter.next();
-				replaceReferences(item,idPathMap);
+				replaceReferences(item, idPathMap);
 			}
 		}
 	}
@@ -137,7 +144,7 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 		if (node.isObject()) {
 			for (Iterator<Entry<String, JsonNode>> iter = node.fields(); iter.hasNext();) {
 				Map.Entry<String, JsonNode> item = iter.next();
-				if(item.getValue().isTextual() && item.getKey().equals("id")) {
+				if (item.getValue().isTextual() && item.getKey().equals("id")) {
 					String newId = removeNamespace(item.getValue().asText());
 					ObjectNode nodeAsObject = (ObjectNode) node;
 					nodeAsObject.put("id", newId);
@@ -145,7 +152,7 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 					removeNamespaces(item.getValue());
 				}
 			}
-		} else if(node.isArray()) {
+		} else if (node.isArray()) {
 			for (Iterator<JsonNode> iter = node.iterator(); iter.hasNext();) {
 				JsonNode item = iter.next();
 				removeNamespaces(item);
@@ -155,7 +162,7 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 
 	private static String removeNamespace(String asText) {
 		String[] namespacePath = asText.split(":");
-		if(namespacePath.length > 0) {
+		if (namespacePath.length > 0) {
 			return namespacePath[namespacePath.length - 1];
 		} else {
 			return asText;
@@ -166,7 +173,7 @@ public class Asap2File extends A2LSerializer implements Iterable<IAsap2TreeEleme
 		if (schema.isObject()) {
 			for (Iterator<Entry<String, JsonNode>> iter = schema.fields(); iter.hasNext();) {
 				Map.Entry<String, JsonNode> item = iter.next();
-				if(item.getValue().isTextual() && item.getKey().equals("id")) {
+				if (item.getValue().isTextual() && item.getKey().equals("id")) {
 					map.put(item.getValue().asText(), currentPath);
 				} else {
 					collectPathIds(item.getValue(), currentPath + "/" + item.getKey(), map);

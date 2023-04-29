@@ -32,7 +32,6 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<junit.jupiter.version>5.9.1</junit.jupiter.version>
 	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -68,11 +67,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.11.0</version>
 				<configuration>
-					<encoding>UTF-8</encoding>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${maven.compiler.source}</source>
+					<source>${maven.compiler.target}</source>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>

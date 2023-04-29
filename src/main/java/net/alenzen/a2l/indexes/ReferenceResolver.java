@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Stack;
+import java.util.function.Consumer;
 
 import net.alenzen.a2l.Asap2File;
 import net.alenzen.a2l.IAsap2TreeElement;
@@ -42,18 +43,19 @@ public class ReferenceResolver {
 		this.file = file;
 	}
 
-	public void updateReferences() {
+	public void updateReferences(Consumer<NoSuchElementException> referenceNotFound) {
 		this.stack = new Stack<ReferenceResolverStackEntry>();
 		this.visitedNodes = new HashSet<IAsap2TreeElement>();
 		try {
-			updateReferencesRescursive(this.file);
+			updateReferencesRescursive(this.file, referenceNotFound);
 		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
 			// TODO create a unified exception
 			e.printStackTrace();
 		}
 	}
 
-	private void updateReferencesRescursive(IAsap2TreeElement currentNode)
+	private void updateReferencesRescursive(IAsap2TreeElement currentNode,
+			Consumer<NoSuchElementException> referenceNotFound)
 			throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		if (!visitedNodes.add(currentNode)) {
 			// TODO throw Exception because there has been a loop detected in the structure
@@ -65,26 +67,27 @@ public class ReferenceResolver {
 		this.stack.push(currentStackEntry);
 
 		currentStackEntry.generateIndexes();
-		resolveReferencesOnCurrentLevel();
+		resolveReferencesOnCurrentLevel(referenceNotFound);
 
 		List<IAsap2TreeElement> nodes = currentNode.collectSubNodes();
 		if (nodes != null) {
 			for (IAsap2TreeElement n : nodes) {
-				updateReferencesRescursive(n);
+				updateReferencesRescursive(n, referenceNotFound);
 			}
 		}
 
 		this.stack.pop();
 	}
 
-	private void resolveReferencesOnCurrentLevel()
+	private void resolveReferencesOnCurrentLevel(Consumer<NoSuchElementException> referenceNotFound)
 			throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		ReferenceResolverStackEntry currentLevel = this.stack.peek();
 		Map<String, Map<String, Object>> indexes = collectCurrentIndexes();
-		resolveReferencesOnFields(currentLevel.getNode(), indexes);
+		resolveReferencesOnFields(currentLevel.getNode(), indexes, referenceNotFound);
 	}
 
-	private void resolveReferencesOnFields(IAsap2TreeElement node, Map<String, Map<String, Object>> indexes)
+	private void resolveReferencesOnFields(IAsap2TreeElement node, Map<String, Map<String, Object>> indexes,
+			Consumer<NoSuchElementException> referenceNotFound)
 			throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		Class<?> currentClass = node.getClass();
 		Field[] fields = currentClass.getDeclaredFields();
@@ -93,15 +96,16 @@ public class ReferenceResolver {
 				ReferenceResolve annotation = f.getAnnotation(ReferenceResolve.class);
 				if (annotation != null) {
 					if (!indexes.containsKey(annotation.index())) {
-						throw new NoSuchElementException(String.format("Cannot find index '%s'", annotation.index()));
+						referenceNotFound.accept(new NoSuchElementException(
+								String.format("Cannot find index '%s'", annotation.index())));
 					}
 
 					Map<String, Object> index = indexes.get(annotation.index());
 
 					String referenceString = getReferenceString(node, annotation.ref());
 					if (!index.containsKey(referenceString)) {
-						throw new NoSuchElementException(String.format("Cannot find reference '%s' in index '%s'",
-								referenceString, annotation.index()));
+						referenceNotFound.accept(new NoSuchElementException(String.format(
+								"Cannot find reference '%s' in index '%s'", referenceString, annotation.index())));
 					}
 
 					Object reference = index.get(referenceString);
