@@ -1,3 +1,4 @@
+
 package net.alenzen.a2l;
 
 import java.io.FileNotFoundException;
@@ -70,9 +71,9 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 	public Object visitInt_value(a2lParser.Int_valueContext ctx) {
 		String valueString = ctx.getText();
 		boolean isHexString = valueString.startsWith("0x");
-        int radix = isHexString ? 16 : 10;
-        valueString = isHexString ? valueString.substring(2) : valueString;
-        return new BigInteger(valueString, radix).longValue();
+		int radix = isHexString ? 16 : 10;
+		valueString = isHexString ? valueString.substring(2) : valueString;
+		return new BigInteger(valueString, radix).longValue();
 	}
 
 	@Override
@@ -2177,6 +2178,10 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 	}
 
 	private String extractString(Token stringToken) {
+		if (stringToken == null) {
+			return null;
+		}
+
 		String stringVal = stringToken.getText();
 
 		if (stringToken.getType() != a2lLexer.STRING) {
@@ -2213,7 +2218,7 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 			String stringVal = splittedDoubleBackslash[i];
 			// replace line broken string characters
 			stringVal = stringVal.replaceAll("\\\\((\\r?\\n)|\\r)", "");
-			
+
 			// replace escaped "
 			stringVal = stringVal.replaceAll("\\\\\\\"|\"\"", "\"");
 
