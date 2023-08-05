@@ -1030,12 +1030,19 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		MatrixDim m = new MatrixDim();
 
 		m.setxDim((Long) visitOpt(ctx.xDim));
+		// is not optional for ASAP2 version 1.61
 		m.setyDim(visitOptLongDimension(ctx.yDim));
+		// is not optional for ASAP2 version 1.61
 		m.setzDim(visitOptLongDimension(ctx.zDim));
 
 		return m;
 	}
 
+	/**
+	 * tries to read a value from context. When no value is present it defaults to 1L
+	 * @param yDim
+	 * @return
+	 */
 	private long visitOptLongDimension(Int_valueContext yDim) {
 		Object o = visitOpt(yDim);
 		return o == null ? 1L : (Long) o;
