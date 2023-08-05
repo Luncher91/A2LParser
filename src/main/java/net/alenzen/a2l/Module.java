@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class Module extends ModuleSubBlocks implements IA2LWriteable, IAsap2TreeElement {
+public class Module extends ModuleSubBlocks {
 	private String name;
 	private String longIdentifier;
 

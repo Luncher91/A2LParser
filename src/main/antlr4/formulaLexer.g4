@@ -8,7 +8,7 @@ channels {
 	package net.alenzen.a2l.antlr;
 }
 
-WS : (' ' | '\t') -> channel(WHITESPACES), skip;
+WS : (' ' | '\t') -> channel(WHITESPACES);
 
 AND : '&&';
 OR : '||';

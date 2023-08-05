@@ -17,8 +17,8 @@ channels {
 COMMENT : '/*' .*? '*/' -> channel(COMMENTS);
 COMMENT_LINE : '//' .*? NEWLINE  -> channel(COMMENTS);
 
-WS : (' ' | '\t') -> channel(WHITESPACES), skip;
-NEWLINE : ('\r'? '\n' | '\r')+ -> channel(WHITESPACES), skip;
+WS : (' ' | '\t') -> channel(WHITESPACES);
+NEWLINE : ('\r'? '\n' | '\r')+ -> channel(WHITESPACES);
 
 STRING : '"' (~('"' | '\\' | '\n' | '\r') | '\\"' | '""' | '\\' ('\r'? '\n' | '\r') | '\\' .)* '"';
 STRING_NEW_LINE : '"' (~('"' | '\\') | '\\"' | '""' | '\\' ('\r'? '\n' | '\r') | '\\' .)* '"';

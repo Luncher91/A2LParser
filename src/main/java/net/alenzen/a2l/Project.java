@@ -7,7 +7,7 @@ import java.util.Objects;
 import net.alenzen.a2l.validation.Asap2Ident;
 import net.alenzen.a2l.validation.Asap2String;
 
-public class Project extends ProjectSubBlocks implements IA2LWriteable, IAsap2TreeElement {
+public class Project extends ProjectSubBlocks {
 	@Asap2Ident
 	private String name;
 
