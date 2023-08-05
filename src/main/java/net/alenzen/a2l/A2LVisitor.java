@@ -2185,9 +2185,15 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 		String stringVal = stringToken.getText();
 
 		if (stringToken.getType() != a2lLexer.STRING) {
-			log.log(stringToken.getLine(), stringToken.getCharPositionInLine(),
-					"Exptected a string: " + stringToken.getText());
-			return stringVal;
+			if (stringToken.getType() == a2lLexer.STRING_NEW_LINE) {
+				// this should be only a warning because we can handle the issue properly
+				log.log(stringToken.getLine(), stringToken.getCharPositionInLine(),
+						"The string contains unescaped line breaks: " + stringToken.getText());
+			} else {
+				log.log(stringToken.getLine(), stringToken.getCharPositionInLine(),
+						"Exptected a string: " + stringToken.getText());
+				return stringVal;
+			}
 		}
 
 		try {
@@ -2218,6 +2224,9 @@ class A2LVisitor extends a2lParserBaseVisitor<Object> {
 			String stringVal = splittedDoubleBackslash[i];
 			// replace line broken string characters
 			stringVal = stringVal.replaceAll("\\\\((\\r?\\n)|\\r)", "");
+
+			// replace simple line breaks for STRING_NEW_LINE tokens (invalid ANSI C string)
+			stringVal = stringVal.replaceAll("\n", "");
 
 			// replace escaped "
 			stringVal = stringVal.replaceAll("\\\\\\\"|\"\"", "\"");

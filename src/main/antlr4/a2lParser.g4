@@ -9,7 +9,7 @@ options { tokenVocab=a2lLexer; }
 	package net.alenzen.a2l.antlr;
 }
 
-string_exp : string=STRING;
+string_exp : string=(STRING | STRING_NEW_LINE);
 conversion_type : RAT_FUNC | TAB_INTP | TAB_NOINTP | TAB_VERB | FORM | IDENTICAL | LINEAR;
 prg_type_memory_layout : PRG_CODE | PRG_DATA | PRG_RESERVED;
 prg_type_memory_segment : CALIBRATION_VARIABLES | CODE | DATA | EXCLUDE_FROM_FLASH | OFFLINE_DATA | RESERVED | SERAM | VARIABLES;

@@ -1,0 +1,19 @@
+/* This file has been handwritten */
+ASAP2_VERSION 1 71
+A2ML_VERSION 1 31
+/begin PROJECT Free_Example "MIT licensed example file"
+	/begin HEADER "Free Asap2 example file"
+		VERSION "V1.7.1"
+		PROJECT_NO Free42
+	/end HEADER
+
+	/begin MODULE sample_module "great example"
+        /begin CHARACTERISTIC char_b "" CUBE_5 0x123 char_deposit 1.1 char_conv .1 1.
+            /begin ANNOTATION
+				/begin ANNOTATION_TEXT "line bre
+				ak without and with es\
+				caping" /end ANNOTATION_TEXT
+			/end ANNOTATION
+		/end CHARACTERISTIC
+    /end MODULE
+/end PROJECT

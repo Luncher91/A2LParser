@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class Asap2FileTest {
 	public enum TestFile {
-		A("freeTest.a2l"), B("includeTest.a2l"), C("includeModule.a2l"), D("includedCharacteristics.a2l");
+		A("freeTest.a2l"), B("includeTest.a2l"), C("includeModule.a2l"), D("includedCharacteristics.a2l"), E("invalidString.a2l");
 
 		private String filename;
 
@@ -35,24 +35,24 @@ public class Asap2FileTest {
 		}
 	}
 
-	public static Asap2File getTestFile(TestFile tf) throws IOException {
+	public static Asap2File getTestFile(TestFile tf, IParserEventHandler eventHandler) throws IOException {
 		Asap2Parser parser = new Asap2Parser(ClassLoader.getSystemResourceAsStream(tf.getFilename()), (filename) -> {
-			if (filename.equals(TestFile.A.getFilename())) {
-				return ClassLoader.getSystemResourceAsStream(TestFile.A.getFilename());
-			} else if (filename.equals(TestFile.B.getFilename())) {
-				return ClassLoader.getSystemResourceAsStream(TestFile.B.getFilename());
-			} else if (filename.equals(TestFile.C.getFilename())) {
-				return ClassLoader.getSystemResourceAsStream(TestFile.C.getFilename());
-			} else if (filename.equals(TestFile.D.getFilename())) {
-				return ClassLoader.getSystemResourceAsStream(TestFile.D.getFilename());
+			TestFile[] testfiles = TestFile.values();
+			for (TestFile t : testfiles) {
+				if (filename.equals(t.getFilename())) {
+					return ClassLoader.getSystemResourceAsStream(t.getFilename());
+				}
 			}
-
 			throw new FileNotFoundException(filename);
 		});
-		parser.setEventHandler((line, position, message) -> {
+		parser.setEventHandler(eventHandler);
+		return parser.parse();
+	}
+
+	public static Asap2File getTestFile(TestFile tf) throws IOException {
+		return getTestFile(tf, (line, position, message) -> {
 			fail("Line " + line + "@" + position + ": " + message);
 		});
-		return parser.parse();
 	}
 
 	@Test
