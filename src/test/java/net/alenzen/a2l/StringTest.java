@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import net.alenzen.a2l.Asap2FileTest.TestFile;
 
 public class StringTest {
-    private Asap2File file;
+	private Asap2File file;
 	private Annotation annotation;
 
 	@BeforeEach
@@ -22,7 +22,7 @@ public class StringTest {
 		assertNotNull(annotation);
 	}
 
-    @Test
+	@Test
 	void testNewLineNotEscaping() {
 		assertEquals("line bre" + //
 				"\t\t\t\tak without and with es" + //
