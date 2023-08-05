@@ -211,9 +211,11 @@ public class Asap2Parser {
 		return chStream;
 	}
 
-	private static BOMInputStream createBOMInputStream(InputStream in) {
-		return new BOMInputStream(in, ByteOrderMark.UTF_8, ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE,
-				ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE);
+	private static BOMInputStream createBOMInputStream(InputStream in) throws IOException {
+		return BOMInputStream.builder().setInputStream(in)
+				.setByteOrderMarks(ByteOrderMark.UTF_8, ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE,
+						ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE)
+				.get();
 	}
 
 	private static Charset determineCharset(BOMInputStream is) throws IOException {
@@ -259,10 +261,10 @@ public class Asap2Parser {
 
 		Option schemaOption = new Option("jsc", "jsonSchema", false, "Outputs the JSON schema for JSON outputs");
 		options.addOption(schemaOption);
-		
+
 		Option minimizeOption = new Option("mj", "minJson", false, "Outputs the JSON without null fields");
 		options.addOption(minimizeOption);
-		
+
 		Option indentOption = new Option("ij", "indentJson", false, "Outputs the JSON with indentation");
 		options.addOption(indentOption);
 
@@ -287,7 +289,8 @@ public class Asap2Parser {
 			return;
 		}
 
-		try (PrintStream outputStream = getPrintStream(cmd.getOptionValue(outputOption.getOpt()), cmd.getOptionValue(encodingOption.getOpt()))) {
+		try (PrintStream outputStream = getPrintStream(cmd.getOptionValue(outputOption.getOpt()),
+				cmd.getOptionValue(encodingOption.getOpt()))) {
 			if (cmd.hasOption(helpOption.getOpt())) {
 				PrintStream stdOut = System.out;
 				System.setOut(outputStream);
@@ -303,9 +306,9 @@ public class Asap2Parser {
 
 			if (cmd.hasOption(schemaOption.getOpt())) {
 				outputStream.print(Asap2File.generateJsonSchema(
-						cmd.hasOption(minimizeOption.getOpt()), // exclude null fields 
+						cmd.hasOption(minimizeOption.getOpt()), // exclude null fields
 						cmd.hasOption(indentOption.getOpt()) // indent
-						));
+				));
 				return;
 			}
 
@@ -320,9 +323,9 @@ public class Asap2Parser {
 				}
 
 				outputStream.print(parser.parse().toJson(
-						cmd.hasOption(minimizeOption.getOpt()), // exclude null fields 
+						cmd.hasOption(minimizeOption.getOpt()), // exclude null fields
 						cmd.hasOption(indentOption.getOpt()) // indent
-						));
+				));
 				return;
 			}
 

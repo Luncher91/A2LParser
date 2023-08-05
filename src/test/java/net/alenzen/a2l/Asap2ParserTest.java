@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -43,8 +42,8 @@ public class Asap2ParserTest {
 		String resultB = A2LVisitor.toJavaString(resultA);
 		assertEquals(TEST_ESCAPE_STRING, resultB);
 	}
-	
-	@Test 
+
+	@Test
 	void testA2LStringSingleBackslash() {
 		String result = A2LVisitor.toJavaString("\"Curve with \\end standard axis\"");
 		assertEquals("Curve with \\end standard axis", result);
@@ -227,8 +226,8 @@ public class Asap2ParserTest {
 	}
 
 	private void assertBOM(String filePath, Charset charsetExpected) throws IOException {
-		try (BOMInputStream bomIn = new BOMInputStream(new FileInputStream(filePath), ByteOrderMark.UTF_8,
-				ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE)) {
+		try (BOMInputStream bomIn = BOMInputStream.builder().setPath(filePath).setByteOrderMarks(ByteOrderMark.UTF_8,
+				ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE).get()) {
 
 			if (!bomIn.hasBOM()) {
 				fail("File does not contain any known BOM!");
@@ -240,7 +239,7 @@ public class Asap2ParserTest {
 			}
 		}
 	}
-	
+
 	@Test
 	void testJsonSchema() throws IOException {
 		String[] arguments = new String[] { "-jsc" };
