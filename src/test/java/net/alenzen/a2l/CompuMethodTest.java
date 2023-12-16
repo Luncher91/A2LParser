@@ -51,6 +51,7 @@ public class CompuMethodTest {
 
 	@Test
 	public void equalsContract() {
-		EqualsVerifier.simple().forClass(CompuMethod.class).verify();
+		EqualsVerifier.simple().forClass(CompuMethod.class).withIgnoredFields("compuTab", "compuVTab", "compuVTabRange",
+				"conversionTableCompuVTab", "conversionTableCompuVTabRange").verify();
 	}
 }

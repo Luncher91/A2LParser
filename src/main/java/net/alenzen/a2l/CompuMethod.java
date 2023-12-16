@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import net.alenzen.a2l.enums.ConversionType;
+import net.alenzen.a2l.indexes.ReferenceResolve;
 
 public class CompuMethod extends A2LSerializer implements IA2LWriteable, IAsap2TreeElement {
 	private String name;
@@ -21,6 +24,26 @@ public class CompuMethod extends A2LSerializer implements IA2LWriteable, IAsap2T
 	private Formula formula;
 	private String unit_ref;
 	private String conversionTable_ref;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref = "compuTab_ref", index = "compuTabs")
+	private CompuTab compuTab;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref = "compuTab_ref", index = "compuVTabs")
+	private CompuVTab compuVTab;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref = "compuTab_ref", index = "compuVTabRanges")
+	private CompuVTabRange compuVTabRange;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref = "conversionTable_ref", index = "compuVTab")
+	private CompuVTab conversionTableCompuVTab;
+	
+	@JsonIgnore
+	@ReferenceResolve(ref = "conversionTable_ref", index = "compuVTabRanges")
+	private CompuVTabRange conversionTableCompuVTabRange;
 
 	public String getName() {
 		return name;
@@ -165,5 +188,45 @@ public class CompuMethod extends A2LSerializer implements IA2LWriteable, IAsap2T
 		Asap2FileIterator.addIfNotNull(subNodes, this.coeffsLinear);
 		Asap2FileIterator.addIfNotNull(subNodes, this.formula);
 		return subNodes;
+	}
+
+	public CompuTab getCompuTab() {
+		return compuTab;
+	}
+
+	public void setCompuTab(CompuTab compuTab) {
+		this.compuTab = compuTab;
+	}
+
+	public CompuVTab getCompuVTab() {
+		return compuVTab;
+	}
+
+	public void setCompuVTab(CompuVTab compuVTab) {
+		this.compuVTab = compuVTab;
+	}
+
+	public CompuVTabRange getCompuVTabRange() {
+		return compuVTabRange;
+	}
+
+	public void setCompuVTabRange(CompuVTabRange compuVTabRange) {
+		this.compuVTabRange = compuVTabRange;
+	}
+
+	public CompuVTab getConversionTableCompuVTab() {
+		return conversionTableCompuVTab;
+	}
+
+	public void setConversionTableCompuVTab(CompuVTab conversionTableCompuVTab) {
+		this.conversionTableCompuVTab = conversionTableCompuVTab;
+	}
+
+	public CompuVTabRange getConversionTableCompuVTabRange() {
+		return conversionTableCompuVTabRange;
+	}
+
+	public void setConversionTableCompuVTabRange(CompuVTabRange conversionTableCompuVTabRange) {
+		this.conversionTableCompuVTabRange = conversionTableCompuVTabRange;
 	}
 }

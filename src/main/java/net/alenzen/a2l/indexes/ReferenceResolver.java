@@ -103,6 +103,10 @@ public class ReferenceResolver {
 					Map<String, Object> index = indexes.get(annotation.index());
 
 					String referenceString = getReferenceString(node, annotation.ref());
+					if(referenceString == null) {
+						continue;
+					}
+					
 					if (!index.containsKey(referenceString)) {
 						referenceNotFound.accept(new NoSuchElementException(String.format(
 								"Cannot find reference '%s' in index '%s'", referenceString, annotation.index())));
