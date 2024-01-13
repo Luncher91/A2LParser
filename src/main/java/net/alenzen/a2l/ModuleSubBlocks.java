@@ -16,8 +16,11 @@ public class ModuleSubBlocks extends A2LSerializer implements IA2LWriteable, IAs
 	private List<Characteristic> characteristics;
 	@CreateIndex(name = "compuMethods", ref = "name", nullReference = "NO_COMPU_METHOD")
 	private List<CompuMethod> compuMethods;
+	@CreateIndex(name = "compuTabs", ref = "name")
 	private List<CompuTab> compuTabs;
+	@CreateIndex(name = "compuVTabs", ref = "name")
 	private List<CompuVTab> compuVTabs;
+	@CreateIndex(name = "compuVTabRanges", ref = "name")
 	private List<CompuVTabRange> compuVTabRanges;
 	private Frame frame;
 	private List<Function> functions;

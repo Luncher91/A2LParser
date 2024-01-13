@@ -13,7 +13,7 @@ pipeline {
             }
             steps {
                 // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                sh "mvn -Dmaven.test.failure.ignore=true clean package -DversionHash=$(git rev-parse --short HEAD)"
                 sh "cp target/a2lparser-*-jar-with-dependencies.jar a2lparser.jar"
                 sh "java -jar a2lparser.jar -jsc -o a2lSchema.json"
                 sh "java -jar a2lparser.jar -a2l src/test/resources/freeTest.a2l -c ISO-8859-1 -mj -o freeTestA2l.minified.json"

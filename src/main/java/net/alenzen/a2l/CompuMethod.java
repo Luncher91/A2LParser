@@ -38,7 +38,7 @@ public class CompuMethod extends A2LSerializer implements IA2LWriteable, IAsap2T
 	private CompuVTabRange compuVTabRange;
 	
 	@JsonIgnore
-	@ReferenceResolve(ref = "conversionTable_ref", index = "compuVTab")
+	@ReferenceResolve(ref = "conversionTable_ref", index = "compuVTabs")
 	private CompuVTab conversionTableCompuVTab;
 	
 	@JsonIgnore

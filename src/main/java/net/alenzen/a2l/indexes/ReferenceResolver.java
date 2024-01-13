@@ -1,10 +1,12 @@
 package net.alenzen.a2l.indexes;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 import java.util.function.Consumer;
@@ -36,6 +38,13 @@ public class ReferenceResolver {
 	 * resolve the reference - get the object from the index - try to cast ->
 	 * InvalidTypeException
 	 * 
+	 * Open issue: how to handle references which could be in one of multiple
+	 * indexes?
+	 * 
+	 * -> straight forward: Object field with annotation containing multiple indexes
+	 * 
+	 * -> fields with specific types per index; checking if the reference does not
+	 * match anything is harder
 	 * 
 	 */
 
@@ -92,6 +101,7 @@ public class ReferenceResolver {
 		Class<?> currentClass = node.getClass();
 		Field[] fields = currentClass.getDeclaredFields();
 		while (true) {
+			Map<String, Map<Field, ReferenceResolve>> referenceFieldMap = new HashMap<String, Map<Field, ReferenceResolve>>();
 			for (Field f : fields) {
 				ReferenceResolve annotation = f.getAnnotation(ReferenceResolve.class);
 				if (annotation != null) {
@@ -100,22 +110,48 @@ public class ReferenceResolver {
 								String.format("Cannot find index '%s'", annotation.index())));
 					}
 
-					Map<String, Object> index = indexes.get(annotation.index());
-
-					String referenceString = getReferenceString(node, annotation.ref());
-					if(referenceString == null) {
-						continue;
+					String refField = annotation.ref();
+					if (!referenceFieldMap.containsKey(refField)) {
+						referenceFieldMap.put(refField, new HashMap<>());
 					}
-					
-					if (!index.containsKey(referenceString)) {
-						referenceNotFound.accept(new NoSuchElementException(String.format(
-								"Cannot find reference '%s' in index '%s'", referenceString, annotation.index())));
+					referenceFieldMap.get(refField).put(f, annotation);
+				}
+			}
+
+			for (Entry<String, Map<Field, ReferenceResolve>> refFieldEntry : referenceFieldMap.entrySet()) {
+				String referenceFieldName = refFieldEntry.getKey();
+				String referenceString = getReferenceString(node, referenceFieldName);
+				if (referenceString == null) {
+					continue;
+				}
+				Map<Field, ReferenceResolve> referencingFields = refFieldEntry.getValue();
+
+				// if none of the referencing fields matches: callback for not found
+				boolean referenceFoundFlag = false;
+				List<String> searchedIndexes = new ArrayList<String>();
+
+				for (Entry<Field, ReferenceResolve> fieldEntry : referencingFields.entrySet()) {
+					Field f = fieldEntry.getKey();
+					ReferenceResolve annotation = fieldEntry.getValue();
+
+					Map<String, Object> index = indexes.get(annotation.index());
+					searchedIndexes.add(annotation.index());
+					if (index.containsKey(referenceString)) {
+						referenceFoundFlag = true;
 					}
 
 					Object reference = index.get(referenceString);
 					f.setAccessible(true);
 					f.set(node, reference);
 				}
+
+				if (!referenceFoundFlag) {
+					new ReferenceNotFoundException(referenceString, node, searchedIndexes);
+					referenceNotFound.accept( // TODO improve exception so the exception contains the actual data to
+												// better debug and filter issues
+							new NoSuchElementException());
+				}
+
 			}
 
 			// loop exit condition

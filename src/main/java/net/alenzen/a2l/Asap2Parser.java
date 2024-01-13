@@ -212,10 +212,8 @@ public class Asap2Parser {
 	}
 
 	private static BOMInputStream createBOMInputStream(InputStream in) throws IOException {
-		return BOMInputStream.builder().setInputStream(in)
-				.setByteOrderMarks(ByteOrderMark.UTF_8, ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE,
-						ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE)
-				.get();
+		return BOMInputStream.builder().setInputStream(in).setByteOrderMarks(ByteOrderMark.UTF_8,
+				ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE).get();
 	}
 
 	private static Charset determineCharset(BOMInputStream is) throws IOException {
@@ -248,6 +246,10 @@ public class Asap2Parser {
 
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
 		Options options = new Options();
+
+		Option versionOption = new Option("v", "version", false,
+				"Prints the current version of the package to stdout and exits.");
+		options.addOption(versionOption);
 
 		Option jsonOption = new Option("j", "json", true,
 				"Either specify a JSON file or pipe JSON content to convert it to A2L");
@@ -289,6 +291,11 @@ public class Asap2Parser {
 			return;
 		}
 
+		if (cmd.hasOption(versionOption)) {
+			printPackageVersion();
+			return;
+		}
+
 		try (PrintStream outputStream = getPrintStream(cmd.getOptionValue(outputOption.getOpt()),
 				cmd.getOptionValue(encodingOption.getOpt()))) {
 			if (cmd.hasOption(helpOption.getOpt())) {
@@ -305,8 +312,8 @@ public class Asap2Parser {
 			}
 
 			if (cmd.hasOption(schemaOption.getOpt())) {
-				outputStream.print(Asap2File.generateJsonSchema(
-						cmd.hasOption(minimizeOption.getOpt()), // exclude null fields
+				outputStream.print(Asap2File.generateJsonSchema(cmd.hasOption(minimizeOption.getOpt()), // exclude null
+																										// fields
 						cmd.hasOption(indentOption.getOpt()) // indent
 				));
 				return;
@@ -322,8 +329,7 @@ public class Asap2Parser {
 					parser = new Asap2Parser(a2lFile);
 				}
 
-				outputStream.print(parser.parse().toJson(
-						cmd.hasOption(minimizeOption.getOpt()), // exclude null fields
+				outputStream.print(parser.parse().toJson(cmd.hasOption(minimizeOption.getOpt()), // exclude null fields
 						cmd.hasOption(indentOption.getOpt()) // indent
 				));
 				return;
@@ -344,6 +350,11 @@ public class Asap2Parser {
 
 			printHelp(options);
 		}
+	}
+
+	private static void printPackageVersion() {
+		String version = Asap2Parser.class.getPackage().getImplementationVersion();
+		System.out.println(version);
 	}
 
 	private static PrintStream getPrintStream(String outputFile, String encoding)
