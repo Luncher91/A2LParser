@@ -57,7 +57,7 @@ pipeline {
         stage('Python codegen') {
             agent {
                 docker { 
-                    image 'python:3-slim'
+                    image 'python:3.11-slim'
                     args '-u root'
                     reuseNode true
                 }
