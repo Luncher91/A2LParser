@@ -1,11 +1,8 @@
-/*
-TODO: check for guessed definitions and compare them to the real 1.7 definition (1.7 spec needed)
-*/
 
 parser grammar a2lParser;
 options { tokenVocab=a2lLexer; }
 
-@header {
+@header{
 	package net.alenzen.a2l.antlr;
 }
 
@@ -19,7 +16,7 @@ deposit_mode : ABSOLUTE | DIFFERENCE;
 datatype_enum : UBYTE | SBYTE | UWORD | SWORD | ULONG | SLONG | A_UINT64 | A_INT64 | FLOAT32_IEEE | FLOAT64_IEEE;
 datasize_enum : BYTE | WORD | LONG;
 index_mode_enum : COLUMN_DIR | ROW_DIR | ALTERNATE_WITH_X | ALTERNATE_WITH_Y | ALTERNATE_CURVES;
-addresstype_enum : PBYTE | PWORD | PLONG | DIRECT;
+addresstype_enum : PBYTE | PWORD | PLONG | PLONGLONG | DIRECT;
 index_order_enum : INDEX_INCR | INDEX_DECR;
 calibration_access_enum : CALIBRATION | NO_CALIBRATION | NOT_IN_MCD_SYSTEM | OFFLINE_CALIBRATION;
 type_enum : VALUE | CURVE | MAP | CUBOID | VAL_BLK | ASCII | CUBE_4 | CUBE_5;
@@ -27,6 +24,7 @@ unit_type_enum : DERIVED | EXTENDED_SI;
 attribute_memory_segment : INTERN | EXTERN;
 attribute_axis_descr_enum : STD_AXIS | FIX_AXIS | COM_AXIS | RES_AXIS | CURVE_AXIS;
 monotony_enum : MON_INCREASE | MON_DECREASE | STRICT_INCREASE | STRICT_DECREASE | MONOTONOUS | STRICT_MON | NOT_MON;
+encoding_enum : UTF8 | UTF16 | UTF32;
 
 int_value : INT | HEX_VALUE;
 value : INT | DECIMAL | HEX_VALUE;
@@ -101,11 +99,12 @@ module_sub_nodes : (
 	                | instance_block
 	                | typedef_axis_block
 	                | typedef_structure_block
+                    | typedef_blob_block
+                    | typedef_measurement_block
 	                | transformer_block
 	                | blob_block
 	                | variant_coding_block
 	                | include_exp
-	                  // TODO: TYPEDEF_BLOB TYPEDEF_MEASURMENT
                   )*
                 ;
 
@@ -172,6 +171,7 @@ mod_common_sub_nodes : (
                         | alignment_word_exp
                         | alignment_long_exp
                         | alignment_int64_exp
+                        | alignment_float16_exp
                         | alignment_float32_exp
                         | alignment_float64_exp 
                         | deposit_exp 
@@ -184,6 +184,7 @@ alignment_byte_exp : ALIGNMENT_BYTE AlignmentBorder=int_value;
 alignment_word_exp : ALIGNMENT_WORD AlignmentBorder=int_value;
 alignment_long_exp : ALIGNMENT_LONG AlignmentBorder=int_value;
 alignment_int64_exp : ALIGNMENT_INT64 AlignmentBorder=int_value;
+alignment_float16_exp : ALIGNMENT_FLOAT16_IEEE AlignmentBorder=int_value;
 alignment_float32_exp : ALIGNMENT_FLOAT32_IEEE AlignmentBorder=int_value;
 alignment_float64_exp : ALIGNMENT_FLOAT64_IEEE AlignmentBorder=int_value;
 
@@ -385,6 +386,7 @@ record_layout_sub_nodes : (
                           | alignment_word_exp
                           | alignment_long_exp
                           | alignment_int64_exp
+                          | alignment_float16_exp
                           | alignment_float32_exp
                           | alignment_float64_exp
                           | axis_pts_x_exp
@@ -440,9 +442,11 @@ record_layout_sub_nodes : (
                           | src_addr_z_exp
                           | src_addr_4_exp
                           | src_addr_5_exp
+                          | static_address_offsets_exp
                           | static_record_layout_exp
                           )*;
 
+static_address_offsets_exp : STATIC_ADDRESS_OFFSETS;
 static_record_layout_exp : STATIC_RECORD_LAYOUT;
 fnc_values_exp : FNC_VALUES Position=int_value Datatype=datatype_enum IndexMode=index_mode_enum Addresstype=addresstype_enum;
 
@@ -553,10 +557,11 @@ characteristic_sub_nodes : (
                            | symbol_link_exp
                            | var_address_block
                            | model_link_exp
+                           | encoding_exp
                            )*;
 
-// <guessed definition from demo file for 1.7.1>
-model_link_exp : MODEL_LINK model=string_exp;
+encoding_exp : ENCODING Encoding=encoding_enum;
+model_link_exp : MODEL_LINK model_link=string_exp;
 var_address_block : BEGIN VAR_ADDRESS Addresses+=int_value* END VAR_ADDRESS;
 step_size_exp : STEP_SIZE StepSize=value;
 number_exp : NUMBER Number=int_value;
@@ -622,6 +627,8 @@ axis_pts_sub_nodes : (
                      | read_only_exp
                      | step_size_exp
                      | symbol_link_exp
+                     | max_refresh_exp
+                     | model_link_exp
                      )*;
 
 /*
@@ -631,6 +638,7 @@ function_exp : FUNCTION Name=IDENTIFIER LongIdentifier=string_exp;
 function_block : BEGIN function_exp function_sub_nodes END FUNCTION;
 function_sub_nodes : (
                        annotation_block
+                     | ar_component_block
                      | def_characteristic_block
                      | function_version_exp
                      | if_data_block
@@ -704,65 +712,110 @@ var_naming_exp : VAR_NAMING Tag=(NUMERIC | ALPHA);
 var_separator_exp : VAR_SEPARATOR Separator=string_exp;
 
 /*
-I cannot find any definition for the following elements which are part of 1.7.1
-*/
-
-/*
 TYPEDEF_CHARACTERISTIC
-<guessed definition from demo file for 1.7.1>
 */
-typedef_characteristic_exp : TYPEDEF_CHARACTERISTIC IDENTIFIER string_exp type_enum IDENTIFIER value IDENTIFIER value value;
+typedef_characteristic_exp : TYPEDEF_CHARACTERISTIC Name=IDENTIFIER LongIdentifier=string_exp Type=type_enum RecordLayout=IDENTIFIER MaxDiff=value Conversion=IDENTIFIER LowerLimit=value UpperLimit=value;
 typedef_characteristic_block : BEGIN typedef_characteristic_exp typedef_characteristic_sub_nodes END TYPEDEF_CHARACTERISTIC;
 typedef_characteristic_sub_nodes : (
-                                     extended_limits_exp
+                                     axis_descr_block
+                                   | bit_mask_exp
+                                   | byte_order_exp
+                                   | discrete_exp
+                                   | encoding_exp
+                                   | extended_limits_exp
                                    | format_exp
-                                   | phys_unit_exp
-                                   | axis_descr_block
+                                   | matrix_dim_exp
                                    | number_exp
+                                   | phys_unit_exp
+                                   | step_size_exp
                                    )*;
+
 
 /*
 INSTANCE
-<guessed definition from demo file for 1.7.1>
 */
-instance_exp : INSTANCE IDENTIFIER string_exp IDENTIFIER int_value;
+instance_exp : INSTANCE Name=IDENTIFIER LongIdentifier=string_exp TypedefName=IDENTIFIER Adress=int_value;
 instance_block : BEGIN instance_exp instance_sub_nodes END INSTANCE;
 instance_sub_nodes : (
-                       matrix_dim_exp
+                       address_type_exp
+                     | annotation_block
+                     | calibration_access_exp
                      | display_identifier_exp
+                     | ecu_address_extension_exp
+                     | if_data_block
+                     | layout_exp
+                     | matrix_dim_exp
+                     | max_refresh_exp
+                     | model_link_exp
+                     | overwrite_block
+                     | read_write_exp
+                     | symbol_link_exp
                      )*;
+
+address_type_exp : ADDRESS_TYPE AddressType=addresstype_enum;
+
+/*
+OVERWRITE
+*/
+overwrite_exp : OVERWRITE Name=IDENTIFIER AxisNumber=int_value;
+overwrite_block : BEGIN overwrite_exp overwrite_sub_nodes END OVERWRITE;
+overwrite_sub_nodes : (
+                        conversion_exp
+                      | extended_limits_exp
+                      | format_exp
+                      | input_quantity_exp
+                      | limits_exp
+                      | monotony_exp
+                      | phys_unit_exp
+                      )*;
+
+conversion_exp : CONVERSION ConversionMethod=IDENTIFIER;
+input_quantity_exp : INPUT_QUANTITY InputQuantity=IDENTIFIER;
+limits_exp : LIMITS LowerLimit=value UpperValue=value;
 
 /*
 TYPEDEF_AXIS
-<guessed definition from demo file for 1.7.1>
 */
-typedef_axis_exp : TYPEDEF_AXIS IDENTIFIER string_exp IDENTIFIER IDENTIFIER value IDENTIFIER int_value value value;
+typedef_axis_exp : TYPEDEF_AXIS Name=IDENTIFIER LongIdentifier=string_exp Input_Quantity=IDENTIFIER RecordLayout=IDENTIFIER MaxDiff=value Conversion=IDENTIFIER MaxAxisPoints=int_value LowerLimit=value UpperLimit=value;
 typedef_axis_block : BEGIN typedef_axis_exp END TYPEDEF_AXIS;
-// there is no example within the demo file for optional parameters
-typedef_axis_sub_nodes : ;
+typedef_axis_sub_nodes : (
+                           byte_order_exp
+                         | deposit_exp
+                         | extended_limits_exp
+                         | format_exp
+                         | monotony_exp
+                         | phys_unit_exp
+                         | step_size_exp
+                         )*;
 
 /*
 TYPEDEF_STRUCTURE
-<guessed definition from demo file for 1.7.1>
 */
-typedef_structure_exp : TYPEDEF_STRUCTURE IDENTIFIER string_exp int_value;
+typedef_structure_exp : TYPEDEF_STRUCTURE Name=IDENTIFIER LongIdentifier=string_exp Size=int_value;
 typedef_structure_block : BEGIN typedef_structure_exp typedef_structure_sub_nodes END TYPEDEF_STRUCTURE;
 typedef_structure_sub_nodes : (
-                                structure_component_block
+                                address_type_exp
+                              | consistent_exchange_exp
+                              | structure_component_block
+                              | symbol_type_link_exp
                               )*;
 
-structure_component_exp : STRUCTURE_COMPONENT IDENTIFIER IDENTIFIER int_value;
+consistent_exchange_exp : CONSISTENT_EXCHANGE;
+symbol_type_link_exp : SYMBOL_TYPE_LINK SymbolName=string_exp;
+
+structure_component_exp : STRUCTURE_COMPONENT Name=IDENTIFIER TypedefName=IDENTIFIER AdressOffset=int_value;
 structure_component_block : BEGIN structure_component_exp structure_component_sub_nodes END STRUCTURE_COMPONENT;
-// there is no example within the demo file for optional parameters
 structure_component_sub_nodes : (
-                                  matrix_dim_exp
+                                  address_type_exp
+                                | layout_exp
+                                | matrix_dim_exp
+                                | symbol_type_link_exp
                                 )*;
 
 /*
 TRANSFORMER
-<guessed definition from demo file for 1.7.1>
 */
-transformer_exp : TRANSFORMER IDENTIFIER string_exp string_exp string_exp int_value trigger_conditions_enum IDENTIFIER;
+transformer_exp : TRANSFORMER Name=IDENTIFIER Version=string_exp Executable32=string_exp Executable64=string_exp Timeout=int_value Trigger=trigger_conditions_enum InverseTransformer=IDENTIFIER;
 transformer_block : BEGIN transformer_exp transformer_sub_nodes END TRANSFORMER;
 transformer_sub_nodes : (
                           transformer_in_objects_block
@@ -773,3 +826,41 @@ trigger_conditions_enum : ON_CHANGE | ON_USER_REQUEST;
 
 transformer_in_objects_block : BEGIN TRANSFORMER_IN_OBJECTS Identifier+=IDENTIFIER* END TRANSFORMER_IN_OBJECTS;
 transformer_out_objects_block : BEGIN TRANSFORMER_OUT_OBJECTS Identifier+=IDENTIFIER* END TRANSFORMER_OUT_OBJECTS;
+
+/*
+TYPEDEF_BLOB
+*/
+typedef_blob_exp : TYPEDEF_BLOB Name=IDENTIFIER LongIdentifier=string_exp Size=int_value;
+typedef_blob_block : BEGIN typedef_blob_exp typedef_blob_sub_nodes END TYPEDEF_BLOB;
+typedef_blob_sub_nodes : (
+                           address_type_exp
+                         )*;
+
+/*
+TYPEDEF_MEASUREMENT
+*/
+typedef_measurement_exp : TYPEDEF_MEASUREMENT Name=IDENTIFIER LongIdentifier=string_exp Datatype=datatype_enum Conversion=IDENTIFIER Resolution=int_value Accuracy=value LowerLimit=value UpperLimit=value;
+typedef_measurement_block : BEGIN typedef_measurement_exp typedef_measurement_sub_nodes END TYPEDEF_MEASUREMENT;
+typedef_measurement_sub_nodes : (
+                                  address_type_exp
+                                | bit_mask_exp
+                                | bit_operation_block
+                                | byte_order_exp
+                                | discrete_exp
+                                | error_mask_exp
+                                | format_exp
+                                | layout_exp
+                                | matrix_dim_exp
+                                | phys_unit_exp
+                                )*;
+
+/*
+AR_COMPONENT
+*/
+ar_component_exp : AR_COMPONENT ComponentType=string_exp;
+ar_component_block : BEGIN ar_component_exp ar_component_sub_nodes END AR_COMPONENT;
+ar_component_sub_nodes : (
+                           ar_prototype_of_exp
+                         )*;
+
+ar_prototype_of_exp : AR_PROTOTYPE_OF Name=IDENTIFIER;
