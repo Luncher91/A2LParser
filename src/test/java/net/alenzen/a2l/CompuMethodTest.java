@@ -50,6 +50,14 @@ public class CompuMethodTest {
 	}
 
 	@Test
+	void testCompuTabReference() {
+		file.updateReferences();
+		CompuTab ct = compuMethod.getCompuTab();
+		assertNotNull(ct);
+		assertEquals(compuMethod.getCompuTab_ref(), ct.getName());
+	}
+
+	@Test
 	public void equalsContract() {
 		EqualsVerifier.simple().forClass(CompuMethod.class).withIgnoredFields("compuTab", "compuVTab", "compuVTabRange",
 				"conversionTableCompuVTab", "conversionTableCompuVTabRange").verify();

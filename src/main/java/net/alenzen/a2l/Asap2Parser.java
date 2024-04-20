@@ -440,6 +440,7 @@ public class Asap2Parser {
 						"The identifier contains an invalid character '(',')','#': " + text);
 			}
 		});
+		lexer.reset();
 	}
 
 	protected ModuleSubBlocks parseModuleInclude() throws IOException {
