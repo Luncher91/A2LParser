@@ -117,14 +117,14 @@ pipeline {
             }
         	steps {
 				withCredentials([usernamePassword(credentialsId: 'GithubJenkinsToken', usernameVariable:'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
-	        		sh "go install github.com/github-release/github-release@latest"
-	        		sh "export GITHUB_ORGANIZATION=Luncher91"
-	        		sh "export GITHUB_REPO=A2LParser"
-	        		sh "export TAG_NAME=$(git tag --contains)"
-	        		sh "export VERSION_NAME=${TAG_NAME:1}"
+	        		sh 'go install github.com/github-release/github-release@latest'
+	        		sh 'export GITHUB_ORGANIZATION=Luncher91'
+	        		sh 'export GITHUB_REPO=A2LParser'
+	        		sh 'export TAG_NAME=$(git tag --contains)'
+	        		sh 'export VERSION_NAME=${TAG_NAME:1}'
 	        		
 	        		sh 'echo "Deleting release from github before creating new one"'
-					sh "github-release delete --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${TAG_NAME}"
+					sh 'github-release delete --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${TAG_NAME}'
 					
 					sh 'echo "Creating a new release in github"'
 					sh 'github-release release --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${TAG_NAME} --name "${VERSION_NAME}"'
