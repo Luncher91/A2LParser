@@ -135,6 +135,7 @@ pipeline {
 					sh 'github-release upload --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${TAG_NAME} --file codegen_csharp/A2l.cs'
 					sh 'github-release upload --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${TAG_NAME} --file codegen_python/a2l.py'
 					sh 'github-release upload --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${TAG_NAME} --file codegen_typescript/src/a2l.d.ts'
+                }
         	}
         }
     }
