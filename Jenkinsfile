@@ -107,7 +107,7 @@ pipeline {
         
         stage('Publish release') {
         	when { 
-        		expression { env.BUILD_TAG && env.BUILD_TAG.toString().startsWith("v") } 
+        		expression { env.TAG_NAME && env.TAG_NAME.toString().startsWith("v") } 
     		}
         	agent {
                 docker { 
@@ -121,7 +121,6 @@ pipeline {
 	        		sh 'go install github.com/github-release/github-release@latest'
 	        		sh 'export GITHUB_ORGANIZATION=Luncher91'
 	        		sh 'export GITHUB_REPO=A2LParser'
-	        		sh 'export TAG_NAME=$BUILD_TAG'
 	        		sh 'export VERSION_NAME=${TAG_NAME:1}'
 	        		
 	        		sh 'echo "Deleting release from github before creating new one"'
