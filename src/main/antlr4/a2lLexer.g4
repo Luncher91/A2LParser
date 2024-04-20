@@ -373,7 +373,12 @@ END : '/end';
 HEX_VALUE : '0x' [a-fA-F0-9]+;
 INT : [\-+]? [0-9]+;
 DECIMAL : [\-+]? (([0-9]* '.'? [0-9]+)|([0-9]+ '.'? [0-9]*)) ([eE][\-+]?[0-9]+)?;
-IDENTIFIER : [a-zA-Z_][a-zA-Z0-9_\-]* ('[' [a-zA-Z0-9_]+ ']')* ([_.] [a-zA-Z0-9_\-]* ('[' [a-zA-Z0-9_]+ ']')*)*;
+IDENTIFIER : 
+	[a-zA-Z_][a-zA-Z0-9_\-#]* 
+	(('[' [a-zA-Z0-9_#]+ ']') | ('(' [a-zA-Z0-9_#]+ ')'))*
+	([_.] [a-zA-Z0-9_\-#]* 
+		(('[' [a-zA-Z0-9_#]+ ']') | ('(' [a-zA-Z0-9_#]+ ')'))*
+	)*;
 
 A2ML_BLOCK : BEGIN WS+ A2ML (.*?) END WS+ A2ML;
 BLOB_A2ML_BLOCK : BEGIN WS+ BLOB (.*?) END WS+ BLOB;

@@ -11,6 +11,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.BitSet;
+import java.util.List;
 
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.CharStream;
@@ -19,6 +20,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -187,6 +189,8 @@ public class Asap2Parser {
 		a2lLexer lexer = new a2lLexer(chStream);
 		lexer.removeErrorListeners();
 		lexer.addErrorListener(listener);
+
+		checkTokenForTokenIssues(lexer, eventHandler);
 
 		// parsing tokens
 		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
@@ -412,6 +416,8 @@ public class Asap2Parser {
 		lexer.removeErrorListeners();
 		lexer.addErrorListener(listener);
 
+		checkTokenForTokenIssues(lexer, eventHandler);
+
 		// parsing tokens
 		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
 		parser.removeErrorListeners();
@@ -424,6 +430,18 @@ public class Asap2Parser {
 		return p;
 	}
 
+	private void checkTokenForTokenIssues(a2lLexer lexer, IParserEventHandler log) {
+		List<? extends Token> tokens = lexer.getAllTokens();
+		tokens.stream().forEach(identifier -> {
+			String text = identifier.getText();
+			if (identifier.getType() == a2lLexer.IDENTIFIER
+					&& (text.contains("(") || text.contains(")") || text.contains("#"))) {
+				log.log(identifier.getLine(), identifier.getCharPositionInLine(),
+						"The identifier contains an invalid character '(',')','#': " + text);
+			}
+		});
+	}
+
 	protected ModuleSubBlocks parseModuleInclude() throws IOException {
 		ANTLRErrorListener listener = createANTLRErrorListener(eventHandler);
 		CharStream chStream = determineCharStream();
@@ -431,6 +449,8 @@ public class Asap2Parser {
 		a2lLexer lexer = new a2lLexer(chStream);
 		lexer.removeErrorListeners();
 		lexer.addErrorListener(listener);
+
+		checkTokenForTokenIssues(lexer, eventHandler);
 
 		// parsing tokens
 		a2lParser parser = new a2lParser(new CommonTokenStream(lexer));
