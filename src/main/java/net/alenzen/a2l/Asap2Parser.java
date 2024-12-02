@@ -51,6 +51,7 @@ public class Asap2Parser {
 	private IIncludedFileMapper includeFileMapper = (f) -> {
 		throw new FileNotFoundException("Cannot map included file " + f);
 	};
+	private Charset defaultCharset = StandardCharsets.ISO_8859_1;
 
 	/**
 	 * Creates a parser instance to parse ASAP2 files.
@@ -203,13 +204,13 @@ public class Asap2Parser {
 	}
 
 	private CharStream determineCharStream() throws IOException {
-		return determineCharStream(filecontent);
+		return determineCharStream(this.filecontent, this.defaultCharset);
 	}
 
-	private static CharStream determineCharStream(InputStream input) throws IOException {
+	private static CharStream determineCharStream(InputStream input, Charset defaultCharset) throws IOException {
 		CharStream chStream;
 		try (BOMInputStream is = createBOMInputStream(input)) {
-			Charset fileEncoding = determineCharset(is);
+			Charset fileEncoding = determineCharset(is, defaultCharset);
 			chStream = CharStreams.fromStream(is, fileEncoding);
 		}
 		return chStream;
@@ -220,9 +221,9 @@ public class Asap2Parser {
 				ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE).get();
 	}
 
-	private static Charset determineCharset(BOMInputStream is) throws IOException {
+	private static Charset determineCharset(BOMInputStream is, Charset defaultCharset) throws IOException {
 		if (!is.hasBOM()) {
-			return StandardCharsets.ISO_8859_1;
+			return defaultCharset;
 		}
 
 		if (is.hasBOM(ByteOrderMark.UTF_8)) {
@@ -282,6 +283,10 @@ public class Asap2Parser {
 				"Specify the encoding for the output file. e.g. US-ASCII, ISO-8859-1, UTF-8, UTF-16BE, UTF-16LE, UTF-32LE, UTF-32BE, UTF-16");
 		options.addOption(encodingOption);
 
+		Option inputEncodingOption = new Option("ic", "inputEncoding", true,
+				"Specify the encoding of the input file. The default encoding is ISO-8859-1 if no BOM is given. With this option you can overwrite the encoding in case no BOM is given.");
+		options.addOption(inputEncodingOption);
+
 		Option helpOption = new Option("h", "help", false, "Prints this help");
 		options.addOption(helpOption);
 
@@ -332,6 +337,10 @@ public class Asap2Parser {
 				} else {
 					parser = new Asap2Parser(a2lFile);
 				}
+				
+				if(cmd.hasOption(inputEncodingOption.getOpt())) {
+					parser.setDefaultEncoding(cmd.getOptionValue(encodingOption.getOpt()));
+;				}
 
 				outputStream.print(parser.parse().toJson(cmd.hasOption(minimizeOption.getOpt()), // exclude null fields
 						cmd.hasOption(indentOption.getOpt()) // indent
@@ -354,6 +363,10 @@ public class Asap2Parser {
 
 			printHelp(options);
 		}
+	}
+
+	private void setDefaultEncoding(String optionValue) {
+		this.defaultCharset  = Charset.forName(optionValue);
 	}
 
 	private static void printPackageVersion() {
