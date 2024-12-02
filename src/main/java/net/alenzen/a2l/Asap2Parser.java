@@ -87,12 +87,19 @@ public class Asap2Parser {
 
 	public IIncludedFileMapper getStandardFileMapper(String rootFile) {
 		return (filepath) -> {
-			String finaPathToIncludeFile = rootFile;
+			String finalPathToIncludeFile = rootFile;
 			if (filepath != null) {
-				String filePathDir = new File(filepath).getParent();
-				finaPathToIncludeFile = Paths.get(filePathDir, rootFile).toString();
+				// If filepath is not an absolute path, combine it with rootFile's directory
+				File file = new File(filepath);
+				if (!file.isAbsolute()) {
+					String rootFileDir = new File(rootFile).getParent();
+					finalPathToIncludeFile = Paths.get(rootFileDir, filepath).toString();
+				} else {
+					// If filepath is absolute, just use filepath
+					finalPathToIncludeFile = filepath;
+				}
 			}
-			return new FileInputStream(finaPathToIncludeFile);
+			return new FileInputStream(finalPathToIncludeFile);
 		};
 	}
 
