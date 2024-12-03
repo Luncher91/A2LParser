@@ -346,7 +346,7 @@ public class Asap2Parser {
 				}
 				
 				if(cmd.hasOption(inputEncodingOption.getOpt())) {
-					parser.setDefaultEncoding(cmd.getOptionValue(encodingOption.getOpt()));
+					parser.setDefaultEncoding(cmd.getOptionValue(inputEncodingOption.getOpt()));
 ;				}
 
 				outputStream.print(parser.parse().toJson(cmd.hasOption(minimizeOption.getOpt()), // exclude null fields
