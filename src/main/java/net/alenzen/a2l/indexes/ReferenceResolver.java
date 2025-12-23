@@ -146,12 +146,8 @@ public class ReferenceResolver {
 				}
 
 				if (!referenceFoundFlag) {
-					new ReferenceNotFoundException(referenceString, node, searchedIndexes);
-					referenceNotFound.accept( // TODO improve exception so the exception contains the actual data to
-												// better debug and filter issues
-							new NoSuchElementException());
+					referenceNotFound.accept(new ReferenceNotFoundException(referenceString, node, searchedIndexes));
 				}
-
 			}
 
 			// loop exit condition
