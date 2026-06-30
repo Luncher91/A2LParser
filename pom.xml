@@ -29,7 +29,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- Antlr4 4.9.3 is the last version compatible with Java 8 -->
 		<antlr4.version>4.13.2</antlr4.version>
-		<jackson.version>2.18.2</jackson.version>
+		<jackson.version>2.22.0</jackson.version>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<junit.jupiter.version>5.11.3</junit.jupiter.version>
